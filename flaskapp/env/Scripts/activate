@@ -37,7 +37,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="C:\Users\marti\OneDrive - Hanzehogeschool Groningen\School\PYTHON\flaskapp\env"
+VIRTUAL_ENV="C:\Users\marti\OneDrive - Hanzehogeschool Groningen\School\PYTHON\firewall_configuration_tool\flaskapp\env"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"

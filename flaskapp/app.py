@@ -9,9 +9,9 @@ app.config['SECRET_KEY'] = 'dc7c6759cbb3d6ce0d57d790ec3b8ffb'
 def home():
     return render_template("home.html")
 
-@app.route("/<usr>")
-def user(usr):
-    return f"{usr}"
+#@app.route("/<usr>")
+#def user(usr):
+#    return f"{usr}"
 
 
 @app.route("/register", methods=['GET', 'POST'])

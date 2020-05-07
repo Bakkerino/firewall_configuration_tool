@@ -9,14 +9,6 @@ app.config['SECRET_KEY'] = 'dc7c6759cbb3d6ce0d57d790ec3b8ffb'
 def home():
     return render_template("home.html")
 
-#@app.route("/login", methods=["POST", "GET"])
-#def login():
-#    if request.method == "POST":
-#        user = request.form["nm"]
-#        return redirect(url_for("user", usr=user))
-#    else:    
-#        return render_template("login.html")
-
 @app.route("/<usr>")
 def user(usr):
     return f"{usr}"
@@ -35,7 +27,7 @@ def register():
 def login():
     form = LoginFormulier()
     if form.validate_on_submit():
-        if form.username.data == 'koop' and form.password.data == 'P@ssword':
+        if form.username.data == 'admin' and form.password.data == 'P@ssword':
             flash(f'Je bent ingelogd als {form.username.data}!', 'success')
             return redirect(url_for('home'))
         else:

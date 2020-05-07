@@ -34,8 +34,16 @@
         </nav>
         <body>
             <div class="container">
-                {% block inhoud %}
-                {% endblock %}
+              {% with messages = get_flashed_messages(with_categories=true) %}
+              {% if messages %}
+                {% for category, message in messages %}
+                  <div class="alert alert-{{ category }}">
+                    {{ message }}
+                  </div>
+                {% endfor %}
+              {% endif %}
+            {% endwith %}
+                {% block inhoud %}{% endblock %}
             </div>
 
         <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" 

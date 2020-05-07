@@ -35,11 +35,11 @@ def register():
 def login():
     form = LoginFormulier()
     if form.validate_on_submit():
-        if form.email.data == 'admin@koop.frl' and form.password.data == 'password':
-            flash('Je bent ingelogd!', 'success')
+        if form.username.data == 'koop' and form.password.data == 'p@ssword':
+            flash(f'Je bent ingelogd als {form.username.data}!', 'success')
             return redirect(url_for('home'))
         else:
-            flash('Inloggen niet gelukt. Controleer alstublieft het gebruikersnaam en wachtwoord', 'danger')
+            flash('Inloggen niet gelukt, controleer de gebruikersnaam en wachtwoord', 'danger')
     return render_template('login.html', title='Login', form=form)
 
 

@@ -4,8 +4,8 @@ from wtforms.validators import DataRequired, Length, Email, EqualTo #validatiemi
 
 ## Login input velden
 class LoginFormulier(FlaskForm):
-    email = StringField('Email',
-                        validators=[DataRequired(), Email()])
+    username = StringField('Gebruikersnaam',
+        validators=[DataRequired(), Length(min=2, max=20)])
     password = PasswordField('Wachtwoord', validators=[DataRequired()])
     remember = BooleanField('Onthouden')
     submit = SubmitField('Login')

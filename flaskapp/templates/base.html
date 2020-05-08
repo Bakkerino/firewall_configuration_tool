@@ -32,8 +32,12 @@
           </div>
           <!-- Navigatie bar rechts login/register -->
           <div class="navbar-nav">
-            <a class="nav-item nav-link" href="{{ url_for('login') }}">Login</a>
-            <a class="nav-item nav-link" href="{{ url_for('register') }}">Registreren</a>
+            {% if user %}
+            <a class="nav-item nav-link" href="{{ url_for('logout') }}">{{ user }}</a>
+            {% else %}
+              <a class="nav-item nav-link" href="{{ url_for('login') }}">Login</a>
+              <a class="nav-item nav-link" href="{{ url_for('register') }}">Registreren</a>
+            {% endif %}
           </div>
         </div>
       </div>

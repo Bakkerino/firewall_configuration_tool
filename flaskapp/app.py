@@ -1,8 +1,12 @@
 from flask import Flask, render_template, url_for, request, redirect, flash, session
 from random import random, randint
 from formulieren import RegistratieFormulier, LoginFormulier
+from datetime import timedelta
+import sqlalchemy
+
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'dc7c6759cbb3d6ce0d57d790ec3b8ffb'
+app.permanent_session_lifetime = timedelta(minutes=10) # sessietijd
 
 @app.route("/")
 @app.route("/home")
@@ -10,7 +14,6 @@ def home():
     if "user" in session:
         user = session["user"]
         return render_template("home.html", user=user)
-        #return f"<h1>{user}</h1>"
     else:
         return redirect(url_for("login"))
 
@@ -33,6 +36,7 @@ def login():
         form = LoginFormulier()
         if form.validate_on_submit():
             if form.username.data == 'admin' and form.password.data == 'P@ssword':
+                session.permanent = True
                 session["user"] = form.username.data
                 flash(f'Je bent ingelogd als {form.username.data}!', 'success')
                 return redirect(url_for('home'))

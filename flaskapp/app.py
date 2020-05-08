@@ -31,7 +31,7 @@ def login():
             flash(f'Je bent ingelogd als {form.username.data}!', 'success')
             return redirect(url_for('home'))
         else:
-            flash('Inloggen niet gelukt, probeer het overnieuw', 'danger')
+            flash('Inloggen niet gelukt, probeer het overnieuw.', 'danger')
     return render_template('login.html', title='Login', form=form)
 
 

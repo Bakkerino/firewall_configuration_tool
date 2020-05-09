@@ -5,7 +5,16 @@ from datetime import timedelta
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'dc7c6759cbb3d6ce0d57d790ec3b8ffb'
-app.permanent_session_lifetime = timedelta(minutes=10) # sessietijd
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///gebruikers.sqlite3'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.permanent_session_lifetime = timedelta(minutes=2) # sessietijd
+
+db = SQLAlchemy(app)
+class gebruikers(db.Model):
+    _id = db.Column("id", db.Integer, primary_key=True)
+    naam = db.Column(db.String(100))
+    wachtwoord = db.Column(db.String(100))
+
 
 @app.route("/")
 @app.route("/home")
@@ -62,4 +71,5 @@ def logout():
     return redirect(url_for('login'))
 
 if __name__ == "__main__":
+    db.create_all()
     app.run(debug=True)

@@ -1,8 +1,7 @@
 from flask import Flask, render_template, url_for, request, redirect, flash, session
-from random import random, randint
+from flask_sqlalchemy import SQLAlchemy
 from formulieren import RegistratieFormulier, LoginFormulier
 from datetime import timedelta
-import sqlalchemy
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'dc7c6759cbb3d6ce0d57d790ec3b8ffb'
@@ -17,9 +16,21 @@ def home():
     else:
         return redirect(url_for("login"))
 
+#@app.route("/user", methods=["POST", "GET"])
+#def user():
+#    if "user" in session:
+#        user = session["user"]
+#        return render_template("user.html",  user=user, form=form)
+#    else:
+#        return redirect(url_for("login"))
+
 @app.route("/register", methods=['GET', 'POST'])
 def register():
     form = RegistratieFormulier()
+    if "user" in session:
+        user = session["user"]
+        return render_template('registreren.html', title='Register', user=user, form=form)
+
     if form.validate_on_submit():
         flash(f'Account aangemaakt voor {form.username.data}!', 'success')
         return redirect(url_for('home'))
@@ -47,7 +58,7 @@ def login():
 @app.route("/logout")
 def logout():
     session.pop("user", None)
-    flash(f'Uitgelogd', 'success')
+    flash(f'Uitgelogd!', 'success')
     return redirect(url_for('login'))
 
 if __name__ == "__main__":

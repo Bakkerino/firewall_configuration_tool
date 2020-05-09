@@ -14,8 +14,6 @@ class LoginFormulier(FlaskForm):
 class RegistratieFormulier(FlaskForm):
     username = StringField('Gebruikersnaam',
         validators=[DataRequired(), Length(min=2, max=8)])
-    email = StringField('Email',
-        validators=[DataRequired(), Email()])
     password = PasswordField('Wachtwoord', 
         validators=[DataRequired()])
     confirm_password = PasswordField('Wachtwoord bevestigen',

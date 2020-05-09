@@ -39,10 +39,14 @@ def register():
     if "user" in session:
         user = session["user"]
         return render_template('registreren.html', title='Register', user=user, form=form)
+    else:
+        if form.validate_on_submit():
+            session.permanent = True
+            session["user"] = form.username.data
+            flash(f'Account aangemaakt voor {form.username.data}!', 'success')
+            return redirect(url_for('home'))
 
-    if form.validate_on_submit():
-        flash(f'Account aangemaakt voor {form.username.data}!', 'success')
-        return redirect(url_for('home'))
+
     return render_template('registreren.html', title='Register', form=form)
 
 
@@ -55,9 +59,9 @@ def login():
     else:
         form = LoginFormulier()
         if form.validate_on_submit():
-            if form.username.data == 'admin' and form.password.data == 'P@ssword':
+            if form.username.data == gebruikers.query.filter_by(naam=form.username.data) and form.password.data == gebruikers.query.filter_by(naam=form.password.data):
                 session.permanent = True
-                session["user"] = form.username.data
+                session["user"] = gebruikers.query.filter_by(naam=form.username.data)
                 flash(f'Je bent ingelogd als {form.username.data}!', 'success')
                 return redirect(url_for('home'))
             else:

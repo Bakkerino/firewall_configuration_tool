@@ -1,5 +1,5 @@
 from flask import render_template, url_for, request, redirect, flash, session
-from configuratietool import app
+from configuratietool import app, db, bcrypt
 from configuratietool.formulieren import RegistratieFormulier, LoginFormulier
 from configuratietool.models import User
 
@@ -56,15 +56,15 @@ def login():
     else:
         form = LoginFormulier()
         if form.validate_on_submit():
-            #flash(f'test {user_exist.naam}!', 'success')
+            usr = User.query.filter_by(username=form.username.data).first()
             
-            if form.username.data == User.query.filter_by(username=form.username.data, password=form.password.data).first().username:
+            if usr and bcrypt.check_password_hash(usr.password, form.password.data):
                 session.permanent = True
-                session["user"] = User.query.filter_by(username=form.username.data, password=form.password.data).first().username
+                session["user"] = usr.username
                 flash(f'Je bent ingelogd als {session["user"]}!', 'success')
                 return redirect(url_for('home'))
-            else:
-                flash(f'Inloggen niet gelukt, probeer het overnieuw.', 'danger')
+
+            flash(f'Inloggen niet gelukt, probeer het overnieuw.', 'danger')
         return render_template('login.html', title='Login', form=form)
 
 @app.route("/logout")

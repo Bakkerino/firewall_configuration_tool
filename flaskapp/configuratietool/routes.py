@@ -3,10 +3,11 @@ from configuratietool import app, db, bcrypt
 from configuratietool.formulieren import RegistratieFormulier, LoginFormulier
 from configuratietool.models import User
 from flask_login import login_user, current_user, logout_user, login_required
+from datetime import timedelta
 
 @app.route("/")
 @app.route("/home")
-#@login_required
+@login_required
 def home():
     if current_user.is_authenticated:
         return render_template("home.html")
@@ -36,7 +37,7 @@ def register():
             flash(f'Account aangemaakt voor {form.username.data}!', 'success')
             return redirect(url_for('login'))
             
-    return render_template('registreren.html', title='Register', form=form)
+    return render_template('registreren.html', form=form)
 
 
 @app.route("/login", methods=['GET', 'POST'])
@@ -50,7 +51,7 @@ def login():
             usr = User.query.filter_by(username=form.username.data).first()
             
             if usr and bcrypt.check_password_hash(usr.password, form.password.data):
-                login_user(usr, remember=form.remember.data)
+                login_user(usr, remember=form.remember.data, duration=timedelta(minutes=5))
                 flash(f'U bent ingelogd als {usr.username}!', 'success')
                 return redirect(url_for("home"))
             else:

@@ -6,13 +6,12 @@ from flask_login import login_user, current_user, logout_user, login_required
 
 @app.route("/")
 @app.route("/home")
-@login_required
+#@login_required
 def home():
-    #if current_user.is_authenticated:
-    #user = session["user"]
-    return render_template("home.html")
-    #else:
-    #    return redirect(url_for("login"))
+    if current_user.is_authenticated:
+        return render_template("home.html")
+    else:
+        return redirect(url_for("login"))
 
 #@app.route("/user", methods=["POST", "GET"])
 #def user():
@@ -26,8 +25,8 @@ def home():
 def register():
     form = RegistratieFormulier()
     if current_user.is_authenticated:
-        #user = session["user"]
-        return render_template('registreren.html', title='Register', form=form)
+
+        return redirect(url_for("home"))
     else:
         if form.validate_on_submit():
             hash_pwd = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
@@ -37,20 +36,12 @@ def register():
             flash(f'Account aangemaakt voor {form.username.data}!', 'success')
             return redirect(url_for('login'))
             
-          
-            #if User.query.filter_by(username=form.username.data).first().username:
-            #    flash(f'Probeer het overnieuw!', 'danger')
-            #else:    
-                #session["user"] = form.username.data
-                #session.permanent = True
-            
     return render_template('registreren.html', title='Register', form=form)
 
 
 @app.route("/login", methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
-        #user = session["user"]
         flash(f'U bent ingelogd als {current_user.username}', 'success')
         return redirect(url_for("home"))
     else:
@@ -59,11 +50,9 @@ def login():
             usr = User.query.filter_by(username=form.username.data).first()
             
             if usr and bcrypt.check_password_hash(usr.password, form.password.data):
-                #session.permanent = True
-                #session["user"] = usr.username
                 login_user(usr, remember=form.remember.data)
-                flash(f'Je bent ingelogd als {usr.username}!', 'success')
-
+                flash(f'U bent ingelogd als {usr.username}!', 'success')
+                return redirect(url_for("home"))
             else:
                 flash(f'Inloggen niet gelukt, probeer het overnieuw.', 'danger')
         return render_template('login.html', form=form)

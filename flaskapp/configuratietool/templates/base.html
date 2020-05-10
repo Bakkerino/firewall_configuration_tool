@@ -33,7 +33,7 @@
           <!-- Navigatie bar rechts login/register -->
           <div class="navbar-nav">
             {% if current_user.is_authenticated %}
-            <a class="nav-item nav-link" href="{{ url_for('register') }}">{{ current_user.username.title() }}</a>
+            <a class="nav-item nav-link" href="{{ url_for('logout') }}">{{ current_user.username.title() }}</a>
             {% else %}
               <a class="nav-item nav-link" href="{{ url_for('login') }}">Login</a>
               <a class="nav-item nav-link" href="{{ url_for('register') }}">Registreren</a>

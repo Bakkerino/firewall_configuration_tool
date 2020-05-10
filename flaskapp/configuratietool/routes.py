@@ -1,23 +1,7 @@
-from flask import Flask, render_template, url_for, request, redirect, flash, session
-from flask_sqlalchemy import SQLAlchemy
-from formulieren import RegistratieFormulier, LoginFormulier
-from datetime import timedelta
-
-app = Flask(__name__)
-app.config['SECRET_KEY'] = 'dc7c6759cbb3d6ce0d57d790ec3b8ffb'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.sqlite3'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.permanent_session_lifetime = timedelta(minutes=2) # sessietijd
-
-db = SQLAlchemy(app)
-class User(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(20), unique=True, nullable=False)
-    password = db.Column(db.String(64), nullable=False)
-
-    def __repr__(self):
-        return f"User('{self.username}', '{self.password}')"
-
+from flask import render_template, url_for, request, redirect, flash, session
+from configuratietool import app
+from configuratietool.formulieren import RegistratieFormulier, LoginFormulier
+from configuratietool.models import User
 
 @app.route("/")
 @app.route("/home")
@@ -44,21 +28,22 @@ def register():
         return render_template('registreren.html', title='Register', user=user, form=form)
     else:
         if form.validate_on_submit():
-
-            if User.query.filter_by(naam=form.username.data).first().username:
-                flash(f'Probeer het overnieuw!', 'danger')
-            else:
-                usr = User(form.username.data, form.password.data)    
-                db.session.add(usr)
-                db.session.commit()
-                
-
-                session["user"] = form.username.data
-                session.permanent = True
-                flash(f'Account aangemaakt voor {form.username.data}!', 'success')
-                return redirect(url_for('home'))
-
-
+            hash_pwd = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
+            usr = User(username=form.username.data, password=hash_pwd)  
+            db.session.add(usr)
+            db.session.commit()
+            flash(f'Account aangemaakt voor {form.username.data}!', 'success')
+            return redirect(url_for('login'))
+            
+            
+            
+            
+            #if User.query.filter_by(username=form.username.data).first().username:
+            #    flash(f'Probeer het overnieuw!', 'danger')
+            #else:    
+                #session["user"] = form.username.data
+                #session.permanent = True
+            
     return render_template('registreren.html', title='Register', form=form)
 
 
@@ -79,7 +64,7 @@ def login():
                 flash(f'Je bent ingelogd als {session["user"]}!', 'success')
                 return redirect(url_for('home'))
             else:
-                flash(f'Inloggen niet gelukt, probeer het overnieuw. { user_exist, user_exist.naam }', 'danger')
+                flash(f'Inloggen niet gelukt, probeer het overnieuw.', 'danger')
         return render_template('login.html', title='Login', form=form)
 
 @app.route("/logout")
@@ -87,6 +72,3 @@ def logout():
     session.pop("user", None)
     flash(f'Uitgelogd!', 'success')
     return redirect(url_for('login'))
-
-if __name__ == "__main__":
-    app.run(debug=True)

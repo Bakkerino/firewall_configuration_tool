@@ -15,3 +15,18 @@ A (Flask web-application) tool which inputs firewall configuration and outputs C
 - pip install flask-sqlalchemy
 - pip install flask-login
 
+# done
+- web-applicatiepagina
+- uiterlijk is gebruiksvriendelijk en in huisstijl 
+- paginaformulier voor inloggen en registreren
+- mogelijkheid om in te loggen
+- mogelijkheid om te registreren
+- inloggen en registreren met database
+- password hashing
+- login sessies
+
+# todo
+- paginaverwijzingen checken
+- invulformulier toevoegen
+- back-end maken die de invoer analyseert en kan uitvoeren
+

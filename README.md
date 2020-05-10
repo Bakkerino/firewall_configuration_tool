@@ -27,6 +27,7 @@ A (Flask web-application) tool which inputs firewall configuration and outputs C
 
 # todo
 - paginaverwijzingen checken
+- wijzigen/bekijken van account, attributen aan koppelen
 - invulformulier toevoegen
 - back-end maken die de invoer analyseert en kan uitvoeren
 

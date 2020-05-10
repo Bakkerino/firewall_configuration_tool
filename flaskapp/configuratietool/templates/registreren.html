@@ -16,8 +16,8 @@
                         {% endfor %}
                     </div>
                 {% else %}
-                    {% if user %}
-                        {{ form.username(class="form-control form-control-lg", placeholder=user) }}
+                    {% if current_user.is_authenticated %}
+                        {{ form.username(class="form-control form-control-lg", placeholder=current_user.username) }}
                     {% else %}
                         {{ form.username(class="form-control form-control-lg") }}
                     {% endif %}
@@ -57,7 +57,7 @@
 </div>
 <div class="border-top pt-3">
     <small class="text-muted">
-        {% if user %}
+        {% if current_user.is_authenticated %}
             <a class="ml-2" href="{{ url_for('logout') }}">Uitloggen</a>
         {% else %}
             Heb je al een account? <a class="ml-2" href="{{ url_for('login') }}">Hier inloggen</a>

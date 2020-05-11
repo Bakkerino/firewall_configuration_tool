@@ -1,16 +1,20 @@
 from flask import render_template, url_for, request, redirect, flash, session
 from configuratietool import app, db, bcrypt
-from configuratietool.formulieren import RegistratieFormulier, LoginFormulier
+from configuratietool.formulieren import RegistratieFormulier, LoginFormulier, ConfiguratieFormulier
 from configuratietool.models import User
 from flask_login import login_user, current_user, logout_user, login_required
 from datetime import timedelta
 
-@app.route("/")
-@app.route("/home")
+@app.route("/", methods=['GET', 'POST'])
+@app.route("/home", methods=['GET', 'POST'])
 @login_required
 def home():
+    form = ConfiguratieFormulier()
+    output = ""
     if current_user.is_authenticated:
-        return render_template("home.html")
+        if form.validate_on_submit():
+            output = form.configuratie.data
+        return render_template("home.html", form=form, output=output)
     else:
         return redirect(url_for("login"))
 

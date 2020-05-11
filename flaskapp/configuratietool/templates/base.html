@@ -38,6 +38,7 @@
                   <b>{{ current_user.username.title() }}</b>
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <a class="dropdown-item" href="#">Account</a>
                   <a class="dropdown-item" href="{{ url_for('logout') }}">Uitloggen</a>
                 </div>
               </div>

@@ -1,5 +1,42 @@
 {% extends "base.html" %}
+
 {% block inhoud %}
-<h1>Welkom {{ current_user.username }}</h1>
-<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+<form method="POST" action="">
+    {{ form.hidden_tag() }}
+
+    <div class="row">
+        <div class="column">
+            <legend class="border-bottom mb-4">Configuratie generen</legend>
+            <div class="form-group">
+                {{ form.submit(class_="btn btn-secondary") }}
+            </div>
+
+            <div class="form-group">
+                {{ form.configuratie.label(class="form-control-label") }}
+
+                {% if form.configuratie.errors %}
+                    {{ form.configuratie(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.configuratie.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                        {% else %}
+                            {{ form.configuratie(class="form-control form-control-lg") }}
+                        {% endif %}
+            </div>
+            </legend>
+        </div>
+        <div class="column">
+            <div class="form-group">
+                <label for="exampleFormControlTextarea1">Uitvoer</label>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="30">{{ output }}</textarea>
+              </div>
+        </div>
+    
+    </div> 
+
+</form>
+
+
 {% endblock %}

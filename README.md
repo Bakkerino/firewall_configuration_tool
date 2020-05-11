@@ -24,10 +24,10 @@ A (Flask web-application) tool which inputs firewall configuration and outputs C
 - inloggen en registreren met database
 - password hashing
 - login sessies
+- paginaverwijzingen checken
 
 # todo
-- paginaverwijzingen checken
 - wijzigen/bekijken van account, attributen aan koppelen
-- invulformulier toevoegen
-- back-end maken die de invoer analyseert en kan uitvoeren
+- basis invulformulier toevoegen
+- basis back-end maken die de invoer analyseert en kan uitvoeren
 

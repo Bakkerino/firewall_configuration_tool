@@ -26,12 +26,24 @@ body {
     font-weight: 500;
   }
   
-
+  .dropdown {list-style: none;}
+  .dropdown .nav-link {color:#fff; text-decoration: none;}
+  .dropdown .dropdown-menu a{color: black; text-decoration: none;}
+  .dropdown .btn {background: red; color:white;}
+  .dropdown .btn:hover {background: white; color:#000;}
+  .dropdown .btn:active {background: red; color:#000;}
+  .dropdown .btn:focus {background: white; color:#000;}
+  .container .dropdown .dropdown-menu a:hover
+  {
+    color: #fff;
+    background-color: red;
+    border-color: #fff;
+  }
 
   .content-section {
     background: #ffffff;
     padding: 10px 20px;
-    border: 1px solid #dddddd;
+
     border-radius: 3px;
     margin-bottom: 20px;
   }
@@ -45,4 +57,14 @@ body {
   
   .account-heading {
     font-size: 2.5rem;
+  }
+
+  .row {
+    display: flex;
+  }
+  
+  .column {
+    flex: 50%;
+    border: 8px solid #fafafa;
+
   }

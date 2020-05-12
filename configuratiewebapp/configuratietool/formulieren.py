@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, TextAreaField, PasswordField, SubmitField, BooleanField
+from wtforms import StringField, TextAreaField, PasswordField, SubmitField, BooleanField, SelectField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError #validatiemiddelen voor inputvelden
 from configuratietool.models import User
 
@@ -28,6 +28,10 @@ class RegistratieFormulier(FlaskForm):
 
 ## Configuratie generatie input velden
 class ConfiguratieFormulier(FlaskForm):
-    configuratie = TextAreaField('Invoer')
+    configuratie_vpn = TextAreaField('VPN')
+    configuratie_interface = TextAreaField('Interface')
+
+    configuratiekeuzeHoofd = configuratiekeuzeVpn = configuratiekeuzeInterface = SelectField('Configuratiekeuze', 
+        choices=[('none', 'Geen'), ('vpn', 'VPN'), ('interface', 'Interface')])
 
     submit = SubmitField('Genereren')

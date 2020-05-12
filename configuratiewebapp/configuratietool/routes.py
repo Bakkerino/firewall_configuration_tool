@@ -13,7 +13,7 @@ def home():
     output = ""
     if current_user.is_authenticated:
         if form.validate_on_submit():
-            output = form.configuratie.data
+            output = form.configuratie_vpn.data
         return render_template("home.html", form=form, output=output)
     else:
         return redirect(url_for("login"))

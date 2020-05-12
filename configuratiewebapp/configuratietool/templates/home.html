@@ -3,28 +3,44 @@
 {% block inhoud %}
 <form method="POST" action="">
     {{ form.hidden_tag() }}
-
     <div class="row">
         <div class="column">
             <legend class="border-bottom mb-4">Configuratie generen</legend>
-            <div class="form-group">
-                {{ form.submit(class_="btn btn-secondary") }}
-            </div>
 
-            <div class="form-group">
-                {{ form.configuratie.label(class="form-control-label") }}
+                <div class="form-group">
+                    {{ form.submit(class_="btn btn-secondary" ) }}
+                </div>
+                <legend class="border-bottom mb-4"></legend>
+                {{ form.configuratiekeuzeHoofd(class="btn btn-secondary dropdown-toggle") }}
 
-                {% if form.configuratie.errors %}
-                    {{ form.configuratie(class="form-control form-control-lg is-invalid") }}
-                    <div class="invalid-feedback">
-                        {% for error in form.configuratie.errors %}
-                            <span>{{ error }}</span>
-                        {% endfor %}
-                    </div>
-                        {% else %}
-                            {{ form.configuratie(class="form-control form-control-lg") }}
-                        {% endif %}
-            </div>
+                <div class="form-group" id="configuratie_vpn">
+                    {{ form.configuratie_vpn.label(class="form-control-label") }}
+                    {% if form.configuratie_vpn.errors %}
+                        {{ form.configuratie_vpn(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.configuratie_vpn.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.configuratie_vpn(class="form-control form-control-lg") }}
+                    {% endif %}
+                    {{ form.configuratiekeuzeVpn(class="btn btn-secondary dropdown-toggle") }}
+                </div>
+                <div class="form-group" id="configuratie_interface">
+                    {{ form.configuratie_interface.label(class="form-control-label") }}
+                    {% if form.configuratie_interface.errors %}
+                        {{ form.configuratie_interface(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.configuratie_interface.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.configuratie_interface(class="form-control form-control-lg") }}
+                    {% endif %}
+                    {{ form.configuratiekeuzeInterface(class="btn btn-secondary dropdown-toggle") }}
+                </div>
             </legend>
         </div>
         <div class="column">

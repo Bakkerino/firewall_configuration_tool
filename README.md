@@ -31,3 +31,6 @@ A (Flask web-application) tool which inputs firewall configuration and outputs C
 - basis invulformulier toevoegen
 - basis back-end maken die de invoer analyseert en kan uitvoeren
 
+# media
+![](configuratiewebapp/configuratietool/static/webapp1.PNG)
+

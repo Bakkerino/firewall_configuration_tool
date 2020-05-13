@@ -75,24 +75,15 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
     <script>
 
-    $("#configuratiekeuzeHoofd").change(function() {
-      if ($(this).val() == "vpn") {
-          $('#configuratie_vpn').show();
+$(document).ready(function() {
+      $("#vpnToggleButton").click(function () {
+          $("#configuratie_vpnDiv").toggle() })
 
-      } else {
-          $('#configuratie_vpn').hide();			
-      }
-      if ($(this).val() == "interface") {
-          $('#configuratie_interface').show();
-
-      } else {
-          $('#configuratie_interface').hide();			
-      }
-  });
-  $("#configuratiekeuzeHoofd").trigger("change");
-
-
-  
+      $("#interfaceToggleButton").click(function () {
+          $("#configuratie_interfaceDiv").toggle() })
+})
+       
 </script>
+
   </body>
 </html>

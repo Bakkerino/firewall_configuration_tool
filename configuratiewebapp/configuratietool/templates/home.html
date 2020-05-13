@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% block inhoud %}
+
 <form method="POST" action="">
     {{ form.hidden_tag() }}
     <div class="row">
@@ -9,11 +10,15 @@
 
                 <div class="form-group">
                     {{ form.submit(class_="btn btn-secondary" ) }}
-                </div>
-                <legend class="border-bottom mb-4"></legend>
-                {{ form.configuratiekeuzeHoofd(class="btn btn-secondary dropdown-toggle") }}
+                </div> 
+            <legend class="border-bottom mb-4"></legend>
+            <div class="form-group">     
+                        <button type="button" id="vpnToggleButton" class="btn btn-secondary">VPN</button>
+                        <button type="button" id="interfaceToggleButton"  class="btn btn-secondary">Interface</button>
+            </div> 
+            <legend class="border-bottom mb-4"></legend>
 
-                <div class="form-group" id="configuratie_vpn">
+                <div class="configuratieoptie" id="configuratie_vpnDiv">
                     {{ form.configuratie_vpn.label(class="form-control-label") }}
                     {% if form.configuratie_vpn.errors %}
                         {{ form.configuratie_vpn(class="form-control form-control-lg is-invalid") }}
@@ -25,9 +30,9 @@
                     {% else %}
                         {{ form.configuratie_vpn(class="form-control form-control-lg") }}
                     {% endif %}
-                    {{ form.configuratiekeuzeVpn(class="btn btn-secondary dropdown-toggle") }}
                 </div>
-                <div class="form-group" id="configuratie_interface">
+
+                <div class="configuratieoptie" id="configuratie_interfaceDiv">
                     {{ form.configuratie_interface.label(class="form-control-label") }}
                     {% if form.configuratie_interface.errors %}
                         {{ form.configuratie_interface(class="form-control form-control-lg is-invalid") }}
@@ -36,18 +41,22 @@
                                 <span>{{ error }}</span>
                             {% endfor %}
                         </div>
+
                     {% else %}
                         {{ form.configuratie_interface(class="form-control form-control-lg") }}
                     {% endif %}
-                    {{ form.configuratiekeuzeInterface(class="btn btn-secondary dropdown-toggle") }}
                 </div>
-            </legend>
+
         </div>
         <div class="column">
             <div class="form-group">
                 <label for="exampleFormControlTextarea1">Uitvoer</label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="30">{{ output }}</textarea>
-              </div>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="10">{{ output }}</textarea>
+            </div>
+            <div class="form-group">
+                <label for="exampleFormControlTextarea1">Feedback</label>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="8">{{ output }}</textarea>
+            </div>
         </div>
     
     </div> 

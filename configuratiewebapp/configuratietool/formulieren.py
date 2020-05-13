@@ -31,7 +31,4 @@ class ConfiguratieFormulier(FlaskForm):
     configuratie_vpn = TextAreaField('VPN')
     configuratie_interface = TextAreaField('Interface')
 
-    configuratiekeuzeHoofd = configuratiekeuzeVpn = configuratiekeuzeInterface = SelectField('Configuratiekeuze', 
-        choices=[('none', 'Geen'), ('vpn', 'VPN'), ('interface', 'Interface')])
-
     submit = SubmitField('Genereren')

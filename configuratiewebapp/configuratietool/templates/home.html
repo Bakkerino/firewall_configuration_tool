@@ -1,15 +1,17 @@
 {% extends "base.html" %}
-
 {% block inhoud %}
 
 <form method="POST" action="">
     {{ form.hidden_tag() }}
+
     <div class="row">
         <div class="column">
             <legend class="border-bottom mb-4">Configuratie generen</legend>
 
+
+                
                 <div class="form-group">
-                    {{ form.submit(class_="btn btn-secondary" ) }}
+                    {{ form.submit(class_="btn btn-secondary" ) }} <a href=# id=process_input><button class='btn btn-secondary'>Update</button></a>
                 </div> 
             <legend class="border-bottom mb-4"></legend>
             <div class="form-group">     
@@ -21,7 +23,7 @@
                 <div class="configuratieoptie" id="configuratie_vpnDiv">
                     {{ form.configuratie_vpn.label(class="form-control-label") }}
                     {% if form.configuratie_vpn.errors %}
-                        {{ form.configuratie_vpn(class="form-control form-control-lg is-invalid") }}
+                        {{ form.configuratie_vpn(class="form-control form-control-lg is-invalid" ) }}
                         <div class="invalid-feedback">
                             {% for error in form.configuratie_vpn.errors %}
                                 <span>{{ error }}</span>
@@ -51,11 +53,11 @@
         <div class="column">
             <div class="form-group">
                 <label for="exampleFormControlTextarea1">Uitvoer</label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="10">{{ output }}</textarea>
+                <textarea class="form-control" id="result" rows="10">{{ output }} </textarea>
             </div>
             <div class="form-group">
                 <label for="exampleFormControlTextarea1">Feedback</label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="8">{{ output }}</textarea>
+                <textarea class="form-control" id="result" rows="8">{{ output }}</textarea>
             </div>
         </div>
     

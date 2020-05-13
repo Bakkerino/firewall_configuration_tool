@@ -1,14 +1,19 @@
-from flask import render_template, url_for, request, redirect, flash, session
+from flask import render_template, url_for, request, redirect, flash, session, jsonify
 from configuratietool import app, db, bcrypt
 from configuratietool.formulieren import RegistratieFormulier, LoginFormulier, ConfiguratieFormulier
 from configuratietool.models import User
 from flask_login import login_user, current_user, logout_user, login_required
 from datetime import timedelta
 
+app.secret_key = "ditiseentest"
+
 @app.route("/", methods=['GET', 'POST'])
 @app.route("/home", methods=['GET', 'POST'])
 @login_required
 def home():
+    test = "hallo"
+    session["test"] = test
+
     form = ConfiguratieFormulier()
     output = ""
     if current_user.is_authenticated:
@@ -62,6 +67,16 @@ def login():
             else:
                 flash(f'Inloggen niet gelukt, probeer het overnieuw.', 'danger')
         return render_template('login.html', form=form)
+
+@app.route('/generator')
+def generator():
+	try:
+		return jsonify(result=request.args.get('configuratie_vpn', 0, type=str))
+
+	except Exception as e:
+		return str(e)
+
+
 
 @app.route("/logout")
 def logout():

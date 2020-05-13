@@ -11,7 +11,7 @@
     <!-- Eigen CSS -->
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
     <link rel="shortcut icon" type="image/x-icon" href="static/favicon.ico" />
-    <title>Configuratietool firewalls</title>
+    <title>Configuratietool firewalls </title>
   </head>
 
     <!-- Navigatie bar -->
@@ -21,7 +21,7 @@
 
         <a class="navbar-brand mr-5" href="/">
             <img src="/static/yndeks.png" width="54" height="30" class="d-inline-block align-top" alt="">
-            <b>Configuratietool voor firewalls</b></a>
+            <b>Configuratietool voor firewalls {{ session["test"]}}</b></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -82,7 +82,21 @@ $(document).ready(function() {
       $("#interfaceToggleButton").click(function () {
           $("#configuratie_interfaceDiv").toggle() })
 })
-       
+             
+</script>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script type=text/javascript>
+    $(function() {
+      $('a#process_input').bind('click', function() {
+        $.getJSON('/generator', {
+          configuratie_vpn: $('textarea[name="configuratie_vpn"]').val(),
+        }, function(data) {
+          $("#result").text(data.result);
+        });
+        return false;
+      });
+    });
 </script>
 
   </body>

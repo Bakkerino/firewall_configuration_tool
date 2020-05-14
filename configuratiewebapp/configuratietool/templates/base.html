@@ -21,7 +21,7 @@
 
         <a class="navbar-brand mr-5" href="/">
             <img src="/static/yndeks.png" width="54" height="30" class="d-inline-block align-top" alt="">
-            <b>Configuratietool voor firewalls {{ session["test"]}}</b></a>
+            <b>Configuratietool voor firewalls (v0.4)</b></a> 
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -39,7 +39,7 @@
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                   <a class="dropdown-item" href="#">Account</a>
-                  <a class="dropdown-item" href="{{ url_for('logout') }}">Uitloggen</a>
+                  <a class="dropdown-item" id="logout" href="{{ url_for('logout') }}">Uitloggen</a>
                 </div>
               </div>
           
@@ -73,17 +73,33 @@
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-    <script>
+    <script> 
+      $(function () {
+        $("#logout").on('click', function () {
+            localStorage.clear();
+        })})
+        
+      $(function () {
+          var sidebarVisible = localStorage.getItem('configuratie_vpnDiv') == 'true'; // Get the value from localstorage      
+          $("#vpnToggleButton").on('click', function () {
+              $("#configuratie_vpnDiv").toggle(300, function () {
+                  localStorage.setItem('configuratie_vpnDiv', $('#configuratie_vpnDiv').is(':visible')); // Save the visibility state in localstorage
+                  $('#configuratie_vpnDiv>').val('') // clear value when toggled
+              });
+          });
+          $('#configuratie_vpnDiv').toggle(sidebarVisible); // Toggle sidebar, true: show, false: hide
 
-$(document).ready(function() {
-      $("#vpnToggleButton").click(function () {
-          $("#configuratie_vpnDiv").toggle() })
-
-      $("#interfaceToggleButton").click(function () {
-          $("#configuratie_interfaceDiv").toggle() })
-})
-             
-</script>
+          var sidebarVisible = localStorage.getItem('configuratie_interfaceDiv') == 'true'; // Get the value from localstorage      
+          $("#interfaceToggleButton").on('click', function () {
+              $("#configuratie_interfaceDiv").toggle(300, function () {
+                  localStorage.setItem('configuratie_interfaceDiv', $('#configuratie_interfaceDiv').is(':visible')); // Save the visibility state in localstorage
+                  $('#configuratie_interfaceDiv>').val('')  // clear value when toggled
+              });
+          });
+          $('#configuratie_interfaceDiv').toggle(sidebarVisible); // Toggle sidebar, true: show, false: hide
+      
+      });            
+  </script>
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script type=text/javascript>

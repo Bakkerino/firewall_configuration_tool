@@ -1,5 +1,11 @@
+
 {% extends "base.html" %}
+
+
 {% block inhoud %}
+
+
+
 
 <form method="POST" action="">
     {{ form.hidden_tag() }}
@@ -11,7 +17,7 @@
 
                 
                 <div class="form-group">
-                    {{ form.submit(class_="btn btn-secondary" ) }} <a href=# id=process_input><button class='btn btn-secondary'>Update</button></a>
+                    {{ form.submit(class_="btn btn-secondary") }} <a href=# id=process_input><button class='btn btn-secondary'>Update</button></a>
                 </div> 
             <legend class="border-bottom mb-4"></legend>
             <div class="form-group">     
@@ -20,7 +26,7 @@
             </div> 
             <legend class="border-bottom mb-4"></legend>
 
-                <div class="configuratieoptie" id="configuratie_vpnDiv">
+                <div class="configuratieoptie" id="configuratie_vpnDiv" style="display: none">
                     {{ form.configuratie_vpn.label(class="form-control-label") }}
                     {% if form.configuratie_vpn.errors %}
                         {{ form.configuratie_vpn(class="form-control form-control-lg is-invalid" ) }}
@@ -34,7 +40,7 @@
                     {% endif %}
                 </div>
 
-                <div class="configuratieoptie" id="configuratie_interfaceDiv">
+                <div class="configuratieoptie" id="configuratie_interfaceDiv" style="display: none">
                     {{ form.configuratie_interface.label(class="form-control-label") }}
                     {% if form.configuratie_interface.errors %}
                         {{ form.configuratie_interface(class="form-control form-control-lg is-invalid") }}

@@ -11,8 +11,6 @@ app.secret_key = "ditiseentest"
 @app.route("/home", methods=['GET', 'POST'])
 @login_required
 def home():
-    test = "hallo"
-    session["test"] = test
 
     form = ConfiguratieFormulier()
     output = ""
@@ -70,11 +68,11 @@ def login():
 
 @app.route('/generator')
 def generator():
-	try:
-		return jsonify(result=request.args.get('configuratie_vpn', 0, type=str))
-
-	except Exception as e:
-		return str(e)
+    try:
+	    return jsonify(result=request.args.get('configuratie_vpn', 0, type=str))
+	
+    except Exception as e:
+	    return str(e)
 
 
 

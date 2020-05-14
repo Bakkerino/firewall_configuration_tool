@@ -22,15 +22,16 @@
         <a class="navbar-brand mr-5" href="/">
             <img src="/static/yndeks.png" width="54" height="30" class="d-inline-block align-top" alt="">
             <b>Configuratietool voor firewalls (v0.5)</b></a> 
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+        <!--<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarToggle">
+        </button>-->
+        <!--<div class="collapse navbar-collapse" id="navbarToggle">-->
           <div class="navbar-nav mr-auto">
             <!-- Navigatie bar items -->
             <!--  <a class="nav-item nav-link" href="/">Home</a> -->
           </div>
           <!-- Navigatie bar rechts login/register -->
+        <!--</div>-->
           <div class="navbar-nav">
             {% if current_user.is_authenticated %}
               <div class="dropdown">
@@ -48,7 +49,7 @@
               <a class="nav-item nav-link" href="{{ url_for('register') }}">Registreren</a>
             {% endif %}
           </div>
-        </div>
+
       </div>
     </nav>
   </header>

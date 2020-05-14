@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, TextAreaField, PasswordField, SubmitField, BooleanField, SelectField
-from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError #validatiemiddelen voor inputvelden
+from wtforms.validators import DataRequired, InputRequired, Length, Email, EqualTo, ValidationError, IPAddress #validatiemiddelen voor inputvelden
 from configuratietool.models import User
 
 ## Account login input velden
@@ -40,6 +40,8 @@ class WijzigingFormulier(FlaskForm):
 ## Configuratie generatie input velden
 class ConfiguratieFormulier(FlaskForm):
     configuratie_vpn = TextAreaField('VPN')
-    configuratie_interface = TextAreaField('Interface')
+    
+    configuratie_interface_wan_ip = StringField("WAN IP ", validators= 
+       [InputRequired(), IPAddress(message="Geen valide IP!")])
 
     submit = SubmitField('Genereren')

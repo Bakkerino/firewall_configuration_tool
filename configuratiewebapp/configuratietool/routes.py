@@ -11,13 +11,12 @@ app.secret_key = "ditiseentest" # TIJDELIJK ?
 @app.route("/home", methods=['GET', 'POST'])
 @login_required
 def home():
-
     form = ConfiguratieFormulier()
     output = ""
     if current_user.is_authenticated:
         if form.validate_on_submit():
             output = form.configuratie_vpn.data
-            output += form.configuratie_interface.data
+            output += form.configuratie_interface_wan_ip.data
         return render_template("home.html", form=form, output=output)
     else:
         return redirect(url_for("login"))
@@ -83,7 +82,9 @@ def generator():
     except Exception as e:
 	    return str(e)
 
-
+@app.route("/get_my_ip", methods=["GET"])
+def get_my_ip():
+    return request.environ.get('HTTP_X_REAL_IP', request.remote_addr)
 
 @app.route("/logout")
 def logout():

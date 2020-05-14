@@ -7,19 +7,18 @@
     {{ form.hidden_tag() }}
 
     <div class="row">
-        <div class="column">
+        <div class="column1">
             <legend class="border-bottom mb-4">Configuratie generen</legend>
               
                 <div class="form-group">
                     {{ form.submit(class_="btn btn-secondary") }} <a href=# id=process_input><button class='btn btn-secondary'>Update</button></a>
                 </div> 
             <legend class="border-bottom mb-4"></legend>
-            <div class="form-group">     
-                        <button type="button" id="vpnToggleButton" class="btn btn-secondary">VPN</button>
-                        <button type="button" id="interfaceToggleButton"  class="btn btn-secondary">Interface</button>
+            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                <div class="btn-group-toggle" id="vpnToggleButton" data-toggle="buttons"><label class="btn btn-outline-secondary"><input type="checkbox" autocomplete="off">VPN</label></div>
+                <div class="btn-group-toggle" id="interfaceToggleButton" data-toggle="buttons"><label class="btn btn-outline-secondary"><input type="checkbox" autocomplete="off">Interface</label></div>          
             </div> 
             <legend class="border-bottom mb-4"></legend>
-
                 <div class="configuratieoptie" id="configuratie_vpnDiv" style="display: none">
                     {{ form.configuratie_vpn.label(class="form-control-label") }}
                     {% if form.configuratie_vpn.errors %}
@@ -35,22 +34,22 @@
                 </div>
 
                 <div class="configuratieoptie" id="configuratie_interfaceDiv" style="display: none">
-                    {{ form.configuratie_interface.label(class="form-control-label") }}
-                    {% if form.configuratie_interface.errors %}
-                        {{ form.configuratie_interface(class="form-control form-control-lg is-invalid") }}
+                    {{ form.configuratie_interface_wan_ip.label(class="form-control-label") }}
+                    {% if form.configuratie_interface_wan_ip.errors %}
+                        {{ form.configuratie_interface_wan_ip(class="form-control form-control-lg is-invalid") }}
                         <div class="invalid-feedback">
-                            {% for error in form.configuratie_interface.errors %}
+                            {% for error in form.configuratie_interface_wan_ip.errors %}
                                 <span>{{ error }}</span>
                             {% endfor %}
                         </div>
 
                     {% else %}
-                        {{ form.configuratie_interface(class="form-control form-control-lg") }}
+                        {{ form.configuratie_interface_wan_ip(class="form-control form-control-lg") }}
                     {% endif %}
                 </div>
 
         </div>
-        <div class="column">
+        <div class="column2">
             <div class="form-group">
                 <label for="exampleFormControlTextarea1">Uitvoer</label>
                 <textarea class="form-control" id="result" rows="10">{{ output }} </textarea>

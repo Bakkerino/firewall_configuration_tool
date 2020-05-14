@@ -63,8 +63,13 @@ h1, h2, h3, h4, h5, h6 {
   display: flex;
 }
 
-.column {
-  flex: 50%;
+.column1 {
+  flex: 60%;
+  border: 8px solid #fafafa;
+}
+
+.column2 {
+  flex: 40%;
   border: 8px solid #fafafa;
 }
 

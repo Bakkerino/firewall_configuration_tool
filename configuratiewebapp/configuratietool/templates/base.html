@@ -11,7 +11,7 @@
     <!-- Eigen CSS -->
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
     <link rel="shortcut icon" type="image/x-icon" href="static/favicon.ico" />
-    <title>Configuratietool firewalls </title>
+    <title>Configuratietool firewalls</title>
   </head>
 
     <!-- Navigatie bar -->
@@ -32,6 +32,8 @@
           </div>
           <!-- Navigatie bar rechts login/register -->
         <!--</div>-->
+
+        <!-- dropdown menu -->
           <div class="navbar-nav">
             {% if current_user.is_authenticated %}
               <div class="dropdown">
@@ -41,6 +43,8 @@
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                   <a class="dropdown-item" href="{{ url_for('account') }}">Account</a>
                   <a class="dropdown-item" id="logout" href="{{ url_for('logout') }}">Uitloggen</a>
+                  <div class="dropdown-divider"></div> 
+                  <a class="dropdown-item disabled"><small>{{ request.environ.get('HTTP_X_REAL_IP', request.remote_addr) }}</small></a>
                 </div>
               </div>
           
@@ -85,7 +89,7 @@
       // Show/hide functionaliteit, status wordt opgeslagen in localstorage //
       $(function () {
           var sidebarVisible = localStorage.getItem('configuratie_vpnDiv') == 'true'; // Get the value from localstorage      
-          $("#vpnToggleButton").on('click', function () {
+          $("#vpnToggleButton").on('change', function () {
               $("#configuratie_vpnDiv").toggle(300, function () {
                   localStorage.setItem('configuratie_vpnDiv', $('#configuratie_vpnDiv').is(':visible')); // Save the visibility state in localstorage
                   $('#configuratie_vpnDiv>').val('') // clear value when toggled
@@ -94,7 +98,7 @@
           $('#configuratie_vpnDiv').toggle(sidebarVisible); // Toggle sidebar, true: show, false: hide
 
           var sidebarVisible = localStorage.getItem('configuratie_interfaceDiv') == 'true'; // Get the value from localstorage      
-          $("#interfaceToggleButton").on('click', function () {
+          $("#interfaceToggleButton").on('change', function () {
               $("#configuratie_interfaceDiv").toggle(300, function () {
                   localStorage.setItem('configuratie_interfaceDiv', $('#configuratie_interfaceDiv').is(':visible')); // Save the visibility state in localstorage
                   $('#configuratie_interfaceDiv>').val('')  // clear value when toggled
@@ -104,10 +108,9 @@
       
       });            
   </script>
-
-
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script type=text/javascript>
+
 // Interactief ophalen van data, zonder dat de pagina opnieuw ingeladen moet worden WIP//
     $(function() {
       $('a#process_input').bind('click', function() {

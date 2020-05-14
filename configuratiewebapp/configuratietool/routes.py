@@ -39,7 +39,7 @@ def register():
     else:
         if form.validate_on_submit():
             hash_pwd = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
-            usr = User(username=form.username.data, password=hash_pwd)  
+            usr = User(username=form.username.data.lower(), password=hash_pwd)  
             db.session.add(usr)
             db.session.commit()
             flash(f'Account aangemaakt voor {form.username.data}!', 'success')
@@ -56,7 +56,7 @@ def login():
     else:
         form = LoginFormulier()
         if form.validate_on_submit():
-            usr = User.query.filter_by(username=form.username.data).first()
+            usr = User.query.filter_by(username=form.username.data.lower()).first()
             
             if usr and bcrypt.check_password_hash(usr.password, form.password.data):
                 login_user(usr, remember=form.remember.data, duration=timedelta(minutes=5))

@@ -25,11 +25,11 @@ A (Flask web-application) tool which inputs firewall configuration and outputs C
 - password hashing
 - login sessies
 - paginaverwijzingen checken
+- basis invulformulier toevoegen
+- invulformulier interactief maken
 
 # todo
 - wijzigen/bekijken van account, attributen aan koppelen
-- basis invulformulier toevoegen
-- invulformulier interactief maken
 - basis back-end maken die de invoer analyseert en kan uitvoeren
 
 # media

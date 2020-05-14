@@ -22,9 +22,9 @@ class RegistratieFormulier(FlaskForm):
     submit = SubmitField('Registreren')
 
     def validate_username(self, username):
-        user = User.query.filter_by(username=username.data).first()
+        user = User.query.filter_by(username=username.data.lower()).first()
         if user:
-            raise ValidationError('Gebruikersnaam al in gebruik')
+            raise ValidationError('Deze gebruikersnaam is al in gebruik')
 
 ## Configuratie generatie input velden
 class ConfiguratieFormulier(FlaskForm):

@@ -1,11 +1,11 @@
 from flask import render_template, url_for, request, redirect, flash, session, jsonify
 from configuratietool import app, db, bcrypt
-from configuratietool.formulieren import RegistratieFormulier, LoginFormulier, ConfiguratieFormulier
+from configuratietool.formulieren import RegistratieFormulier, LoginFormulier, ConfiguratieFormulier, WijzigingFormulier
 from configuratietool.models import User
 from flask_login import login_user, current_user, logout_user, login_required
 from datetime import timedelta
 
-app.secret_key = "ditiseentest"
+app.secret_key = "ditiseentest" # TIJDELIJK ?
 
 @app.route("/", methods=['GET', 'POST'])
 @app.route("/home", methods=['GET', 'POST'])
@@ -22,13 +22,22 @@ def home():
     else:
         return redirect(url_for("login"))
 
-#@app.route("/user", methods=["POST", "GET"])
-#def user():
-#    if "user" in session:
-#        user = session["user"]
-#        return render_template("user.html",  user=user, form=form)
-#    else:
-#        return redirect(url_for("login"))
+@app.route("/account", methods=["POST", "GET"])
+@login_required
+def account():
+    form = WijzigingFormulier()
+    if current_user.is_authenticated:
+        usr = User.query.filter_by(username=current_user.username.lower()).first()
+        if form.validate_on_submit():
+            if usr and bcrypt.check_password_hash(usr.password, form.oldpassword.data):
+                current_user.password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
+                db.session.commit()
+                flash(f'{current_user.username} gewijzigd!', 'success')
+                return redirect(url_for('account'))
+            else:
+                flash(f'Inloggegevens niet correct, probeer het overnieuw.', 'danger')
+    return render_template("account.html", form=form)
+    
 
 @app.route("/register", methods=['GET', 'POST'])
 def register():

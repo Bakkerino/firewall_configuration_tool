@@ -27,9 +27,9 @@ A (Flask web-application) tool which inputs firewall configuration and outputs C
 - paginaverwijzingen checken
 - basis invulformulier toevoegen
 - invulformulier interactief maken
+- wijzigen/bekijken van account, attributen aan koppelen
 
 # todo
-- wijzigen/bekijken van account, attributen aan koppelen
 - basis back-end maken die de invoer analyseert en kan uitvoeren
 
 # media

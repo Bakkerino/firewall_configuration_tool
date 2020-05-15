@@ -5,6 +5,7 @@
         {{ form.hidden_tag() }}
         <fieldset class="form-group">
             <legend class="border-bottom mb-4">Wijzig account voor <b>{{ current_user.username.title() }}</b></legend>
+            <!-- Oude wachtwoord formulier-->
             <div class="form-group">
                 {{ form.oldpassword.label(class="form-control-label") }}
                 {% if form.oldpassword.errors %}
@@ -18,7 +19,7 @@
                     {{ form.oldpassword(class="form-control form-control-lg") }}
                 {% endif %}
             </div>
-
+            <!-- Nieuw wachtwoord formulier-->
             <div class="form-group">
                 {{ form.password.label(class="form-control-label") }}
                 {% if form.password.errors %}
@@ -32,6 +33,7 @@
                     {{ form.password(class="form-control form-control-lg") }}
                 {% endif %}
             </div>
+            <!-- Herhaling nieuw wachtwoord formulier-->
             <div class="form-group">
                 {{ form.confirm_password.label(class="form-control-label") }}
                 {% if form.confirm_password.errors %}
@@ -46,6 +48,7 @@
                 {% endif %}
             </div>
         </fieldset>
+        <!-- Submit knop -->
         <div class="form-group">
             {{ form.submit(class="btn btn-secondary") }}
         </div>

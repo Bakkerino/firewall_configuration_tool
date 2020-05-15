@@ -32,6 +32,7 @@
                     {{ form.password(class="form-control form-control-lg") }}
                 {% endif %}
             </div>
+            <!-- Herhaling wachtwoord formulier-->
             <div class="form-group">
                 {{ form.confirm_password.label(class="form-control-label") }}
                 {% if form.confirm_password.errors %}
@@ -46,6 +47,7 @@
                 {% endif %}
             </div>
         </fieldset>
+                <!-- Submit knop -->
         <div class="form-group">
             {{ form.submit(class="btn btn-secondary") }}
         </div>

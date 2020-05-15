@@ -42,6 +42,6 @@ class ConfiguratieFormulier(FlaskForm):
     configuratie_vpn = TextAreaField('VPN')
     
     configuratie_interface_wan_ip = StringField("WAN IP ", validators= 
-       [InputRequired(), IPAddress(message="Geen valide IP!")])
+       [IPAddress(message="Geen valide IP!")])
 
     submit = SubmitField('Genereren')

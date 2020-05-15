@@ -105,6 +105,16 @@
               });
           });
           $('#configuratie_interfaceDiv').toggle(sidebarVisible); // Toggle sidebar, true: show, false: hide
+
+
+          var sidebarVisible = localStorage.getItem('configuratie_FANDiv') == 'true'; // Get the value from localstorage      
+          $("#fanToggleButton").on('change', function () {
+              $("#configuratie_FANDiv").toggle(300, function () {
+                  localStorage.setItem('configuratie_FANDiv', $('#configuratie_FANDiv').is(':visible')); // Save the visibility state in localstorage
+                  $('#configuratie_FANDiv>').val('')  // clear value when toggled
+              });
+          });
+          $('#configuratie_FANDiv').toggle(sidebarVisible); // Toggle sidebar, true: show, false: hide
       
       });            
   </script>

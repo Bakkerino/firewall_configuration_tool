@@ -37,11 +37,3 @@ class WijzigingFormulier(FlaskForm):
     submit = SubmitField('Wijzigen')
 
 
-## Configuratie generatie input velden
-class ConfiguratieFormulier(FlaskForm):
-    configuratie_vpn = TextAreaField('VPN')
-    
-    configuratie_interface_wan_ip = StringField("WAN IP ", validators= 
-       [IPAddress(message="Geen valide IP!")])
-
-    submit = SubmitField('Genereren')

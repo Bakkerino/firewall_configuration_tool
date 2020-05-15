@@ -6,7 +6,7 @@ A (Flask web-application) tool which inputs firewall configuration and outputs C
 - Python 3.8.2
 - Create virtual enviroment "py -m venv env"
 - Activate virtual enviroment "env\Scripts\activate"
-- set flask (used for flask run) "set FLASK_APP=app.py"
+- set flask (used for flask run) "set FLASK_APP=app.py" (niet meer nodig)
 
 # pip installs 
 - pip install flask
@@ -28,9 +28,17 @@ A (Flask web-application) tool which inputs firewall configuration and outputs C
 - basis invulformulier toevoegen
 - invulformulier interactief maken
 - wijzigen/bekijken van account, attributen aan koppelen
+- formulieren.py opdelen, los bestand maken voor configuratieformulieren
+- elk configuratieobject, zoals een interface, vpn etc een eigen klasse geven, testen of dit werkt met de submit knop (werkt niet)
+- basis back-end maken die de invoer analyseert en kan uitvoeren
+- Fortianalyzer configuratieobject toevoegen
+- naar sessies kijken of deze kloppen / wat betreft tijd / of het nog nodig is
 
 # todo
-- basis back-end maken die de invoer analyseert en kan uitvoeren
+
+- de status van de toggle buttons opslaan, net zoals de div boxes
+
+
 
 # media
 ![](configuratiewebapp/configuratietool/static/webapp1.PNG)

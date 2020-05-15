@@ -5,7 +5,6 @@
 
 <form method="POST" action="">
     {{ form.hidden_tag() }}
-
     <div class="row">
         <div class="column1">
             <legend class="border-bottom mb-4">Configuratie generen</legend>
@@ -15,11 +14,40 @@
                 </div> 
             <legend class="border-bottom mb-4"></legend>
             <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                <div class="btn-group-toggle" id="vpnToggleButton" data-toggle="buttons"><label class="btn btn-outline-secondary"><input type="checkbox" autocomplete="off">VPN</label></div>
-                <div class="btn-group-toggle" id="interfaceToggleButton" data-toggle="buttons"><label class="btn btn-outline-secondary"><input type="checkbox" autocomplete="off">Interface</label></div>          
+                <div class="btn-group-toggle" id="fanToggleButton" data-toggle="buttons"><label class="btn btn-secondary"><input type="checkbox" autocomplete="off">Fortianalyzer</label></div>
+                <div class="btn-group-toggle" id="vpnToggleButton" data-toggle="buttons"><label class="btn btn-secondary"><input type="checkbox" autocomplete="off">VPN</label></div>
+                <div class="btn-group-toggle" id="interfaceToggleButton" data-toggle="buttons"><label class="btn btn-secondary"><input type="checkbox" autocomplete="off">Interface</label></div>          
             </div> 
             <legend class="border-bottom mb-4"></legend>
-                <div class="configuratieoptie" id="configuratie_vpnDiv" style="display: none">
+
+            <fieldset class="form-group" id="configuratie_FANDiv" style="display: none">
+                {{ form.configuratie_fanServer.label(class="form-control-label") }}
+                {% if form.configuratie_fanServer.errors %}
+                    {{ form.configuratie_fanServer(class="form-control form-control-lg is-invalid" ) }}
+                    <div class="invalid-feedback">
+                        {% for error in form.configuratie_fanServer.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.configuratie_fanServer(class="form-control form-control-lg") }}
+                {% endif %}
+
+                {{ form.configuratie_fanSerial.label(class="form-control-label") }}
+                {% if form.configuratie_fanSerial.errors %}
+                    {{ form.configuratie_fanSerial(class="form-control form-control-lg is-invalid" ) }}
+                    <div class="invalid-feedback">
+                        {% for error in form.configuratie_fanSerial.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.configuratie_fanSerial(class="form-control form-control-lg") }}
+                {% endif %}
+                
+                </fieldset>
+            <legend class="border-bottom mb-4"></legend>     
+                <fieldset class="form-group" id="configuratie_vpnDiv" style="display: none">
                     {{ form.configuratie_vpn.label(class="form-control-label") }}
                     {% if form.configuratie_vpn.errors %}
                         {{ form.configuratie_vpn(class="form-control form-control-lg is-invalid" ) }}
@@ -31,9 +59,9 @@
                     {% else %}
                         {{ form.configuratie_vpn(class="form-control form-control-lg") }}
                     {% endif %}
-                </div>
-
-                <div class="configuratieoptie" id="configuratie_interfaceDiv" style="display: none">
+                </fieldset>
+                <legend class="border-bottom mb-4"></legend>     
+                <fieldset class="form-group" id="configuratie_interfaceDiv" style="display: none">
                     {{ form.configuratie_interface_wan_ip.label(class="form-control-label") }}
                     {% if form.configuratie_interface_wan_ip.errors %}
                         {{ form.configuratie_interface_wan_ip(class="form-control form-control-lg is-invalid") }}
@@ -46,7 +74,8 @@
                     {% else %}
                         {{ form.configuratie_interface_wan_ip(class="form-control form-control-lg") }}
                     {% endif %}
-                </div>
+                </fieldset>
+                <legend class="border-bottom mb-4"></legend>
 
         </div>
         <div class="column2">

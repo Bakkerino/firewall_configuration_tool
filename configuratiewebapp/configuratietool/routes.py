@@ -1,22 +1,29 @@
 from flask import render_template, url_for, request, redirect, flash, session, jsonify
 from configuratietool import app, db, bcrypt
-from configuratietool.formulieren import RegistratieFormulier, LoginFormulier, ConfiguratieFormulier, WijzigingFormulier
+from configuratietool.formulieren import RegistratieFormulier, LoginFormulier, WijzigingFormulier 
+from configuratietool.configuraties import ConfiguratieFormulier
 from configuratietool.models import User
 from flask_login import login_user, current_user, logout_user, login_required
 from datetime import timedelta
 
-app.secret_key = "ditiseentest" # TIJDELIJK ?
 
 @app.route("/", methods=['GET', 'POST'])
-@app.route("/home", methods=['GET', 'POST'])
 @login_required
 def home():
     form = ConfiguratieFormulier()
     output = ""
+
     if current_user.is_authenticated:
         if form.validate_on_submit():
-            output = form.configuratie_vpn.data
+            output += form.configuratie_vpn.data
             output += form.configuratie_interface_wan_ip.data
+
+            if form.configuratie_fanServer.data and form.configuratie_fanSerial.data:
+                output += (f"""config log fortianalyzer setting
+ set status enable
+ set server \""""  + form.configuratie_fanServer.data +  """\" 
+ set serial """ + form.configuratie_fanSerial.data + """
+end\n""")
         return render_template("home.html", form=form, output=output)
     else:
         return redirect(url_for("login"))

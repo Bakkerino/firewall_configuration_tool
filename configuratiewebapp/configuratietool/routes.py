@@ -1,11 +1,10 @@
 from flask import render_template, url_for, request, redirect, flash, session, jsonify
 from configuratietool import app, db, bcrypt
 from configuratietool.formulieren import RegistratieFormulier, LoginFormulier, WijzigingFormulier 
-from configuratietool.configuraties import ConfiguratieFormulier
+from configuratietool.configuraties import ConfiguratieFormulier, ImportConfiguratie
 from configuratietool.models import User
 from flask_login import login_user, current_user, logout_user, login_required
 from datetime import timedelta
-
 
 @app.route("/", methods=['GET', 'POST'])
 @login_required
@@ -16,37 +15,6 @@ def home():
         return render_template("home.html", form=form)
     else:
         return redirect(url_for("login"))
-
-@app.route("/configuratieimport", methods=['GET', 'POST'])
-@login_required
-def configuratieimport():
-    if current_user.is_authenticated:
-        return render_template("configuratieimport.html")
-    else:
-        return redirect(url_for("login"))        
-
-@app.route("/configuratiehulp", methods=['GET', 'POST'])
-@login_required
-def configuratiehulp():
-    form = ConfiguratieFormulier()
-    output = ""
-
-    if current_user.is_authenticated:
-        if form.validate_on_submit():
-            output += form.configuratie_vpn.data
-            output += form.configuratie_interface_wan_ip.data
-
-            if form.configuratie_fanServer.data and form.configuratie_fanSerial.data:
-                output += (f"""config log fortianalyzer setting
- set status enable
- set server \""""  + form.configuratie_fanServer.data +  """\" 
- set serial """ + form.configuratie_fanSerial.data + """
-end\n""")
-        return render_template("configuratiehulp.html", form=form, output=output)
-    else:
-        return redirect(url_for("login"))
-
-
 
 @app.route("/account", methods=["POST", "GET"])
 @login_required
@@ -117,4 +85,40 @@ def get_my_ip():
 def logout():
     logout_user()
     flash(f'Uitgelogd!', 'success')
-    return redirect(url_for('login'))
+    return redirect(url_for('login'))    
+
+@app.route("/configuratiehulp", methods=['GET', 'POST'])
+@login_required
+def configuratiehulp():
+    form = ConfiguratieFormulier()
+    output = ""
+
+    if current_user.is_authenticated:
+        if form.validate_on_submit():
+            output += form.configuratie_vpn.data
+            output += form.configuratie_interface_wan_ip.data
+
+            if form.configuratie_fanServer.data and form.configuratie_fanSerial.data:
+                output += (f"""config log fortianalyzer setting
+ set status enable
+ set server \""""  + form.configuratie_fanServer.data +  """\" 
+ set serial """ + form.configuratie_fanSerial.data + """
+end\n""")
+        return render_template("configuratiehulp.html", form=form, output=output)
+    else:
+        return redirect(url_for("login"))
+
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+@app.route("/configuratieimport", methods=['GET', 'POST'])
+@login_required
+def configuratieimport():
+    if request.method == 'POST':
+        if request.files["configuratiebestand"]:
+            bestand = request.files["configuratiebestand"].read().decode()
+            return render_template('configuratieimport.html', bestand=bestand)
+    else:
+        return render_template('configuratieimport.html')
+   

@@ -2,22 +2,25 @@
 {% block inhoud %}
 <h1>Configuratieimport</h1>
 
-    <div class="input-group">
-        <div class="custom-file">
-            <input type="file" class="custom-file-input" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04">
-            <label class="custom-file-label" for="inputGroupFile04">Bestand kiezen</label>
-        </div>
-        <div class="input-group-append">
-            <button class="btn btn-outline-secondary" type="button" id="inputGroupFileAddon04">Importeren</button>
-        </div>
+<form action="/configuratieimport" method="POST" enctype="multipart/form-data">
+
+    <div class="form-group">
+      <div class="custom-file">
+        <input type="file" class="custom-file-input" name="configuratiebestand" id="image">
+        <label class="custom-file-label" for="configuratiebestand">Selecteer configuratiebestand...</label>
+      </div>
     </div>
+
+    <button type="submit" class="btn btn-secondary">Importeren</button>
+
+  </form>
+
 <legend class="border-bottom mb-4"></legend>
 
-
-        
         <div class="form-group">
-            <textarea class="form-control" id="result" rows="20" cols="50"></textarea>
+            <textarea class="form-control" id="result" rows="30" cols="50">{{ bestand }}</textarea>
         </div>
 
+<legend class="border-bottom mb-4"></legend>
 
 {% endblock %}

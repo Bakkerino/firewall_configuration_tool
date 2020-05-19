@@ -34,11 +34,11 @@ A (Flask web-application) tool which inputs firewall configuration and outputs C
 - Fortianalyzer configuratieobject toevoegen
 - naar sessies kijken of deze kloppen / wat betreft tijd / of het nog nodig is (niet benodigd, wordt al anders gefaciliteerd)
 - firewall configurator verplaatsen naar losse pagina
+- importeren van een firewall configuratiebestand proberen/testen/uitzoeken
 
 # todo
 - textuele feedback testen met de fortianalyzer configuratieoptie
 - configuratieopties toevoegen, kijken naar fortinet vm
-- importeren van een firewall configuratiebestand proberen/testen/uitzoeken
 - de status van de toggle buttons opslaan, net zoals de div boxes (niet perse benodigd)
 
 

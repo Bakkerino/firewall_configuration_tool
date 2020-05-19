@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block inhoud %}
+<h1>Configuratieimport</h1>
+
+    <div class="input-group">
+        <div class="custom-file">
+            <input type="file" class="custom-file-input" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04">
+            <label class="custom-file-label" for="inputGroupFile04">Bestand kiezen</label>
+        </div>
+        <div class="input-group-append">
+            <button class="btn btn-outline-secondary" type="button" id="inputGroupFileAddon04">Importeren</button>
+        </div>
+    </div>
+<legend class="border-bottom mb-4"></legend>
+
+
+        
+        <div class="form-group">
+            <textarea class="form-control" id="result" rows="20" cols="50"></textarea>
+        </div>
+
+
+{% endblock %}

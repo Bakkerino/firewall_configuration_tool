@@ -11,6 +11,24 @@ from datetime import timedelta
 @login_required
 def home():
     form = ConfiguratieFormulier()
+
+    if current_user.is_authenticated:
+        return render_template("home.html", form=form)
+    else:
+        return redirect(url_for("login"))
+
+@app.route("/configuratieimport", methods=['GET', 'POST'])
+@login_required
+def configuratieimport():
+    if current_user.is_authenticated:
+        return render_template("configuratieimport.html")
+    else:
+        return redirect(url_for("login"))        
+
+@app.route("/configuratiehulp", methods=['GET', 'POST'])
+@login_required
+def configuratiehulp():
+    form = ConfiguratieFormulier()
     output = ""
 
     if current_user.is_authenticated:
@@ -24,9 +42,11 @@ def home():
  set server \""""  + form.configuratie_fanServer.data +  """\" 
  set serial """ + form.configuratie_fanSerial.data + """
 end\n""")
-        return render_template("home.html", form=form, output=output)
+        return render_template("configuratiehulp.html", form=form, output=output)
     else:
         return redirect(url_for("login"))
+
+
 
 @app.route("/account", methods=["POST", "GET"])
 @login_required

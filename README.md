@@ -32,10 +32,12 @@ A (Flask web-application) tool which inputs firewall configuration and outputs C
 - elk configuratieobject, zoals een interface, vpn etc een eigen klasse geven, testen of dit werkt met de submit knop (werkt niet)
 - basis back-end maken die de invoer analyseert en kan uitvoeren
 - Fortianalyzer configuratieobject toevoegen
-- naar sessies kijken of deze kloppen / wat betreft tijd / of het nog nodig is
+- naar sessies kijken of deze kloppen / wat betreft tijd / of het nog nodig is (niet benodigd, wordt al ander gefaciliteerd)
 
 # todo
-
+- configuratieopties toevoegen, kijken naar fortinet vm
+- firewall configurator verplaatsen naar losse pagina
+- importeren van een firewall configuratiebestand proberen/testen/uitzoeken
 - de status van de toggle buttons opslaan, net zoals de div boxes
 
 

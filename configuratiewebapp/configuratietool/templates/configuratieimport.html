@@ -4,17 +4,18 @@
 
 <form action="/configuratieimport" method="POST" enctype="multipart/form-data">
 
-    <div class="form-group">
-      <div class="custom-file">
-        <input type="file" class="custom-file-input" name="configuratiebestand" id="image">
-        <label class="custom-file-label" for="configuratiebestand">Selecteer configuratiebestand...</label>
+
+    <div class="input-group">
+        <div class="custom-file">
+          <input type="file" class="custom-file-input" name="configuratiebestand" id="configuratiebestand" aria-describedby="inputGroupFileAddon04">
+          <label class="custom-file-label" for="configuratiebestand">Kies een bestand</label>
+        </div>
+        <div class="input-group-append">
+          <button type="submit" class="btn btn-outline-secondary" id="btn">Importeren</button>
+        </div>
       </div>
-    </div>
 
-    <button type="submit" class="btn btn-secondary">Importeren</button>
-
-  </form>
-
+</form>
 <legend class="border-bottom mb-4"></legend>
 
         <div class="form-group">

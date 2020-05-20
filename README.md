@@ -37,6 +37,7 @@ A (Flask web-application) tool which inputs firewall configuration and outputs C
 - importeren van een firewall configuratiebestand proberen/testen/uitzoeken
 
 # todo
+- configuratie output schaalbaar maken met behulp van functies
 - textuele feedback testen met de fortianalyzer configuratieoptie
 - configuratieopties toevoegen, kijken naar fortinet vm
 - de status van de toggle buttons opslaan, net zoals de div boxes (niet perse benodigd)
@@ -46,6 +47,5 @@ A (Flask web-application) tool which inputs firewall configuration and outputs C
 # media
 ![](configuratiewebapp/configuratietool/static/webapp1.PNG)
 ![](configuratiewebapp/configuratietool/static/webapp2.PNG)
-![](configuratiewebapp/configuratietool/static/webapp3.PNG)
 ![](configuratiewebapp/configuratietool/static/webapp4.PNG)
 

@@ -111,10 +111,16 @@ def configuratiehulp():
 @app.route("/configuratieimport", methods=['GET', 'POST'])
 @login_required
 def configuratieimport():
+    verwerktbestand = ""
     if request.method == 'POST':
         if request.files["configuratiebestand"]:
             bestand = request.files["configuratiebestand"].read().decode()
-            return render_template('configuratieimport.html', bestand=bestand)
+            for line in bestand.splitlines():
+                verwerktbestand += (line + "\n") 
+            return render_template('configuratieimport.html', bestand=bestand, verwerktbestand=verwerktbestand)
     else:
         return render_template('configuratieimport.html')
+
+
+    
    

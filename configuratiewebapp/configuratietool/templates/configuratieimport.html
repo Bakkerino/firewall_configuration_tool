@@ -20,8 +20,26 @@
 </form>
 <legend class="border-bottom mb-4"></legend>
 
-        <div class="form-group">
-            <textarea class="form-control" id="result" rows="30" cols="50">{{ bestand }}</textarea>
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+          <li class="nav-item">
+            <a class="nav-link active" id="bestand-tab" data-toggle="tab" href="#bestand" role="tab" aria-controls="bestand" aria-selected="true">Bestand</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" id="verwerkt-tab" data-toggle="tab" href="#verwerkt" role="tab" aria-controls="verwerkt" aria-selected="false">Verwerkt</a>
+          </li>
+        </ul>
+        <div class="tab-content" id="myTabContent">
+          <div class="tab-pane fade show active" id="bestand" role="tabpanel" aria-labelledby="bestand-tab">
+          <div class="form-group">
+              <textarea class="form-control" id="result" rows="30" cols="50">{% if bestand %}{{ bestand }}{% endif %}</textarea>
+          </div>
+          </div>
+
+          <div class="tab-pane fade" id="verwerkt" role="tabpanel" aria-labelledby="verwerkt-tab">
+          <div class="form-group">
+            <textarea class="form-control" id="result" rows="30" cols="50">{{ verwerktbestand }}</textarea>
+          </div>
+          </div>
         </div>
 
 <legend class="border-bottom mb-4"></legend>

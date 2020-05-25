@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 {% block inhoud %}
+<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+
 <h1>Configuratieimport</h1>
 
 <form action="/configuratieimport" method="POST" enctype="multipart/form-data">
@@ -23,5 +25,16 @@
         </div>
 
 <legend class="border-bottom mb-4"></legend>
+
+
+<script>
+  $('#configuratiebestand').on('change',function(){
+      //verkrijgen bestandsnaam
+      var fileName = $(this).val();
+      var cleanFileName = fileName.replace('C:\\fakepath\\', " ");
+      //vervangen label
+      $(this).next('.custom-file-label').html(cleanFileName);
+  })
+</script>
 
 {% endblock %}

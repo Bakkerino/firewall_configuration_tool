@@ -35,16 +35,16 @@ A (Flask web-application) tool which inputs firewall configuration and outputs C
 - naar sessies kijken of deze kloppen / wat betreft tijd / of het nog nodig is (niet benodigd, wordt al anders gefaciliteerd)
 - firewall configurator verplaatsen naar losse pagina
 - importeren van een firewall configuratiebestand proberen/testen/uitzoeken
-
-# todo
 - configuratie output schaalbaar maken met behulp van functies
 - textuele feedback testen met de fortianalyzer configuratieoptie
-- configuratieopties toevoegen, kijken naar fortinet vm
+- bestandsnaam weergeven bij import
+
+# todo
+
 - de status van de toggle buttons opslaan, net zoals de div boxes (niet perse benodigd)
+- 
 
-
-
-# media
+# media 
 ![](configuratiewebapp/configuratietool/static/webapp1.PNG)
 ![](configuratiewebapp/configuratietool/static/webapp3.PNG)
 ![](configuratiewebapp/configuratietool/static/webapp4.PNG)

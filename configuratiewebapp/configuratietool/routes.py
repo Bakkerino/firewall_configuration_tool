@@ -5,12 +5,12 @@ from configuratietool.configuraties import ConfiguratieFormulier, ImportConfigur
 from configuratietool.models import User
 from flask_login import login_user, current_user, logout_user, login_required
 from datetime import timedelta
+from configuratietool.generator import genFortianalyzer
 
 @app.route("/", methods=['GET', 'POST'])
 @login_required
 def home():
     form = ConfiguratieFormulier()
-
     if current_user.is_authenticated:
         return render_template("home.html", form=form)
     else:
@@ -91,20 +91,19 @@ def logout():
 @login_required
 def configuratiehulp():
     form = ConfiguratieFormulier()
-    output = ""
+    commandOutput = feedbackOutput = ""
+    output = []
 
     if current_user.is_authenticated:
         if form.validate_on_submit():
-            output += form.configuratie_vpn.data
-            output += form.configuratie_interface_wan_ip.data
+            commandOutput += form.configuratie_vpn.data
+            commandOutput += form.configuratie_interface_wan_ip.data
 
             if form.configuratie_fanServer.data and form.configuratie_fanSerial.data:
-                output += (f"""config log fortianalyzer setting
- set status enable
- set server \""""  + form.configuratie_fanServer.data +  """\" 
- set serial """ + form.configuratie_fanSerial.data + """
-end\n""")
-        return render_template("configuratiehulp.html", form=form, output=output)
+                output = (genFortianalyzer(form.configuratie_fanServer.data, form.configuratie_fanSerial.data))
+                commandOutput += output[0] 
+                feedbackOutput += output[1]
+        return render_template("configuratiehulp.html", form=form, commandOutput=commandOutput, feedbackOutput=feedbackOutput)
     else:
         return redirect(url_for("login"))
 

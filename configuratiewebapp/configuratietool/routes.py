@@ -117,6 +117,7 @@ def configuratieimport():
             bestand = request.files["configuratiebestand"].read().decode()
             for line in bestand.splitlines():
                 verwerktbestand += (line + "\n") 
+            
             return render_template('configuratieimport.html', bestand=bestand, verwerktbestand=verwerktbestand)
     else:
         return render_template('configuratieimport.html')

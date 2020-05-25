@@ -5,7 +5,7 @@ from configuratietool.configuraties import ConfiguratieFormulier, ImportConfigur
 from configuratietool.models import User
 from flask_login import login_user, current_user, logout_user, login_required
 from datetime import timedelta
-from configuratietool.generator import genFortianalyzer
+from configuratietool.generator import genFortianalyzer, inputBestandVerwerking
 
 @app.route("/", methods=['GET', 'POST'])
 @login_required
@@ -111,14 +111,14 @@ def configuratiehulp():
 @app.route("/configuratieimport", methods=['GET', 'POST'])
 @login_required
 def configuratieimport():
-    verwerktbestand = ""
     if request.method == 'POST':
-        if request.files["configuratiebestand"]:
+        if 'configuratiebestand' in request.files:
             bestand = request.files["configuratiebestand"].read().decode()
-            for line in bestand.splitlines():
-                verwerktbestand += (line + "\n") 
-            
+            verwerktbestand = inputBestandVerwerking(bestand)  
             return render_template('configuratieimport.html', bestand=bestand, verwerktbestand=verwerktbestand)
+        else:
+            flash(f'Geen valide bestand ingevoerd!', 'danger')
+            return render_template('configuratieimport.html')
     else:
         return render_template('configuratieimport.html')
 

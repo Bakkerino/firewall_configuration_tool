@@ -77,5 +77,9 @@ h1, h2, h3, h4, h5, h6 {
   border: 16px solid #fafafa;
 }
 
+li.nav-item a{
+  color:red;
+  font-weight: 650;
+}
 
 

@@ -1,14 +1,13 @@
 # firewall_configuration_tool
-A (Flask web-application) tool which inputs firewall configuration and outputs CLI firewall configuration, security feedback of made setting and general overview of made settings.
-
+Een (Python flask web-applicatie) die aan de hand van firewallconfiguratie de gebruikte instellingen en impact van deze instellingen weergeeft.
 
 # Installation specification (development)
 - Python 3.8.2
 - Create virtual enviroment "py -m venv env"
 - Activate virtual enviroment "env\Scripts\activate"
-- set flask (used for flask run) "set FLASK_APP=app.py" (niet meer nodig)
+- run run.py from virtual enviroment
 
-# pip installs 
+# pip installs (requirements)
 - pip install flask
 - pip install flask_wtf
 - pip install flash
@@ -45,7 +44,8 @@ A (Flask web-application) tool which inputs firewall configuration and outputs C
 - 
 
 # media 
+![](configuratiewebapp/configuratietool/static/webapp5.PNG)
 ![](configuratiewebapp/configuratietool/static/webapp1.PNG)
 ![](configuratiewebapp/configuratietool/static/webapp3.PNG)
-![](configuratiewebapp/configuratietool/static/webapp4.PNG)
+
 

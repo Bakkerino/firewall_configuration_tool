@@ -1,10 +1,10 @@
 {% extends "base.html" %}
 {% block inhoud %}
+<legend class="border-bottom mb-4">Wijzig account voor <b>{{ current_user.username.title() }}</b></legend>
 <div class="content-section">
     <form method="POST" action="">
         {{ form.hidden_tag() }}
         <fieldset class="form-group">
-            <legend class="border-bottom mb-4">Wijzig account voor <b>{{ current_user.username.title() }}</b></legend>
             <!-- Oude wachtwoord formulier-->
             <div class="form-group">
                 {{ form.oldpassword.label(class="form-control-label") }}

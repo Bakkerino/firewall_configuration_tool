@@ -13,6 +13,7 @@ Een (Python flask web-applicatie) die aan de hand van firewallconfiguratie de ge
 - pip install flash
 - pip install flask-sqlalchemy
 - pip install flask-login
+- pip install flask_bcrypt
 
 # done
 - web-applicatiepagina

@@ -16,7 +16,12 @@ def inputBestandVerwerking(bestand):
     #verwerktbestand = "### VERWERKING ###" + "\n\n"
     #for line in bestand.splitlines():
         ## Hier kan het bestand geanalyseerd worden per regellijn
+    config = {}
+    previous_line = []
     for line in bestand.splitlines():
+        print("Previous line: >")
+        print(previous_line)
+        print("Current line: >")
         print(line.split())
         if line == "" or line[0] == "#":
             print("leeg of comment")
@@ -24,7 +29,7 @@ def inputBestandVerwerking(bestand):
         args = line.split()
         action, *args = line.split()
 
-        if action == 'config':
+        if action == 'config' and args[0] == 'system':
             header  = ' '.join(args)
             if header not in config:
                 config[header] = {}
@@ -33,11 +38,18 @@ def inputBestandVerwerking(bestand):
             section = ' '.join(args).strip('"')
             if section not in config[header]:
                 config[header][section] = {}
-
+        # Waardes
         if action == 'set':
             name  = args.pop(0)
             value = ' '.join(args).strip('"')
             config[header][section][name] = value
+
+        if action == 'append':
+            name  = args.pop(0)
+            value = ' '.join(args).strip('"')
+            config[header][section][name] = value
+
+        previous_line = line
     #verwerktbestand += (line + "\n") 
     else:
         pass

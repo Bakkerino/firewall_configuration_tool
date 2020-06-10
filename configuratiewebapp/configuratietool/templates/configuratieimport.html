@@ -9,15 +9,16 @@
 
     <div class="input-group">
         <div class="custom-file">
-          <input type="file" class="custom-file-input" name="configuratiebestand" id="configuratiebestand" aria-describedby="inputGroupFileAddon04">
-          <label class="custom-file-label" for="configuratiebestand">Kies een bestand...</label>
+          <input type="file" class="custom-file-input" name="cfgbestand" id="cfgbestand" aria-describedby="inputGroupFileAddon04">
+          <label class="custom-file-label" for="cfgbestand">Kies een bestand...</label>
         </div>
         <div class="input-group-append">
           <button type="submit" class="btn btn-outline-secondary" id="btn">Importeren</button>
         </div>
       </div>
-
 </form>
+
+
 <legend class="border-bottom mb-4"></legend>
 
         <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -31,7 +32,7 @@
         <div class="tab-content" id="myTabContent">
           <div class="tab-pane fade show active" id="bestand" role="tabpanel" aria-labelledby="bestand-tab">
           <div class="form-group">
-              <textarea class="form-control" id="result" rows="30" cols="50">{% if bestand %}{{ bestand }}{% endif %}</textarea>
+              <textarea class="form-control" id="result" rows="30" cols="50">{% if cfgbestand %}{{ cfgbestand }}{% endif %}</textarea>
           </div>
           </div>
 
@@ -46,7 +47,7 @@
 
 
 <script>
-  $('#configuratiebestand').on('change',function(){
+  $('#cfgbestand').on('change',function(){
       //verkrijgen bestandsnaam
       var fileName = $(this).val();
       var cleanFileName = fileName.replace('C:\\fakepath\\', " ");

@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from flask_wtf.file import FileField
+from flask_wtf.file import FileField, FileRequired
 from wtforms import StringField, TextAreaField, PasswordField, SubmitField, BooleanField, SelectField
 from wtforms.validators import Optional, DataRequired, InputRequired, Length, Email, EqualTo, ValidationError, IPAddress # validatiemiddelen voor inputvelden
 
@@ -7,8 +7,8 @@ from wtforms.validators import Optional, DataRequired, InputRequired, Length, Em
 
 ## Importeren van configuratiebestanden
 
-class ImportConfiguratie(FlaskForm):
-   file = FileField()
+#class ImportConfiguratie(FlaskForm):
+#   file = FileField()
 
 
 ## Configuratie generatie input velden

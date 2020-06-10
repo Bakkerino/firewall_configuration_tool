@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, TextAreaField, PasswordField, SubmitField, BooleanField, SelectField
+from wtforms import FileField, StringField, TextAreaField, PasswordField, SubmitField, BooleanField, SelectField
 from wtforms.validators import DataRequired, InputRequired, Length, Email, EqualTo, ValidationError, IPAddress #validatiemiddelen voor inputvelden
 from configuratietool.models import User
 
@@ -35,5 +35,6 @@ class WijzigingFormulier(FlaskForm):
     confirm_password = PasswordField('Nieuw wachtwoord bevestigen',
         validators=[DataRequired(), EqualTo('password', message='Wachtwoorden komen niet overeen')])
     submit = SubmitField('Wijzigen')
+
 
 

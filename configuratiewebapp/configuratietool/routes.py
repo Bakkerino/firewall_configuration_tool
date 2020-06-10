@@ -1,7 +1,8 @@
+import os
 from flask import render_template, url_for, request, redirect, flash, session, jsonify
 from configuratietool import app, db, bcrypt
 from configuratietool.formulieren import RegistratieFormulier, LoginFormulier, WijzigingFormulier 
-from configuratietool.configuraties import ConfiguratieFormulier, ImportConfiguratie
+from configuratietool.configuraties import ConfiguratieFormulier#, ImportConfiguratie
 from configuratietool.models import User
 from flask_login import login_user, current_user, logout_user, login_required
 from datetime import timedelta
@@ -112,15 +113,26 @@ def configuratiehulp():
 @login_required
 def configuratieimport():
     if request.method == 'POST':
-        if 'configuratiebestand' in request.files:
-            bestand = request.files["configuratiebestand"].read().decode()
-            verwerktbestand = inputBestandVerwerking(bestand)  
-            return render_template('configuratieimport.html', bestand=bestand, verwerktbestand=verwerktbestand)
-        else:
-            flash(f'Geen valide bestand ingevoerd!', 'danger')
-            return render_template('configuratieimport.html')
+        if request.files:
+            cfgbestand = request.files["cfgbestand"]
+            cfgbestand.save(os.path.join(app.config["CFG_UPLOADS"], cfgbestand.filename))
+            print(cfgbestand)
+            verwerktbestand = inputBestandVerwerking(cfgbestand.filename)
+            return render_template('configuratieimport.html', verwerktbestand=verwerktbestand)       
     else:
         return render_template('configuratieimport.html')
+
+
+        
+#        if 'configuratiebestand' in request.files:
+#            bestand = request.files["configuratiebestand"].read().decode()
+#            verwerktbestand = inputBestandVerwerking(bestand)  
+#            return render_template('configuratieimport.html', bestand=bestand, verwerktbestand=verwerktbestand)
+#        else:
+#            flash(f'Geen valide bestand ingevoerd!', 'danger')
+#            return render_template('configuratieimport.html')
+#    else:
+#        return render_template('configuratieimport.html')
 
 
     

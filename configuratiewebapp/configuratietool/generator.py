@@ -1,4 +1,5 @@
 import json
+from configuratietool import app
 
 outputData = []
 config = {}
@@ -12,46 +13,64 @@ end\n"""))
     outputData.append("Fortianalyzer is aangezet, met server: " + server + " en serial: " + serial)
     return outputData
 
-def inputBestandVerwerking(bestand):
-    #verwerktbestand = "### VERWERKING ###" + "\n\n"
-    #for line in bestand.splitlines():
-        ## Hier kan het bestand geanalyseerd worden per regellijn
-    config = {}
-    previous_line = []
-    for line in bestand.splitlines():
-        print("Previous line: >")
-        print(previous_line)
-        print("Current line: >")
-        print(line.split())
-        if line == "" or line[0] == "#":
-            print("leeg of comment")
-            continue
-        args = line.split()
-        action, *args = line.split()
+def inputBestandVerwerking(bestandsnaam):
+    with open(app.config["CFG_UPLOADS"] + bestandsnaam) as fh:
+        print(fh)
+        arguments = ['system', 'vpn', 'user', 'vdom', 'firewall', 'voip', 'web-proxy', 'application', 'dlp', 'webfilter']
+        config = {}
+        previous_line = []
+        section = ""
+        count = 0
+        for line in fh:
+            count += 1
+            current_line = line.split()
+            print("-------------------")
+            #print("Previous line: >", previous_line)
+            #print("Current line: >", current_line)
+            if line[0] in ("#", "\n"):
+                print("leeg of comment")
+                continue
+            args = line.split()
+            action, *args = line.split()
 
-        if action == 'config' and args[0] == 'system':
-            header  = ' '.join(args)
-            if header not in config:
-                config[header] = {}
+            if action == 'config' and args[0] in arguments:
+                #print(args)
+                if args[0] == 'system': args.pop(0)
+                header = ' '.join(args)
+                if header not in config:
+                    config[header] = {}
+            else:
+                pass
 
-        if action == 'edit':
-            section = ' '.join(args).strip('"')
-            if section not in config[header]:
-                config[header][section] = {}
-        # Waardes
-        if action == 'set':
-            name  = args.pop(0)
-            value = ' '.join(args).strip('"')
-            config[header][section][name] = value
+            if action == 'edit':
+                section = ' '.join(args).strip('"')
+                if section not in config[header]:
+                    config[header][section] = {}
+            # Waardes
+            if action == 'set':
+                if previous_line[0] == 'config' and section not in config[header]:
+                    section = '1'
+                    config[header][section] = {}
 
-        if action == 'append':
-            name  = args.pop(0)
-            value = ' '.join(args).strip('"')
-            config[header][section][name] = value
+                name  = args.pop(0)
+                value = ' '.join(args).strip('"')
+                if value.startswith('-----'):
+                    value += " "
+                    for line in fh:
+                        if line.startswith('-----'): value += " " + ' '.join(line.split()).strip('"'); break
+                        else: value += ' '.join(line.split()).strip('"')
+                config[header][section][name] = value
 
-        previous_line = line
-    #verwerktbestand += (line + "\n") 
-    else:
-        pass
-    verwerktbestand = json.dumps(config, indent=4)    
+
+            if action == 'append':
+                name  = args.pop(0)
+                value = ' '.join(args).strip('"')
+                config[header][section][name] = value
+
+            previous_line = line.split()
+
+        else:
+            pass
+    verwerktbestand = json.dumps(config, indent=4)
+    #print(verwerktbestand)    
     return verwerktbestand

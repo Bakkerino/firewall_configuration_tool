@@ -5,6 +5,7 @@ from flask_login import LoginManager
 
 
 app = Flask(__name__)
+app.config["CFG_UPLOADS"] = "./configuratietool/configuratieimports/"
 app.config['SECRET_KEY'] = 'dc7c6759cbb3d6ce0d57d790ec3b8ffb'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.sqlite3'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False

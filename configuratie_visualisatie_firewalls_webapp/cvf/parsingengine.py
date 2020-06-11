@@ -1,17 +1,12 @@
 import json, os
 from cvf import app
+from json2html import *
 
-outputData = []
 config = {}
 
-def genFortianalyzer(server, serial):
-    outputData.append((f"""config log fortianalyzer setting
- set status enable
- set server \""""  + server +  """\" 
- set serial """ + serial + """
-end\n"""))
-    outputData.append("Fortianalyzer is aangezet, met server: " + server + " en serial: " + serial)
-    return outputData
+def jsonToHTML(verwerktbestand):
+    return json2html.convert(json = verwerktbestand, table_attributes="class=\"table table-bordered\"style=\"width: 75%\"")
+
 
 def verify_filesize(filesize):
     print(filesize)
@@ -31,7 +26,12 @@ def verify_filename(filename):
     else:
         return False
 
-def inputBestandVerwerking(bestandsnaam):
+def readFile(bestandsnaam):
+    with open(app.config["CFG_UPLOADS"] + bestandsnaam) as fh:
+        data = fh.read()
+    return data
+
+def cfgFileParsing(bestandsnaam):
     with open(app.config["CFG_UPLOADS"] + bestandsnaam) as fh:
 
         arguments = ['system', 'vpn', 'user', 'vdom', 'firewall', 'voip', 'web-proxy', 'application', 'dlp', 'webfilter']

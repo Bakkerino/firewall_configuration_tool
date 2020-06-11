@@ -21,7 +21,7 @@
 
         <a class="navbar-brand mr-5" href="/">
             <img src="/static/yndeks.png" width="60" height="33.75" class="d-inline-block align-top" alt="">
-            <b>Configuratie-visualisatie voor firewalls (v0.7)</b></a> 
+            <b>Configuratie-visualisatie voor firewalls (v0.8)</b></a> 
         <!--<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>-->
@@ -41,11 +41,11 @@
                   <b>{{ current_user.username.title() }}</b>
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                  <a class="dropdown-item" href="{{ url_for('configuratiehulp') }}">Configuratiehulp</a>
                   <a class="dropdown-item" href="{{ url_for('configuratieimport') }}">Configuratieimport</a>
                   <a class="dropdown-item" href="{{ url_for('account') }}">Account</a>
                   <a class="dropdown-item" id="logout" href="{{ url_for('logout') }}">Uitloggen</a>
                   <div class="dropdown-divider"></div> 
+                  <a class="dropdown-item" href="{{ url_for('configuratiehulp') }}">Configuratiehulp</a>
                   <a class="dropdown-item disabled"><small>{{ request.environ.get('HTTP_X_REAL_IP', request.remote_addr) }}</small></a>
                 </div>
               </div>

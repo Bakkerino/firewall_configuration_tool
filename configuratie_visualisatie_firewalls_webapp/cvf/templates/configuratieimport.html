@@ -29,6 +29,9 @@
           <li class="nav-item">
             <a class="nav-link" id="verwerkt-tab" data-toggle="tab" href="#verwerkt" role="tab" aria-controls="verwerkt" aria-selected="false">Verwerkt</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" id="overzicht-tab" data-toggle="tab" href="#overzicht" role="tab" aria-controls="overzicht" aria-selected="false">Overzicht</a>
+          </li>
         </ul>
         <div class="tab-content" id="myTabContent">
           <div class="tab-pane fade show active" id="bestand" role="tabpanel" aria-labelledby="bestand-tab">
@@ -39,8 +42,14 @@
 
           <div class="tab-pane fade" id="verwerkt" role="tabpanel" aria-labelledby="verwerkt-tab">
           <div class="form-group">
-            <textarea class="form-control" id="result" rows="30" cols="50">{{ verwerktbestand }}</textarea>
+            <textarea class="form-control" id="result" rows="30" cols="50">{{ cfgjson }}</textarea>
           </div>
+          </div>
+
+          <div class="tab-pane fade" id="overzicht" role="tabpanel" aria-labelledby="overzicht-tab" style="width: 100%">
+
+            {{ cfghtml | safe }}
+
           </div>
         </div>
 
@@ -55,9 +64,9 @@
   $('#cfgbestand').on('change',function(){
       //verkrijgen bestandsnaam
       var fileName = $(this).val();
-      var cleanFileName = fileName.replace('C:\\fakepath\\', " ");
+      var shortFileName = fileName.replace('C:\\fakepath\\', " ");
       //vervangen label
-      $(this).next('.custom-file-label').html(cleanFileName);
+      $(this).next('.custom-file-label').html(shortFileName);
   })
 </script>
 

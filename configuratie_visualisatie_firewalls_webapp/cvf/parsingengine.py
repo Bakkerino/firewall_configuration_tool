@@ -7,6 +7,12 @@ config = {}
 def jsonToHTML(verwerktbestand):
     return json2html.convert(json = verwerktbestand, table_attributes="class=\"table table-bordered\"style=\"width: 75%\"")
 
+def deleteImportCache(bestandsnaam): 
+    if os.path.exists(app.config["CFG_UPLOADS"] + bestandsnaam):
+        os.remove(app.config["CFG_UPLOADS"] + bestandsnaam)
+        if app.config["DEBUG"]: print(bestandsnaam, " verwijderd")
+    else:
+        if app.config["DEBUG"]: print(bestandsnaam, " verwijderen niet mogelijk")
 
 def verify_filesize(filesize):
     print(filesize)
@@ -33,7 +39,6 @@ def readFile(bestandsnaam):
 
 def cfgFileParsing(bestandsnaam):
     with open(app.config["CFG_UPLOADS"] + bestandsnaam) as fh:
-
         arguments = ['system', 'vpn', 'user', 'vdom', 'firewall', 'voip', 'web-proxy', 'application', 'dlp', 'webfilter']
         config = {}
         previous_line = []
@@ -93,12 +98,7 @@ def cfgFileParsing(bestandsnaam):
 
         else:
             pass
-    if os.path.exists(app.config["CFG_UPLOADS"] + bestandsnaam):
-        os.remove(app.config["CFG_UPLOADS"] + bestandsnaam)
-        if app.config["DEBUG"]: print(bestandsnaam, " verwijderd")
-    else:
-        if app.config["DEBUG"]: print(bestandsnaam, " verwijderen niet mogelijk")
-
+    deleteImportCache(bestandsnaam)
     verwerktbestand = json.dumps(config, indent=4)
 
     return verwerktbestand

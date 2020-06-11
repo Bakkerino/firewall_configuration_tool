@@ -1,12 +1,14 @@
 import os
 from flask import render_template, url_for, request, redirect, flash, session, jsonify
 from cvf import app, db, bcrypt
+from werkzeug.utils import secure_filename
+
 from cvf.formulieren import RegistratieFormulier, LoginFormulier, WijzigingFormulier 
 from cvf.configuraties import ConfiguratieFormulier
 from cvf.models import User
 from flask_login import login_user, current_user, logout_user, login_required
 from datetime import timedelta
-from cvf.parserengine import genFortianalyzer, inputBestandVerwerking
+from cvf.parserengine import genFortianalyzer, inputBestandVerwerking, verify_filename, verify_filesize
 
 @app.route("/", methods=['GET', 'POST'])
 @login_required
@@ -112,13 +114,42 @@ def configuratiehulp():
 @app.route("/configuratieimport", methods=['GET', 'POST'])
 @login_required
 def configuratieimport():
+    extension = ""
     if request.method == 'POST':
         if request.files:
+
+            if "filesize" in request.cookies:
+                if not verify_filesize(request.cookies["filesize"]):
+                    if app.config["DEBUG"]: print("Maximum bestandgrootte overschreden")
+                    flash(f'Maximum bestandgrootte van {round(app.config["MAX_FILESIZE"]/1000, 2)}kB overschreden', 'danger')
+                    return redirect(request.url)
+
+
             cfgbestand = request.files["cfgbestand"]
-            cfgbestand.save(os.path.join(app.config["CFG_UPLOADS"], cfgbestand.filename))
-            if app.config["DEBUG"]: print("#########################################"); print("Input: ", cfgbestand)
-            verwerktbestand = inputBestandVerwerking(cfgbestand.filename)
-            return render_template('configuratieimport.html', verwerktbestand=verwerktbestand)       
+
+            if cfgbestand.filename == "":
+                print("Geen bestandsnaam")
+                return redirect(request.url)
+
+            if verify_filename(cfgbestand.filename):
+                bestandsnaam = secure_filename(cfgbestand.filename)
+
+                cfgbestand.save(os.path.join(app.config["CFG_UPLOADS"], bestandsnaam))
+                if app.config["DEBUG"]: print("#########################################"); print("Input: ", cfgbestand, bestandsnaam)
+                verwerktbestand = inputBestandVerwerking(bestandsnaam)
+                return render_template('configuratieimport.html', verwerktbestand=verwerktbestand)    
+
+            else:
+                for x in app.config["ALLOWED_IMPORTFILE_EXTENSIONS"]: extension += "." + x.lower() + " "
+                if app.config["DEBUG"]: print("Bestandsextentie niet toegestaan, gebruik", extension)
+                flash(f'Bestandsextentie niet toegestaan, gebruik {extension}', 'danger')
+                return redirect(request.url)
+
+
+            #cfgbestand.save(os.path.join(app.config["CFG_UPLOADS"], cfgbestand.filename))
+            #if app.config["DEBUG"]: print("#########################################"); print("Input: ", cfgbestand)
+            #verwerktbestand = inputBestandVerwerking(cfgbestand.filename)
+            #return render_template('configuratieimport.html', verwerktbestand=verwerktbestand)       
     else:
         return render_template('configuratieimport.html')
 

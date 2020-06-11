@@ -1,4 +1,4 @@
-import json
+import json, os
 from cvf import app
 
 outputData = []
@@ -12,6 +12,24 @@ def genFortianalyzer(server, serial):
 end\n"""))
     outputData.append("Fortianalyzer is aangezet, met server: " + server + " en serial: " + serial)
     return outputData
+
+def verify_filesize(filesize):
+    print(filesize)
+    if int(filesize) <= app.config["MAX_FILESIZE"]:
+        return True
+    else:
+        return False
+
+def verify_filename(filename):
+    if not "." in filename:
+        if app.config["DEBUG"]: print("Ongeldige bestandsnaam")
+        return False
+    bextensie = filename.rsplit(".", 1)[1]
+
+    if bextensie.upper() in app.config["ALLOWED_IMPORTFILE_EXTENSIONS"]:
+        return True
+    else:
+        return False
 
 def inputBestandVerwerking(bestandsnaam):
     with open(app.config["CFG_UPLOADS"] + bestandsnaam) as fh:
@@ -30,6 +48,7 @@ def inputBestandVerwerking(bestandsnaam):
                 print(count, ": Current line: >", current_line)
 
             if line[0] in ("#", "\n"):
+                if app.config["DEBUG"]: print("empty/comment")
                 continue
 
             args = line.split()
@@ -74,6 +93,12 @@ def inputBestandVerwerking(bestandsnaam):
 
         else:
             pass
+    if os.path.exists(app.config["CFG_UPLOADS"] + bestandsnaam):
+        os.remove(app.config["CFG_UPLOADS"] + bestandsnaam)
+        if app.config["DEBUG"]: print(bestandsnaam, " verwijderd")
+    else:
+        if app.config["DEBUG"]: print(bestandsnaam, " verwijderen niet mogelijk")
+
     verwerktbestand = json.dumps(config, indent=4)
 
     return verwerktbestand

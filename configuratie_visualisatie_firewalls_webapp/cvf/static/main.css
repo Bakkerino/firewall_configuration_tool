@@ -82,4 +82,32 @@ li.nav-item a{
   font-weight: 650;
 }
 
+#viewtable {
+  table-layout: fixed;
+  word-wrap:break-word;
+  width: 100%
+}
+
+th {
+  word-wrap:break-word;
+  width: 20%;
+  padding: 0rem;
+}
+
+.table {
+  margin-bottom: 0rem;
+}
+
+.table-sm td, .table-sm th {
+  padding: .1rem;
+}
+
+.table td, .table th {
+  vertical-align: text-top;
+  border-top: 0.1px solid #dee2e6;
+}
+
+
+
+
 

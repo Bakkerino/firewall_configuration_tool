@@ -4,15 +4,16 @@ from json2html import *
 
 config = {}
 
+
 def jsonToHTML(verwerktbestand):
-    return json2html.convert(json = verwerktbestand, table_attributes="class=\"table table-bordered\"style=\"width: 75%\"")
+    return json2html.convert(json = verwerktbestand, table_attributes="class=\"table table-sm\"id=\"viewtable\"")
 
 def deleteImportCache(bestandsnaam): 
     if os.path.exists(app.config["CFG_UPLOADS"] + bestandsnaam):
         os.remove(app.config["CFG_UPLOADS"] + bestandsnaam)
-        if app.config["DEBUG"]: print(bestandsnaam, " verwijderd")
+        if app.config["DEBUG"]: print(bestandsnaam, " -> verwijderd")
     else:
-        if app.config["DEBUG"]: print(bestandsnaam, " verwijderen niet mogelijk")
+        if app.config["DEBUG"]: print(bestandsnaam, " -> verwijderen niet mogelijk")
 
 def verify_filesize(filesize):
     print(filesize)
@@ -39,7 +40,7 @@ def readFile(bestandsnaam):
 
 def cfgFileParsing(bestandsnaam):
     with open(app.config["CFG_UPLOADS"] + bestandsnaam) as fh:
-        arguments = ['system', 'vpn', 'user', 'vdom', 'firewall', 'voip', 'web-proxy', 'application', 'dlp', 'webfilter']
+        arguments = ['system', 'vpn', 'user', 'vdom', 'firewall', 'voip', 'web-proxy', 'application', 'dlp', 'webfilter', 'spamfilter', 'log']
         config = {}
         previous_line = []
         section = ""
@@ -52,15 +53,20 @@ def cfgFileParsing(bestandsnaam):
                 print(count - 1, ": Previous line: >", previous_line)
                 print(count, ": Current line: >", current_line)
 
-            if line[0] in ("#", "\n"):
-                if app.config["DEBUG"]: print("empty/comment")
+            if line[0] in ("#", "\n", "\""):
+                if app.config["DEBUG"]: print("leeg/comment")
                 continue
 
+            if line.split()[0] == 'end' and previous_line[0] == 'config':
+                if app.config["DEBUG"]: print("inhoud leeg")
+                #del config[header]
+                continue
+
+            line = line.replace("\"", "")
             args = line.split()
             action, *args = line.split()
 
             if action == 'config' and args[0] in arguments:
-
                 if args[0] == 'system': args.pop(0)
                 header = ' '.join(args)
                 if header not in config:
@@ -70,7 +76,7 @@ def cfgFileParsing(bestandsnaam):
 
             if action == 'edit':
                 section = ' '.join(args).strip('"')
-                if section not in config[header]:
+                if section not in config.get(header):
                     config[header][section] = {}
 
             if action == 'set':
@@ -83,10 +89,10 @@ def cfgFileParsing(bestandsnaam):
                 if value.startswith('-----'):
                     value += " "
                     for line in fh:
+                        count += 1
                         if line.startswith('-----'): value += " " + ' '.join(line.split()).strip('"'); break
                         else: value += ' '.join(line.split()).strip('"')
                 config[header][section][name] = value
-
 
             if action == 'append':
                 name  = args.pop(0)
@@ -94,7 +100,6 @@ def cfgFileParsing(bestandsnaam):
                 config[header][section][name] = value
 
             previous_line = line.split()
-
 
         else:
             pass

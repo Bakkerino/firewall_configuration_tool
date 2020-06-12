@@ -40,7 +40,7 @@ def readFile(bestandsnaam):
 
 def cfgFileParsing(bestandsnaam):
     with open(app.config["CFG_UPLOADS"] + bestandsnaam) as fh:
-        arguments = ['system', 'vpn', 'user', 'vdom', 'firewall', 'voip', 'web-proxy', 'application', 'dlp', 'webfilter', 'spamfilter', 'log']
+        arguments = ['system', 'vpn', 'user', 'vdom', 'firewall', 'voip', 'web-proxy', 'application', 'dlp', 'webfilter', 'spamfilter', 'log', 'router']
         config = {}
         previous_line = []
         section = ""

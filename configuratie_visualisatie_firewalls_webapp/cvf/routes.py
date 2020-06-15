@@ -116,8 +116,8 @@ def configuratieimport():
                 cfgbestand.save(os.path.join(app.config["CFG_UPLOADS"], bestandsnaam))
                 if app.config["DEBUG"]: print("#########################################"); print("Input: ", cfgbestand, bestandsnaam)
                 cfgbestand = readFile(bestandsnaam)
-                cfgjson = cfgFileParsing(bestandsnaam)
-                cfghtml = jsonToHTML(cfgjson)
+                cfgjson, cfgJsonObject = cfgFileParsing(bestandsnaam)
+                cfghtml = jsonToHTML(cfgJsonObject)
                 return render_template('configuratieimport.html', cfgbestand=cfgbestand, cfgjson=cfgjson, cfghtml=cfghtml)    
 
             else:

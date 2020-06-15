@@ -4,6 +4,15 @@ from json2html import *
 
 config = {}
 
+def deleteEmpty(jsonconfig):
+    jsonObject = json.loads(jsonconfig)
+    for k in list(jsonObject):
+        try:
+            if len(jsonObject[k])<1:
+                del jsonObject[k]
+                if app.config["DEBUG"]: print(k, "-> is leeg, verwijderd")
+        except: pass
+    return jsonObject
 
 def jsonToHTML(verwerktbestand):
     return json2html.convert(json = verwerktbestand, table_attributes="class=\"table table-sm\"id=\"viewtable\"")
@@ -59,7 +68,6 @@ def cfgFileParsing(bestandsnaam):
 
             if line.split()[0] == 'end' and previous_line[0] == 'config':
                 if app.config["DEBUG"]: print("inhoud leeg")
-                #del config[header]
                 continue
 
             line = line.replace("\"", "")
@@ -83,9 +91,13 @@ def cfgFileParsing(bestandsnaam):
                 if previous_line[0] == 'config' and section not in config[header]:
                     section = '1'
                     config[header][section] = {}
-
+                     
                 name  = args.pop(0)
+
+                if current_line[1] == 'password' and args[0] == 'ENC': name = name + " " + args[0]; del args[0]
+
                 value = ' '.join(args).strip('"')
+
                 if value.startswith('-----'):
                     value += " "
                     for line in fh:
@@ -104,6 +116,7 @@ def cfgFileParsing(bestandsnaam):
         else:
             pass
     deleteImportCache(bestandsnaam)
-    verwerktbestand = json.dumps(config, indent=4)
 
-    return verwerktbestand
+    jsonconfig = json.dumps(config, indent=4)
+    jsonConfigObject = deleteEmpty(jsonconfig)
+    return jsonconfig, jsonConfigObject

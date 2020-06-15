@@ -1,75 +1,10 @@
-import json, os
+import json
 from cvf import app
-
 config = {}
 
-def genOverviewConfigHTML(jsonConfigObject):
-    html = "<table id=\"viewtable\" class=\"table table-sm\">" + "<tbody>"
-    for header, sectionData in jsonConfigObject.items():
-        html += "<tr>" + "<th>"
-        html += "<div class=\"btn-group-toggle\" data-toggle=\"buttons\"><label class=\"btn btn-outline-secondary\">"
-        html += "<input type=\"checkbox\" name=\"" + header.lower() + "\" id=\"" + header.lower() + "\" data-toggle=\"toggle\">" + header + "</th>" 
-        html += "</label>" + "</div>"
-        html += "<td class=\"hide\" style=\"display: none;\" id=\"dataview\">" + "<table id=\"viewtable\" class=\"table table-sm\">" + "<tbody>"
-        for section, valueData in sectionData.items():
-            html += "<tr>" + "<th>" + section + "</th>" + "<td>" + "<table id=\"viewtable\" class=\"table table-sm\">" + "<tbody>"
-            for value in valueData.items():
-                html += "<tr>" + "<th>" + value[0] + "</th>" + "<td>" + value[1] + "</td>" + "</tr>"
-            html += "</tbody>" + "</table>" + "</td>" + "</tr>"
-        html += "</tbody>" + "</table>" + "</td>" + "</tr>"
-    html += "</tbody>" + "</table>"
-    return html
-
-def jsonToHTML(verwerktbestand):
-    return json2html.convert(json = verwerktbestand, table_attributes="class=\"table table-sm\"id=\"viewtable\"")
-
-    #html = ""
-    #for k in list(jsonConfigObject):
-    #    html += "<h2>" + k + "</h2>"
-    #return html
-
-def deleteEmpty(jsonconfig):
-    jsonObject = json.loads(jsonconfig)
-    for k in list(jsonObject):
-        try:
-            if len(jsonObject[k])<1:
-                del jsonObject[k]
-                if app.config["DEBUG"]: print(k, "-> is leeg, record verwijderd")
-        except: pass
-    return jsonObject
 
 
-
-def deleteImportCache(bestandsnaam): 
-    if os.path.exists(app.config["CFG_UPLOADS"] + bestandsnaam):
-        os.remove(app.config["CFG_UPLOADS"] + bestandsnaam)
-        if app.config["DEBUG"]: print(bestandsnaam, " -> verwijderd")
-    else:
-        if app.config["DEBUG"]: print(bestandsnaam, " -> verwijderen niet mogelijk")
-
-def verify_filesize(filesize):
-    print(filesize)
-    if int(filesize) <= app.config["MAX_FILESIZE"]:
-        return True
-    else:
-        return False
-
-def verify_filename(filename):
-    if not "." in filename:
-        if app.config["DEBUG"]: print("Ongeldige bestandsnaam")
-        return False
-    bextensie = filename.rsplit(".", 1)[1]
-
-    if bextensie.upper() in app.config["ALLOWED_IMPORTFILE_EXTENSIONS"]:
-        return True
-    else:
-        return False
-
-def readFile(bestandsnaam):
-    with open(app.config["CFG_UPLOADS"] + bestandsnaam) as fh:
-        data = fh.read()
-    return data
-
+# Parsing engine that can parse fortigate configuration files, the function returns a json dump containing ordened config
 def cfgFileParsing(bestandsnaam):
     with open(app.config["CFG_UPLOADS"] + bestandsnaam) as fh:
         arguments = ['system', 'vpn', 'user', 'vdom', 'firewall', 'voip', 'web-proxy', 'application', 'dlp', 'webfilter', 'spamfilter', 'log', 'router']
@@ -84,8 +19,16 @@ def cfgFileParsing(bestandsnaam):
                 print("###########################################")
                 print(count - 1, ": Previous line: >", previous_line)
                 print(count, ": Current line: >", current_line)
-
+            
             if line[0] in ("#", "\n", "\""):
+                if line.startswith('#config-version='):
+                    header = "config"; config[header] = {}
+                    section = "version"; config[header][section] = {}; 
+                    name, value  = line.split('=', 1)[1].replace('-', ' ').replace(':', ', ').split(maxsplit=1)
+
+                    config[header][section][name] = {}
+                    config[header][section][name] = value
+
                 if app.config["DEBUG"]: print("leeg/comment")
                 continue
 
@@ -138,8 +81,7 @@ def cfgFileParsing(bestandsnaam):
 
         else:
             pass
-    deleteImportCache(bestandsnaam)
 
     jsonconfig = json.dumps(config, indent=4)
-    jsonConfigObject = deleteEmpty(jsonconfig)
-    return jsonconfig, jsonConfigObject
+    
+    return jsonconfig

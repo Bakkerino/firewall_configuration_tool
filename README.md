@@ -14,7 +14,6 @@ Een (Python flask web-applicatie) die aan de hand van firewallconfiguratie de ge
 - pip install flask-sqlalchemy
 - pip install flask-login
 - pip install flask_bcrypt
-- pip install json2html
 
 # done
 - web-applicatiepagina
@@ -46,8 +45,8 @@ Een (Python flask web-applicatie) die aan de hand van firewallconfiguratie de ge
 - 
 
 # media 
+![](configuratie_visualisatie_firewalls_webapp/cvf/static/webapp6.gif)
 ![](configuratie_visualisatie_firewalls_webapp/cvf/static/webapp5.PNG)
 ![](configuratie_visualisatie_firewalls_webapp/cvf/static/webapp1.PNG)
-![](configuratie_visualisatie_firewalls_webapp/cvf/static/webapp3.PNG)
 
 

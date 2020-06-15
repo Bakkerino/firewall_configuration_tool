@@ -3,16 +3,16 @@ from wtforms import FileField, StringField, TextAreaField, PasswordField, Submit
 from wtforms.validators import DataRequired, InputRequired, Length, Email, EqualTo, ValidationError, IPAddress #validatiemiddelen voor inputvelden
 from cvf.models import User
 
-## Account login input velden
-class LoginFormulier(FlaskForm):
+## Account login, input fiels
+class LoginForm(FlaskForm):
     username = StringField('Gebruikersnaam',
         validators=[DataRequired(), Length(min=2, max=20)])
     password = PasswordField('Wachtwoord', validators=[DataRequired()])
     remember = BooleanField('Onthouden')
     submit = SubmitField('Login')
 
-## Account registratie input velden
-class RegistratieFormulier(FlaskForm):
+## Account registration, input fields
+class RegistrationForm(FlaskForm):
     username = StringField('Gebruikersnaam',
         validators=[DataRequired(), Length(min=2, max=20)])
     password = PasswordField('Wachtwoord', 
@@ -26,8 +26,8 @@ class RegistratieFormulier(FlaskForm):
         if user:
             raise ValidationError('Deze gebruikersnaam is al in gebruik')
 
-## Account wijziging input velden
-class WijzigingFormulier(FlaskForm):
+## Account editing, input fields
+class AccountChangeForm(FlaskForm):
     oldpassword = PasswordField('Wachtwoord', 
         validators=[DataRequired()])
     password = PasswordField('Nieuw wachtwoord', 

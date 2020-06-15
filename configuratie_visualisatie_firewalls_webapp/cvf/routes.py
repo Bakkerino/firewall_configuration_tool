@@ -8,8 +8,9 @@ from cvf.configuraties import ConfiguratieFormulier
 from cvf.models import User
 from flask_login import login_user, current_user, logout_user, login_required
 from datetime import timedelta
-from cvf.parsingengine import readFile, cfgFileParsing, verify_filename, verify_filesize, jsonToHTML
+from cvf.parsingengine import generateOverview, readFile, cfgFileParsing, verify_filename, verify_filesize, jsonToHTML
 from cvf.cfghulpengine import genFortianalyzer
+
 
 @app.route("/", methods=['GET', 'POST'])
 @login_required
@@ -118,7 +119,8 @@ def configuratieimport():
                 cfgbestand = readFile(bestandsnaam)
                 cfgjson, cfgJsonObject = cfgFileParsing(bestandsnaam)
                 cfghtml = jsonToHTML(cfgJsonObject)
-                return render_template('configuratieimport.html', cfgbestand=cfgbestand, cfgjson=cfgjson, cfghtml=cfghtml)    
+                overview = generateOverview(cfgJsonObject)
+                return render_template('configuratieimport.html', cfgbestand=cfgbestand, cfgjson=cfgjson, cfghtml=cfghtml, overview=overview)
 
             else:
                 for x in app.config["ALLOWED_IMPORTFILE_EXTENSIONS"]: extension += "." + x.lower() + " "

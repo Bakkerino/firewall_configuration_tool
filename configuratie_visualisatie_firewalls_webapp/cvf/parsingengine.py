@@ -4,13 +4,38 @@ from json2html import *
 
 config = {}
 
+def generateOverview(jsonConfigObject):
+    html = "<table id=\"viewtable\" class=\"table table-sm\">" + "<tbody>"
+    for header, sectionData in jsonConfigObject.items():
+        html += "<tr>" + "<th for=\"" + header.lower() + "\">" + header 
+        html += "<input type=\"checkbox\" name=\"" + header.lower() + "\" id=\"" + header.lower() + "\" data-toggle=\"toggle\">" + "</th>" 
+        html += "<td>" + "<table id=\"viewtable\" class=\"table table-sm\">" + "<tbody>"
+        print(header)
+        for section, valueData in sectionData.items():
+            html += "<tr>" + "<th>" + section + "</th>" + "<td>" + "<table id=\"viewtable\" class=\"table table-sm\">" + "<tbody>"
+            print(section)
+            for value in valueData.items():
+                html += "<tr>" + "<th>" + value[0] + "</th>" + "<td>" + value[1] + "</td>" + "</tr>"
+                print(value[0] + " : " + value[1])
+            html += "</tbody>" + "</table>" + "</td>" + "</tr>"
+        html += "</tbody>" + "</table>" + "</td>" + "</tr>"
+    html += "</tbody>" + "</table>"
+    return html
+
+
+
+    #html = ""
+    #for k in list(jsonConfigObject):
+    #    html += "<h2>" + k + "</h2>"
+    #return html
+
 def deleteEmpty(jsonconfig):
     jsonObject = json.loads(jsonconfig)
     for k in list(jsonObject):
         try:
             if len(jsonObject[k])<1:
                 del jsonObject[k]
-                if app.config["DEBUG"]: print(k, "-> is leeg, verwijderd")
+                if app.config["DEBUG"]: print(k, "-> is leeg, record verwijderd")
         except: pass
     return jsonObject
 

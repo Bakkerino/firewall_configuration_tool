@@ -1,6 +1,6 @@
 __pycache__/
 test/
 parser/
-develop_backlog_and_testing/
-develop_backlog_and_testing/parser/AMF*.conf
+*.conf
+!spec/*.conf
 .vscode/

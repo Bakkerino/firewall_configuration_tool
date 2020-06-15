@@ -9,7 +9,7 @@
     <div class="input-group">
         <div class="custom-file">
           <input type="file" class="custom-file-input" name="cfgbestand" id="cfgbestand" aria-describedby="inputGroupFileAddon04" oninput="filesize(this);">
-          <label class="custom-file-label" for="cfgbestand">Kies een bestand...</label>
+          <label class="custom-file-label" for="cfgbestand">{% if bestandsnaam%}{{bestandsnaam}}{% else %}Kies een bestand...{% endif %}</label>
         </div>
         <div class="input-group-append">
           <button type="submit" class="btn btn-outline-secondary" id="btn">Importeren
@@ -22,13 +22,16 @@
 <legend class="border-bottom mb-4"></legend>
 <div class="shadow-sm p-3 mb-5 bg-white rounded">
 
+
         <ul class="nav nav-tabs" id="myTab" role="tablist">
+  {% if cfgbestand and cfgjson %}
           <li class="nav-item">
-            <a class="nav-link" id="bestand-tab" data-toggle="tab" href="#bestand" role="tab" aria-controls="bestand" aria-selected="true">Bestand</a>
+            <a class="nav-link" id="bestand-tab" data-toggle="tab" href="#bestand" role="tab" aria-controls="bestand" aria-selected="true">(debug)Bestand</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" id="verwerkt-tab" data-toggle="tab" href="#verwerkt" role="tab" aria-controls="verwerkt" aria-selected="false">Verwerkt</a>
+            <a class="nav-link" id="verwerkt-tab" data-toggle="tab" href="#verwerkt" role="tab" aria-controls="verwerkt" aria-selected="false">(debug)Verwerkt</a>
           </li>
+  {% endif %}
           <li class="nav-item">
             <a class="nav-link active" id="instellingen-tab" data-toggle="tab" href="#instellingen" role="tab" aria-controls="instellingen" aria-selected="false">Instellingen</a>
           </li>
@@ -36,7 +39,9 @@
             <a class="nav-link" id="overzicht-tab" data-toggle="tab" href="#overzicht" role="tab" aria-controls="overzicht" aria-selected="false">Overzicht</a>
           </li>
         </ul>
+
         <div class="tab-content" id="myTabContent">
+  {% if cfgbestand and cfgjson %}
           <div class="tab-pane fade" id="bestand" role="tabpanel" aria-labelledby="bestand-tab">
           <div class="form-group">
               <textarea class="form-control" id="result" rows="30" cols="50">{% if cfgbestand %}{{ cfgbestand }}{% endif %}</textarea>
@@ -48,12 +53,12 @@
             <textarea class="form-control" id="result" rows="30" cols="50">{{ cfgjson }}</textarea>
           </div>
           </div>
-
+  {% endif %}
           <div class="tab-pane fade show active" id="instellingen" role="tabpanel" aria-labelledby="instellingen-tab" style="width: 100%">
-            {{ cfghtml | safe }}
+            {{ overviewConfigHTML | safe }}
           </div>
-          <div class="tab-pane fade id=" id="overzicht" role="tabpanel" aria-labelledby="overzicht-tab" style="width: 100%">
-            {{ overview | safe}}
+          <div class="tab-pane fade" id="overzicht" role="tabpanel" aria-labelledby="overzicht-tab" style="width: 100%">
+            {{ overviewImpact | safe }}
           </div>
 
         </div>

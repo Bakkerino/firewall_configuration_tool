@@ -1,28 +1,27 @@
 import json, os
 from cvf import app
-from json2html import *
 
 config = {}
 
-def generateOverview(jsonConfigObject):
+def genOverviewConfigHTML(jsonConfigObject):
     html = "<table id=\"viewtable\" class=\"table table-sm\">" + "<tbody>"
     for header, sectionData in jsonConfigObject.items():
-        html += "<tr>" + "<th for=\"" + header.lower() + "\">" + header 
-        html += "<input type=\"checkbox\" name=\"" + header.lower() + "\" id=\"" + header.lower() + "\" data-toggle=\"toggle\">" + "</th>" 
-        html += "<td>" + "<table id=\"viewtable\" class=\"table table-sm\">" + "<tbody>"
-        print(header)
+        html += "<tr>" + "<th>"
+        html += "<div class=\"btn-group-toggle\" data-toggle=\"buttons\"><label class=\"btn btn-outline-secondary\">"
+        html += "<input type=\"checkbox\" name=\"" + header.lower() + "\" id=\"" + header.lower() + "\" data-toggle=\"toggle\">" + header + "</th>" 
+        html += "</label>" + "</div>"
+        html += "<td class=\"hide\" style=\"display: none;\" id=\"dataview\">" + "<table id=\"viewtable\" class=\"table table-sm\">" + "<tbody>"
         for section, valueData in sectionData.items():
             html += "<tr>" + "<th>" + section + "</th>" + "<td>" + "<table id=\"viewtable\" class=\"table table-sm\">" + "<tbody>"
-            print(section)
             for value in valueData.items():
                 html += "<tr>" + "<th>" + value[0] + "</th>" + "<td>" + value[1] + "</td>" + "</tr>"
-                print(value[0] + " : " + value[1])
             html += "</tbody>" + "</table>" + "</td>" + "</tr>"
         html += "</tbody>" + "</table>" + "</td>" + "</tr>"
     html += "</tbody>" + "</table>"
     return html
 
-
+def jsonToHTML(verwerktbestand):
+    return json2html.convert(json = verwerktbestand, table_attributes="class=\"table table-sm\"id=\"viewtable\"")
 
     #html = ""
     #for k in list(jsonConfigObject):
@@ -39,8 +38,7 @@ def deleteEmpty(jsonconfig):
         except: pass
     return jsonObject
 
-def jsonToHTML(verwerktbestand):
-    return json2html.convert(json = verwerktbestand, table_attributes="class=\"table table-sm\"id=\"viewtable\"")
+
 
 def deleteImportCache(bestandsnaam): 
     if os.path.exists(app.config["CFG_UPLOADS"] + bestandsnaam):
@@ -119,7 +117,7 @@ def cfgFileParsing(bestandsnaam):
                      
                 name  = args.pop(0)
 
-                if current_line[1] == 'password' and args[0] == 'ENC': name = name + " " + args[0]; del args[0]
+                if action == 'password' or 'passwd' and args[0] == 'ENC': name = name + " " + args[0]; del args[0]
 
                 value = ' '.join(args).strip('"')
 

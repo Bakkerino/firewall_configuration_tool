@@ -8,7 +8,7 @@ from cvf.configuraties import ConfiguratieFormulier
 from cvf.models import User
 from flask_login import login_user, current_user, logout_user, login_required
 from datetime import timedelta
-from cvf.parsingengine import generateOverview, readFile, cfgFileParsing, verify_filename, verify_filesize, jsonToHTML
+from cvf.parsingengine import genOverviewConfigHTML, readFile, cfgFileParsing, verify_filename, verify_filesize, jsonToHTML
 from cvf.cfghulpengine import genFortianalyzer
 
 
@@ -118,9 +118,14 @@ def configuratieimport():
                 if app.config["DEBUG"]: print("#########################################"); print("Input: ", cfgbestand, bestandsnaam)
                 cfgbestand = readFile(bestandsnaam)
                 cfgjson, cfgJsonObject = cfgFileParsing(bestandsnaam)
-                cfghtml = jsonToHTML(cfgJsonObject)
-                overview = generateOverview(cfgJsonObject)
-                return render_template('configuratieimport.html', cfgbestand=cfgbestand, cfgjson=cfgjson, cfghtml=cfghtml, overview=overview)
+                overviewConfigHTML = genOverviewConfigHTML(cfgJsonObject)
+                overviewImpact="<h2>None</h2>"
+                if app.config["DEBUG"]: 
+                    return render_template('configuratieimport.html', bestandsnaam=bestandsnaam, 
+                    cfgbestand=cfgbestand, cfgjson=cfgjson, overviewConfigHTML=overviewConfigHTML, overviewImpact=overviewImpact)
+                else:
+                    return render_template('configuratieimport.html', bestandsnaam=bestandsnaam,
+                    overviewConfigHTML=overviewConfigHTML, overviewImpact=overviewImpact)
 
             else:
                 for x in app.config["ALLOWED_IMPORTFILE_EXTENSIONS"]: extension += "." + x.lower() + " "

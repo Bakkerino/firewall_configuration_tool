@@ -107,12 +107,8 @@ th {
   border-top: 0.1px solid #dee2e6;
 }
 
-.label tr td label {
-	display: block;
-}
-
 [data-toggle="toggle"] {
-	display: none;
+	display: style="display: table-row-group;";
 }
 
 

@@ -107,10 +107,6 @@ th {
   border-top: 0.1px solid #dee2e6;
 }
 
-[data-toggle="toggle"] {
-	display: style="display: table-row-group;";
-}
-
 header#overzichtheader {
   background-color:#f2f2f2;
 }

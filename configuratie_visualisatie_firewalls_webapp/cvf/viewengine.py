@@ -6,7 +6,7 @@ def genOverviewConfigHTML(jsonConfigObject):
     html = "<table id=\"viewtable\" class=\"table table-sm\">" + "<tbody>"
     for header, sectionData in jsonConfigObject.items():
         html += "<tr>" + "<th>"
-        html += "<div class=\"btn-group-toggle\" data-toggle=\"buttons\"><label class=\"btn btn-outline-secondary\">"
+        html += "<div class=\"btn-group-toggle\" data-toggle=\"button\"><label class=\"btn btn-outline-secondary\">"
         html += "<input type=\"checkbox\" name=\"" + header.lower() + "\" id=\"" + header.lower() + "\" data-toggle=\"toggle\">" + header + "</th>" 
         html += "</label>" + "</div>"
         html += "<td class=\"hide\" style=\"display: none;\" id=\"dataview\">" + "<table id=\"viewtable\" class=\"table table-sm\">" + "<tbody>"
@@ -18,12 +18,6 @@ def genOverviewConfigHTML(jsonConfigObject):
         html += "</tbody>" + "</table>" + "</td>" + "</tr>"
     html += "</tbody>" + "</table>"
     return html
-
-
-    #html = ""
-    #for k in list(jsonConfigObject):
-    #    html += "<h2>" + k + "</h2>"
-    #return html
 
 # Checks for empty records in json using keys, deletes empty records
 def deleteEmpty(jsonconfig):

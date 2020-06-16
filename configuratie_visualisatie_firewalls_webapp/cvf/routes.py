@@ -165,23 +165,27 @@ def configuratieimport():
 @login_required
 def configuratiehulp():
     # Handles the input and view of firewallconfiguration, using inputforms
-    # Legacy
-    form = ConfiguratieFormulier()
-    commandOutput = feedbackOutput = ""
-    output = []
+    # Legacy, only accessible from debug
+    if app.config["DEBUG"]:
+        form = ConfigurationForm()
+        commandOutput = feedbackOutput = ""
+        output = []
 
-    if current_user.is_authenticated:
-        if form.validate_on_submit():
-            commandOutput += form.configuratie_vpn.data
-            commandOutput += form.configuratie_interface_wan_ip.data
+        if current_user.is_authenticated:
+            if form.validate_on_submit():
+                commandOutput += form.configuratie_vpn.data
+                commandOutput += form.configuratie_interface_wan_ip.data
 
-            if form.configuratie_fanServer.data and form.configuratie_fanSerial.data:
-                output = (genFortianalyzer(form.configuratie_fanServer.data, form.configuratie_fanSerial.data))
-                commandOutput += output[0] 
-                feedbackOutput += output[1]
-        return render_template("configuratiehulp.html", form=form, commandOutput=commandOutput, feedbackOutput=feedbackOutput)
+                if form.configuratie_fanServer.data and form.configuratie_fanSerial.data:
+                    output = (genFortianalyzer(form.configuratie_fanServer.data, form.configuratie_fanSerial.data))
+                    commandOutput += output[0] 
+                    feedbackOutput += output[1]
+            return render_template("configuratiehulp.html", form=form, commandOutput=commandOutput, feedbackOutput=feedbackOutput)
+        else:
+            return redirect(url_for("login"))
     else:
-        return redirect(url_for("login"))
+        flash(f'Niet toegankelijk, gebruik debug mode', 'danger')
+        return redirect(url_for('home'))
 
     
    

@@ -3,7 +3,6 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
 
-
 app = Flask(__name__)
 app.config["DEBUG"] = True
 app.config["ALLOWED_IMPORTFILE_EXTENSIONS"] = ["CONF", "TXT"]

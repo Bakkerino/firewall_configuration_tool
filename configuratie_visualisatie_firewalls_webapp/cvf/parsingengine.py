@@ -1,5 +1,6 @@
 import json
 from cvf import app
+import re
 config = {}
 
 
@@ -21,13 +22,21 @@ def cfgFileParsing(bestandsnaam):
                 print(count, ": Current line: >", current_line)
             
             if line[0] in ("#", "\n", "\""):
-                if line.startswith('#config-version='):
+                def inputValuesConfig(name, value):
+                    config[header][section][name] = {}; config[header][section][name] = value    
+                if line.startswith('#config-version='):                
+                    line = line.replace('\n', '')
                     header = "config"; config[header] = {}
                     section = "version"; config[header][section] = {}; 
-                    name, value  = line.split('=', 1)[1].replace('-', ' ').replace(':', ', ').split(maxsplit=1)
+                    name, value = re.findall('version=\w+\W.+?(?=-)', line)[0].split('='); inputConfig(name, value)
+                    name, value = re.findall('build\d+\W\d+', line)[0].replace('build', 'build ').split(); inputConfig(name, value)
+                    name, value = re.findall('opmode=.+?(?=:)', line)[0].split('='); inputConfig(name, value)
+                    name, value = re.findall('vdom=.+?(?=:)', line)[0].split('='); inputConfig(name, value)
+                    name, value = re.findall('user=\w+', line)[0].split('='); inputConfig(name, value)
 
-                    config[header][section][name] = {}
-                    config[header][section][name] = value
+                if line.startswith(tuple(['#conf_file_ver=', '#buildno=', '#global_vdom='])):
+                    name, value = line.replace('#', '').replace('\n', '').split('='); inputConfig(name, value)
+
 
                 if app.config["DEBUG"]: print("leeg/comment")
                 continue
@@ -72,10 +81,10 @@ def cfgFileParsing(bestandsnaam):
                         else: value += ' '.join(line.split()).strip('"')
                 config[header][section][name] = value
 
-            if action == 'append':
-                name  = args.pop(0)
-                value = ' '.join(args).strip('"')
-                config[header][section][name] = value
+            #if action == 'append':
+            #    name  = args.pop(0)
+            #    value = ' '.join(args).strip('"')
+            #    config[header][section][name] = value
 
             previous_line = line.split()
 

@@ -155,6 +155,8 @@ def configuratieimport():
                 if app.config["DEBUG"]: print("Bestandsextentie niet toegestaan, gebruik", extension)
                 flash(f'Bestandsextentie niet toegestaan, gebruik {extension}', 'danger')
                 return redirect(request.url)    
+        else:
+            return redirect(request.url)
     else:
         return render_template('configuratieimport.html')
 

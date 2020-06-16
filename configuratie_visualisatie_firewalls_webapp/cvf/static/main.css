@@ -74,7 +74,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .border-bottom {
-  border: 16px solid #fafafa;
+  border: 1px solid #fafafa;
 }
 
 li.nav-item a{
@@ -109,6 +109,13 @@ th {
 
 [data-toggle="toggle"] {
 	display: style="display: table-row-group;";
+}
+
+header#overzichtheader {
+  background-color:#f2f2f2;
+}
+#overzichtrecord {
+  background-color: #fafafa;
 }
 
 

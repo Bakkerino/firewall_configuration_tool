@@ -28,14 +28,14 @@ def cfgFileParsing(bestandsnaam):
                     line = line.replace('\n', '')
                     header = "config"; config[header] = {}
                     section = "version"; config[header][section] = {}; 
-                    name, value = re.findall('version=\w+\W.+?(?=-)', line)[0].split('='); inputConfig(name, value)
-                    name, value = re.findall('build\d+\W\d+', line)[0].replace('build', 'build ').split(); inputConfig(name, value)
-                    name, value = re.findall('opmode=.+?(?=:)', line)[0].split('='); inputConfig(name, value)
-                    name, value = re.findall('vdom=.+?(?=:)', line)[0].split('='); inputConfig(name, value)
-                    name, value = re.findall('user=\w+', line)[0].split('='); inputConfig(name, value)
+                    name, value = re.findall('version=\w+\W.+?(?=-)', line)[0].split('='); inputValuesConfig(name, value)
+                    name, value = re.findall('build\d+\W\d+', line)[0].replace('build', 'build ').split(); inputValuesConfig(name, value)
+                    name, value = re.findall('opmode=.+?(?=:)', line)[0].split('='); inputValuesConfig(name, value)
+                    name, value = re.findall('vdom=.+?(?=:)', line)[0].split('='); inputValuesConfig(name, value)
+                    name, value = re.findall('user=\w+', line)[0].split('='); inputValuesConfig(name, value)
 
                 if line.startswith(tuple(['#conf_file_ver=', '#buildno=', '#global_vdom='])):
-                    name, value = line.replace('#', '').replace('\n', '').split('='); inputConfig(name, value)
+                    name, value = line.replace('#', '').replace('\n', '').split('='); inputValuesConfig(name, value)
 
 
                 if app.config["DEBUG"]: print("leeg/comment")

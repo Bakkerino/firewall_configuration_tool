@@ -7,13 +7,13 @@ config = {}
 
 # Parsing engine that can parse fortigate configuration files, the function returns a json dump containing ordened config
 def cfgFileParsing(bestandsnaam):
-    with open(app.config["CFG_UPLOADS"] + bestandsnaam) as fh:
+    with open(app.config["CFG_UPLOADS"] + bestandsnaam) as configfile:
         arguments = ['system', 'vpn', 'user', 'vdom', 'firewall', 'voip', 'web-proxy', 'application', 'dlp', 'webfilter', 'spamfilter', 'log', 'router']
         config = {}
         previous_line = []
         section = ""
         count = 0
-        for line in fh:
+        for line in configfile:
             if app.config["DEBUG"]:
                 count += 1
                 current_line = line.split()
@@ -75,7 +75,7 @@ def cfgFileParsing(bestandsnaam):
 
                 if value.startswith('-----'):
                     value += " "
-                    for line in fh:
+                    for line in configfile:
                         count += 1
                         if line.startswith('-----'): value += " " + ' '.join(line.split()).strip('"'); break
                         else: value += ' '.join(line.split()).strip('"')

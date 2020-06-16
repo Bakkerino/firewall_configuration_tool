@@ -33,10 +33,10 @@
           </li>
   {% endif %}
           <li class="nav-item">
-            <a class="nav-link active" id="instellingen-tab" data-toggle="tab" href="#instellingen" role="tab" aria-controls="instellingen" aria-selected="false">Instellingen</a>
+            <a class="nav-link" id="instellingen-tab" data-toggle="tab" href="#instellingen" role="tab" aria-controls="instellingen" aria-selected="false">Instellingen</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" id="overzicht-tab" data-toggle="tab" href="#overzicht" role="tab" aria-controls="overzicht" aria-selected="false">Overzicht</a>
+            <a class="nav-link active" id="overzicht-tab" data-toggle="tab" href="#overzicht" role="tab" aria-controls="overzicht" aria-selected="false">Overzicht</a>
           </li>
         </ul>
 
@@ -54,17 +54,30 @@
           </div>
           </div>
   {% endif %}
-          <div class="tab-pane fade show active" id="instellingen" role="tabpanel" aria-labelledby="instellingen-tab" style="width: 100%">
+          <div class="tab-pane fade" id="instellingen" role="tabpanel" aria-labelledby="instellingen-tab" style="width: 100%">
             {{ overviewConfigHTML | safe }}
           </div>
-          <div class="tab-pane fade" id="overzicht" role="tabpanel" aria-labelledby="overzicht-tab" style="width: 100%">
-       
+          <div class="tab-pane fade show active" id="overzicht" role="tabpanel" aria-labelledby="overzicht-tab" style="width: 100%">
+  {% if cfgJsonObject %}
             <header class="p-3 mb-2 bg-grey rounded border border-secondary" id="overzichtheader" >
               <div class="media">
               <img src="static/icons/fortigate.png" class="align-self-center mr-3" alt="fortigate">
               <div class="media-body" id="mediaoverzicht">
-                <h5 class="mt-0">Media heading</h5>
-                Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+                <h5 class="mt-0"><b>{{ cfgJsonObject['config']['version']['version'].split('-')[0].replace('FGT', 'FortiGate ') }}</b></h5>
+                <table id="headertable" class="table table-borderles">
+                  <tbody>
+
+                      <tr>
+                      <th>Hostname:</th> <td>{{ cfgJsonObject['global']['1']['hostname'] }}</td>
+                      <th>Alias:</th> <td>{{ cfgJsonObject['global']['1']['alias'] }}</td>
+                    </tr>
+                    <tr>
+                      <th>Software versie:</th>  <td>{{ cfgJsonObject['config']['version']['version'].split('-')[1] }}</td>
+                      <th>Build:</th> <td>{{ cfgJsonObject['config']['version']['build'] }}</td>
+                    </tr>
+
+                  </tbody>
+                </table>
               </div>
             </div></header>
             <legend class="border-bottom mb-1"></legend>
@@ -73,14 +86,17 @@
               {{ overviewImpact | safe }}
             </div>
 
+  {% endif %}
+
           </div>
 
         </div>
 </div>
 <legend class="border-bottom mb-4"></legend>
 
-
 <script>
+
+
   // get and put filesize in cookie
   function filesize(elem){
     document.cookie = `filesize=${elem.files[0].size}`

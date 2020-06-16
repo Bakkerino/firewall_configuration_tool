@@ -99,7 +99,7 @@ th {
 }
 
 .table-sm td, .table-sm th {
-  padding: .1rem;
+  padding: 0rem;
 }
 
 .table td, .table th {
@@ -117,6 +117,8 @@ header#overzichtheader {
 #overzichtrecord {
   background-color: #fafafa;
 }
+
+
 
 
 

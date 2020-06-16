@@ -144,10 +144,10 @@ def configuratieimport():
                 overviewImpact="<h2>None</h2>"
                 if app.config["DEBUG"]: 
                     return render_template('configuratieimport.html', bestandsnaam=bestandsnaam, 
-                    cfgbestand=cfgbestand, cfgjson=cfgjson, overviewConfigHTML=overviewConfigHTML, overviewImpact=overviewImpact)
+                    cfgbestand=cfgbestand, cfgjson=cfgjson, cfgJsonObject=cfgJsonObject, overviewConfigHTML=overviewConfigHTML, overviewImpact=overviewImpact)
                 else:
                     return render_template('configuratieimport.html', bestandsnaam=bestandsnaam,
-                    overviewConfigHTML=overviewConfigHTML, overviewImpact=overviewImpact)
+                    cfgJsonObject=cfgJsonObject, overviewConfigHTML=overviewConfigHTML, overviewImpact=overviewImpact)
 
             else:
                 # Displays error message when filename (extension) not allowed

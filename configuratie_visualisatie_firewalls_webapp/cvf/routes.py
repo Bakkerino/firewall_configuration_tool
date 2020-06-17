@@ -7,8 +7,8 @@ from cvf.userforms import LoginForm, RegistrationForm, AccountChangeForm
 from cvf.models import User
 from flask_login import login_user, current_user, logout_user, login_required
 from datetime import timedelta
-from cvf.parsingengine import cfgFileParsing
-from cvf.viewengine import genConfigToTableHTML, genConfigToAccordeon, genCardMenus, deleteEmpty
+from cvf.parsingengine import cfgFileParsing, deleteEmpty
+from cvf.viewengine import genHeadOveriew, genConfigToTableHTML, genConfigToAccordeon, genCardMenus
 from cvf.filehandler import deleteImportCache, verify_filesize, verify_filename, readFile
 from cvf.cfghulpengine import ConfigurationForm, genFortianalyzer # Legacy 
 
@@ -27,7 +27,6 @@ def home():
 def account():
     # requests the contents from the form, if any
     form = AccountChangeForm()
-
     # checks if a user is authenticated, using flask_login
     if current_user.is_authenticated:
         # query's the database for the username of the current user
@@ -143,7 +142,7 @@ def configuratieimport():
                 ConfigTableHTML = genConfigToTableHTML(cfgJsonObject)
 
                 # Accepts json object and formats it to a user-friendly view as html
-                overviewImpact= genCardMenus(cfgJsonObject)
+                overviewImpact= genHeadOveriew(cfgJsonObject) + genCardMenus(cfgJsonObject)
                 if app.config["DEBUG"]: 
                     return render_template('configuratieimport.html', fgenConfigToAccordeon=genConfigToAccordeon, bestandsnaam=bestandsnaam, 
                     cfgbestand=cfgbestand, cfgjson=cfgjson, cfgJsonObject=cfgJsonObject, ConfigTableHTML=ConfigTableHTML, overviewImpact=overviewImpact)

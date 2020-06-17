@@ -1,3 +1,17 @@
 {
-    "fortigateversion": "6.2.3"
+    "6.2.3": {
+        "title":"FortiGate 6.2.3",
+        "content":"Dit is een recente software versie",
+        "color":"success"
+    },
+    "6.2.1": {
+        "title":"FortiGate 6.2.1",
+        "content":"Dit is een verouderde software versie",
+        "color":"warning"
+    },
+    "5.4.1": {
+        "title":"FortiGate 5.4.1",
+        "content":"Dit is een verouderde software versie",
+        "color":"danger"
+    }
 }

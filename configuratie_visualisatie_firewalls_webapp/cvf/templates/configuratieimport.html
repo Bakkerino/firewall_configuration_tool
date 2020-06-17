@@ -56,31 +56,7 @@
           </div>
           <div class="tab-pane fade show active" id="overzicht" role="tabpanel" aria-labelledby="overzicht-tab" style="width: 100%">
   {% if cfgJsonObject %}
-        {% if cfgJsonObject['config'] and cfgJsonObject['global'] %}
-            <header class="p-3 mb-2 bg-grey rounded border border-success" id="overzichtheader" >
-              <div class="media">
-              <img src="static/icons/fortigate.png" class="align-self-center mr-3" alt="fortigate">
-              <div class="media-body" id="mediaoverzicht">
-                <h5 class="mt-0"><b>{{ cfgJsonObject['config']['version']['version'].split('-')[0].replace('FGT', 'FortiGate ') }}</b></h5>
-                <table id="headertable" class="table table-borderles">
-                  <tbody>
-                      <tr>
-                      <th>Hostname:</th> <td>{{ cfgJsonObject['global']['1']['hostname'] }}</td>
-                      <th>Alias:</th> <td>{{ cfgJsonObject['global']['1']['alias'] }}</td>
-                    </tr>
-                    <tr>
-                      <th>Software versie:</th><td><button type="button" class="btn btn-sm btn-success" 
-                        data-toggle="popover" title="Firewall versie" data-content="Nieuwste FortiGate firewall versie">
-                        {{ cfgJsonObject['config']['version']['version'].split('-')[1] }}</button></td>
-                      <th>Build:</th> <td>{{ cfgJsonObject['config']['version']['build'] }}</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-            {{ fgenConfigToAccordeon(cfgJsonObject, ['config','global']) | safe }}
-          </header>
-        {% endif %}
+
             <legend class="border-bottom mb-1"></legend>
 
               {{ overviewImpact | safe }}

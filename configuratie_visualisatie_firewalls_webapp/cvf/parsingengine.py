@@ -94,3 +94,14 @@ def cfgFileParsing(bestandsnaam):
     jsonconfig = json.dumps(config, indent=4)
     
     return jsonconfig
+
+    # Checks for empty records in json using keys, deletes empty records
+def deleteEmpty(jsonconfig):
+    jsonObject = json.loads(jsonconfig)
+    for k in list(jsonObject):
+        try:
+            if len(jsonObject[k])<1:
+                del jsonObject[k]
+                if app.config["DEBUG"]: print(k, "-> is leeg, record verwijderd")
+        except: pass
+    return jsonObject

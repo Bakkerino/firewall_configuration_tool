@@ -26,7 +26,7 @@ def genConfigToAccordeon(jsonConfigObject, arguments):
         if arguments == True or header in arguments:
             header = header.lower().replace(' ', '-')
             html += "<div class=\"accordion\" id=\"accordion" + header + "\"><div class=\"card\"><div class=\"card-header\" id=\"heading" + header + "\">"
-            html += "<h2 class=\"mb-0\"><button class=\"btn btn-link btn-block text-left collapsed\" type=\"button\" data-toggle=\"collapse\" data-target=\"#collapse" + header + "\" aria-expanded=\"true\" aria-controls=\"collapse" + header + "\">Specifieke instellingen (" + header + ")</button></h2></div>"
+            html += "<h2 class=\"mb-0\"><button class=\"btn btn-link btn-block text-left collapsed\" id=\"accordeonbutton\" type=\"button\" data-toggle=\"collapse\" data-target=\"#collapse" + header + "\" aria-expanded=\"true\" aria-controls=\"collapse" + header + "\">Specifieke instellingen (" + header + ")</button></h2></div>"
             html += "<div id=\"collapse" + header + "\" class=\"collapse\" aria-labelledby=\"heading" + header + "\" data-parent=\"#accordion" + header + "\">"
             html += "<div class=\"card-body\">"
             html += "<td class=\"hide\" style=\"display: none;\" id=\"dataview\">" + "<table id=\"viewtable\" class=\"table table-sm borderless\">" + "<tbody>"
@@ -39,14 +39,14 @@ def genConfigToAccordeon(jsonConfigObject, arguments):
             html += "</div></div></div>"
     return html
 
-def genCardMenus(jsonConfigObject):
-    arguments = True
+def genCardMenus(jsonConfigObject, border_color="warning"):
+    arguments = ['interface'] #True
     html = ""
     for header, sectionData in jsonConfigObject.items():
         if header in ['config', 'global']:
             continue
         if arguments == True or header in arguments:
-            html += "<header class=\"p-3 mb-2 bg-grey rounded border border-warning\" id=\"" + header.replace(' ', '-') + "\">"
+            html += "<header class=\"p-3 mb-2 bg-grey rounded border border-" + border_color + "\" id=\"" + header.replace(' ', '-') + "\">"
             html += "<div class=\"media\">"
             html += "<img src=\"static/icons/fortigate.png\" class=\"align-self-center mr-3\" alt=\"" + header.replace(' ', '-') + "\">"
             html += "<div class=\"media-body\" id=\"mediaoverzicht\">"
@@ -55,16 +55,53 @@ def genCardMenus(jsonConfigObject):
             html += "</div></div>"
             html += genConfigToAccordeon(jsonConfigObject, [header])
             html += "</header>"
-
     return html
 
-# Checks for empty records in json using keys, deletes empty records
-def deleteEmpty(jsonconfig):
-    jsonObject = json.loads(jsonconfig)
-    for k in list(jsonObject):
-        try:
-            if len(jsonObject[k])<1:
-                del jsonObject[k]
-                if app.config["DEBUG"]: print(k, "-> is leeg, record verwijderd")
-        except: pass
-    return jsonObject
+def genHeadOveriew(cfgJsonObject):
+    html = ""
+    if cfgJsonObject.get('config', False) and cfgJsonObject.get('global', False):
+        firewallversion = getSecurityGrade(cfgJsonObject['config']['version']['version'].split('-')[1])
+        html += """<header class=\"p-3 mb-2 bg-grey rounded border border-""" + firewallversion[2] + """\" id=\"overzichtheader\" >
+              <div class=\"media\">
+              <img src=\"static/icons/fortigate.png\" class=\"align-self-center mr-3\" alt=\"fortigate\">
+              <div class=\"media-body\" id=\"mediaoverzicht\">
+                <h5 class=\"mt-0\"><b>""" + cfgJsonObject['config']['version']['version'].split('-')[0].replace('FGT', 'FortiGate ') + """</b></h5>
+                <table id=\"headertable\" class=\"table table-borderles\">
+                  <tbody>
+                      <tr>
+                      <th>Hostname:</th> <td>""" + cfgJsonObject['global']['1']['hostname'] + """</td>
+                      <th>Alias:</th> <td>""" + cfgJsonObject['global']['1']['alias'] + """</td>
+                    </tr>
+                    <tr>
+                      <th>Software versie:</th><td><button type=\"button\" class="btn btn-sm btn-""" + firewallversion[2] +  """\" data-toggle=\"popover\" 
+                      title=\"""" +  firewallversion[0] + """\" data-content=\"""" + firewallversion[1] + """\">
+                        """ + cfgJsonObject['config']['version']['version'].split('-')[1] + """</button></td>
+                      <th>Build:</th> <td>""" + cfgJsonObject['config']['version']['build'] + """</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            """ + genConfigToAccordeon(cfgJsonObject, ['config','global']) + """ </header> """
+        return html
+    else:
+        return html
+
+def getSecurityGrade(arg):
+    print (arg)
+    f = open('./cvf/reference.json',)
+    reference = json.load(f)
+    if reference.get(arg, False):
+        title = reference[arg]['title']
+        content = reference[arg]['content']
+        color = reference[arg]['color']
+        return title, content, color
+    else:
+        title = "Titel"
+        content = "Geen"
+        color = "warning"
+        return title, content, color
+
+
+
+  

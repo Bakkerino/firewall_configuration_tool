@@ -2,7 +2,7 @@ import json
 from cvf import app
 
 # Accepts a json object and generates this in a html table format, with toggle buttons as headers. This function is similair to what json2html does
-def genOverviewConfigHTML(jsonConfigObject):
+def genConfigToTableHTML(jsonConfigObject):
     html = "<table id=\"viewtable\" class=\"table table-sm\">" + "<tbody>"
     for header, sectionData in jsonConfigObject.items():
         html += "<tr>" + "<th>"
@@ -18,6 +18,26 @@ def genOverviewConfigHTML(jsonConfigObject):
         html += "</tbody>" + "</table>" + "</td>" + "</tr>"
     html += "</tbody>" + "</table>"
     return html
+
+def genConfigToAccordeon(jsonConfigObject, arguments):
+    for header, sectionData in jsonConfigObject.items():
+        if arguments == True or header in arguments:
+            header = header.lower().replace(' ', '')
+            html += "<div class=\"accordion\" id=\"accordion" + header + "\"><div class=\"card\"><div class=\"card-header\" id=\"heading" + header + "\">"
+            html += "<h2 class=\"mb-0\"><button class=\"btn btn-link btn-block text-left collapsed\" type=\"button\" data-toggle=\"collapse\" data-target=\"#collapse" + header + "\" aria-expanded=\"true\" aria-controls=\"collapse" + header + "\">Specifieke instellingen (" + header + ")</button></h2></div>"
+            html += "<div id=\"collapse" + header + "\" class=\"collapse\" aria-labelledby=\"heading" + header + "\" data-parent=\"#accordion" + header + "\">"
+            html += "<div class=\"card-body\">"
+            html += "<td class=\"hide\" style=\"display: none;\" id=\"dataview\">" + "<table id=\"viewtable\" class=\"table table-sm borderless\">" + "<tbody>"
+            for section, valueData in sectionData.items():
+                html += "<tr>" + "<th>" + section + "</th>" + "<td>" + "<table id=\"viewtable\" class=\"table table-sm borderless\">" + "<tbody>"
+                for value in valueData.items():
+                    html += "<tr>" + "<th>" + value[0] + "</th>" + "<td>" + value[1] + "</td>" + "</tr>"
+                html += "</tbody>" + "</table>" + "</td>" + "</tr>"
+            html += "</tbody>" + "</table>" + "</td>" + "</tr>"               
+            html += "</div></div></div>"
+    return html
+
+
 
 # Checks for empty records in json using keys, deletes empty records
 def deleteEmpty(jsonconfig):

@@ -30,7 +30,7 @@
           </li>
   {% endif %}
           <li class="nav-item">
-            <a class="nav-link" id="instellingen-tab" data-toggle="tab" href="#instellingen" role="tab" aria-controls="instellingen" aria-selected="false">Instellingen</a>
+            <a class="nav-link" id="alleinstellingen-tab" data-toggle="tab" href="#alleinstellingen" role="tab" aria-controls="alleinstellingen" aria-selected="false">Alle instellingen</a>
           </li>
           <li class="nav-item">
             <a class="nav-link active" id="overzicht-tab" data-toggle="tab" href="#overzicht" role="tab" aria-controls="overzicht" aria-selected="false">Overzicht</a>
@@ -51,12 +51,13 @@
           </div>
           </div>
   {% endif %}
-          <div class="tab-pane fade" id="instellingen" role="tabpanel" aria-labelledby="instellingen-tab" style="width: 100%">
-            {{ overviewConfigHTML | safe }}
+          <div class="tab-pane fade" id="alleinstellingen" role="tabpanel" aria-labelledby="alleinstellingen-tab" style="width: 100%">
+            {{ ConfigTableHTML | safe }}
           </div>
           <div class="tab-pane fade show active" id="overzicht" role="tabpanel" aria-labelledby="overzicht-tab" style="width: 100%">
   {% if cfgJsonObject %}
-            <header class="p-3 mb-2 bg-grey rounded border border-secondary" id="overzichtheader" >
+        {% if cfgJsonObject['config'] and cfgJsonObject['global'] %}
+            <header class="p-3 mb-2 bg-grey rounded border border-success" id="overzichtheader" >
               <div class="media">
               <img src="static/icons/fortigate.png" class="align-self-center mr-3" alt="fortigate">
               <div class="media-body" id="mediaoverzicht">
@@ -68,14 +69,18 @@
                       <th>Alias:</th> <td>{{ cfgJsonObject['global']['1']['alias'] }}</td>
                     </tr>
                     <tr>
-                      <th>Software versie:</th>  <td>{{ cfgJsonObject['config']['version']['version'].split('-')[1] }}</td>
+                      <th>Software versie:</th><td><button type="button" class="btn btn-sm btn-success" 
+                        data-toggle="popover" title="Firewall versie" data-content="Nieuwste FortiGate firewall versie">
+                        {{ cfgJsonObject['config']['version']['version'].split('-')[1] }}</button></td>
                       <th>Build:</th> <td>{{ cfgJsonObject['config']['version']['build'] }}</td>
                     </tr>
-
                   </tbody>
                 </table>
               </div>
-            </div></header>
+            </div>
+            {{ fgenConfigToAccordeon(cfgJsonObject, ['config','global']) | safe }}
+          </header>
+        {% endif %}
             <legend class="border-bottom mb-1"></legend>
 
             <div class="p-3 mb-2 bg-grey rounded border border-danger" id="overzichtrecord">
@@ -84,56 +89,8 @@
 
   {% endif %}
           </div>
-
-        </div>
-        <div class="accordion" id="accordionExample">
-          <div class="card">
-            <div class="card-header" id="headingOne">
-              <h2 class="mb-0">
-                <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                  Collapsible Group Item #1
-                </button>
-              </h2>
-            </div>
-        
-            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
-              <div class="card-body">
-                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-              </div>
-            </div>
-          </div>
-          <div class="card">
-            <div class="card-header" id="headingTwo">
-              <h2 class="mb-0">
-                <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                  Collapsible Group Item #2
-                </button>
-              </h2>
-            </div>
-            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
-              <div class="card-body">
-                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-              </div>
-            </div>
-          </div>
-          <div class="card">
-            <div class="card-header" id="headingThree">
-              <h2 class="mb-0">
-                <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                  Collapsible Group Item #3
-                </button>
-              </h2>
-            </div>
-            <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
-              <div class="card-body">
-                <button type="button" class="btn btn-lg btn-danger" data-toggle="popover" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?">Click to toggle popover</button>
-                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-              </div>
-            </div>
-          </div>
         </div>
         
-
 </div>
 <legend class="border-bottom mb-4"></legend>
 

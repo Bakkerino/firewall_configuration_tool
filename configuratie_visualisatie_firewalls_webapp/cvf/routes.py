@@ -8,7 +8,7 @@ from cvf.models import User
 from flask_login import login_user, current_user, logout_user, login_required
 from datetime import timedelta
 from cvf.parsingengine import cfgFileParsing
-from cvf.viewengine import genConfigToTableHTML, genConfigToAccordeon, deleteEmpty
+from cvf.viewengine import genConfigToTableHTML, genConfigToAccordeon, genCardMenus, deleteEmpty
 from cvf.filehandler import deleteImportCache, verify_filesize, verify_filename, readFile
 from cvf.cfghulpengine import ConfigurationForm, genFortianalyzer # Legacy 
 
@@ -138,12 +138,12 @@ def configuratieimport():
                 deleteImportCache(bestandsnaam)
                 # Accepts json, deletes empty records, outputs json object
                 cfgJsonObject = deleteEmpty(cfgjson)
-                print(reference['fortigateversion'])
+
                 # Formats the contents of the jsonobject (configuration) to html in a table format
                 ConfigTableHTML = genConfigToTableHTML(cfgJsonObject)
 
                 # Accepts json object and formats it to a user-friendly view as html
-                overviewImpact="<h2>None</h2>"
+                overviewImpact= genCardMenus(cfgJsonObject)
                 if app.config["DEBUG"]: 
                     return render_template('configuratieimport.html', fgenConfigToAccordeon=genConfigToAccordeon, bestandsnaam=bestandsnaam, 
                     cfgbestand=cfgbestand, cfgjson=cfgjson, cfgJsonObject=cfgJsonObject, ConfigTableHTML=ConfigTableHTML, overviewImpact=overviewImpact)

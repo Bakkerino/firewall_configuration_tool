@@ -20,9 +20,11 @@ def genConfigToTableHTML(jsonConfigObject):
     return html
 
 def genConfigToAccordeon(jsonConfigObject, arguments):
+    html = ""
     for header, sectionData in jsonConfigObject.items():
+
         if arguments == True or header in arguments:
-            header = header.lower().replace(' ', '')
+            header = header.lower().replace(' ', '-')
             html += "<div class=\"accordion\" id=\"accordion" + header + "\"><div class=\"card\"><div class=\"card-header\" id=\"heading" + header + "\">"
             html += "<h2 class=\"mb-0\"><button class=\"btn btn-link btn-block text-left collapsed\" type=\"button\" data-toggle=\"collapse\" data-target=\"#collapse" + header + "\" aria-expanded=\"true\" aria-controls=\"collapse" + header + "\">Specifieke instellingen (" + header + ")</button></h2></div>"
             html += "<div id=\"collapse" + header + "\" class=\"collapse\" aria-labelledby=\"heading" + header + "\" data-parent=\"#accordion" + header + "\">"
@@ -37,7 +39,24 @@ def genConfigToAccordeon(jsonConfigObject, arguments):
             html += "</div></div></div>"
     return html
 
+def genCardMenus(jsonConfigObject):
+    arguments = True
+    html = ""
+    for header, sectionData in jsonConfigObject.items():
+        if header in ['config', 'global']:
+            continue
+        if arguments == True or header in arguments:
+            html += "<header class=\"p-3 mb-2 bg-grey rounded border border-warning\" id=\"" + header.replace(' ', '-') + "\">"
+            html += "<div class=\"media\">"
+            html += "<img src=\"static/icons/fortigate.png\" class=\"align-self-center mr-3\" alt=\"" + header.replace(' ', '-') + "\">"
+            html += "<div class=\"media-body\" id=\"mediaoverzicht\">"
+            html += "<h5 class=\"mt-0\"><b>" + header.capitalize() + "</b></h5>"
+            html += "<p>tekst of tabellen</p>"
+            html += "</div></div>"
+            html += genConfigToAccordeon(jsonConfigObject, [header])
+            html += "</header>"
 
+    return html
 
 # Checks for empty records in json using keys, deletes empty records
 def deleteEmpty(jsonconfig):

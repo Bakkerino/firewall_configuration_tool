@@ -142,7 +142,7 @@ def configuratieimport():
                 ConfigTableHTML = genConfigToTableHTML(cfgJsonObject)
 
                 # Accepts json object and formats it to a user-friendly view as html
-                overviewImpact= genHeadOveriew(cfgJsonObject) + genCardMenus(cfgJsonObject)
+                overviewImpact= genCardMenus(cfgJsonObject)
                 if app.config["DEBUG"]: 
                     return render_template('configuratieimport.html', fgenConfigToAccordeon=genConfigToAccordeon, bestandsnaam=bestandsnaam, 
                     cfgbestand=cfgbestand, cfgjson=cfgjson, cfgJsonObject=cfgJsonObject, ConfigTableHTML=ConfigTableHTML, overviewImpact=overviewImpact)

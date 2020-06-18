@@ -19,14 +19,14 @@ def genConfigToTableHTML(jsonConfigObject):
     html += "</tbody>" + "</table>"
     return html
 
-def genConfigToAccordeon(jsonConfigObject, arguments):
+def genConfigToAccordeon(jsonConfigObject, arguments, border_color):
     html = ""
     for header, sectionData in jsonConfigObject.items():
 
         if arguments == True or header in arguments:
             header = header.lower().replace(' ', '-')
             html += "<div class=\"accordion\" id=\"accordion" + header + "\"><div class=\"card\"><div class=\"card-header\" id=\"heading" + header + "\">"
-            html += "<h2 class=\"mb-0\"><button class=\"btn btn-link btn-block text-left collapsed\" id=\"accordeonbutton\" type=\"button\" data-toggle=\"collapse\" data-target=\"#collapse" + header + "\" aria-expanded=\"true\" aria-controls=\"collapse" + header + "\">Specifieke instellingen (" + header + ")</button></h2></div>"
+            html += "<h2 class=\"mb-0\"><button class=\"btn btn-link btn-block text-left collapsed\" id=\"accordeonbutton\" type=\"button\" style=\"color: " + border_color + "\"data-toggle=\"collapse\" data-target=\"#collapse" + header + "\" aria-expanded=\"true\" aria-controls=\"collapse" + header + "\">Specifieke instellingen (" + header + ")</button></h2></div>"
             html += "<div id=\"collapse" + header + "\" class=\"collapse\" aria-labelledby=\"heading" + header + "\" data-parent=\"#accordion" + header + "\">"
             html += "<div class=\"card-body\">"
             html += "<td class=\"hide\" style=\"display: none;\" id=\"dataview\">" + "<table id=\"viewtable\" class=\"table table-sm borderless\">" + "<tbody>"
@@ -40,8 +40,9 @@ def genConfigToAccordeon(jsonConfigObject, arguments):
     return html
 
 def genCardMenus(jsonConfigObject, border_color="warning"):
-    arguments = ['interface'] #True
-    html = ""
+    html = genHeadOveriew(jsonConfigObject) # header
+    
+    arguments = True #['interface']
     for header, sectionData in jsonConfigObject.items():
         if header in ['config', 'global']:
             continue
@@ -53,9 +54,15 @@ def genCardMenus(jsonConfigObject, border_color="warning"):
             html += "<h5 class=\"mt-0\"><b>" + header.capitalize() + "</b></h5>"
             html += "<p>tekst of tabellen</p>"
             html += "</div></div>"
-            html += genConfigToAccordeon(jsonConfigObject, [header])
+            html += genConfigToAccordeon(jsonConfigObject, [header], border_color)
             html += "</header>"
     return html
+
+def boostrapColorToCSSColor(color):
+    if color == "success": color = "green"
+    if color == "warning": color = "yellow"
+    if color == "danger": color = "red"
+    return color
 
 def genHeadOveriew(cfgJsonObject):
     html = ""
@@ -66,6 +73,7 @@ def genHeadOveriew(cfgJsonObject):
               <img src=\"static/icons/fortigate.png\" class=\"align-self-center mr-3\" alt=\"fortigate\">
               <div class=\"media-body\" id=\"mediaoverzicht\">
                 <h5 class=\"mt-0\"><b>""" + cfgJsonObject['config']['version']['version'].split('-')[0].replace('FGT', 'FortiGate ') + """</b></h5>
+
                 <table id=\"headertable\" class=\"table table-borderles\">
                   <tbody>
                       <tr>
@@ -80,15 +88,15 @@ def genHeadOveriew(cfgJsonObject):
                     </tr>
                   </tbody>
                 </table>
+
               </div>
             </div>
-            """ + genConfigToAccordeon(cfgJsonObject, ['config','global']) + """ </header> """
+            """ + genConfigToAccordeon(cfgJsonObject, ['config','global'], boostrapColorToCSSColor(firewallversion[2])) + """ </header> """
         return html
     else:
         return html
 
 def getSecurityGrade(arg):
-    print (arg)
     f = open('./cvf/reference.json',)
     reference = json.load(f)
     if reference.get(arg, False):

@@ -19,6 +19,7 @@ def genConfigToTableHTML(jsonConfigObject):
     html += "</tbody>" + "</table>"
     return html
 
+# Accepts json object, headers[] and a color. Generates tables and entries, of which are contained by an accordeon menu. Outputs HTML
 def genConfigToAccordeon(jsonConfigObject, arguments, gradeColor):
     html = ""
     for header, sectionData in jsonConfigObject.items():
@@ -38,6 +39,7 @@ def genConfigToAccordeon(jsonConfigObject, arguments, gradeColor):
             html += "</div></div></div>"
     return html
 
+# Accepts json object, generates a card with logo, color and data entries. Is used to display the headers corrosponding with firewallconfiguration
 def genCardMenus(jsonConfigObject, gradeColor="warning"):
     htmlBacklog = ""
     html = genHeadOveriew(jsonConfigObject) # header
@@ -65,6 +67,7 @@ def genCardMenus(jsonConfigObject, gradeColor="warning"):
     html += htmlBacklog    
     return html
 
+# Accepts a header and corresponding sectiondata, generates the contents of the cardmenu's, contents are custom per header
 def genContentCard(header, sectionData):
     html = ""; logo = "fortigate.png"; gradeColors = (); 
 
@@ -84,6 +87,7 @@ def genContentCard(header, sectionData):
             html += "<h5>" + section + "(" + valueData.get('alias', '') + ")" + "</h5>"
     return findhighestGradeColor(html), html, logo
 
+# Accepts a string and  checks if certain strings are contained within the string, resulting in returning the color with the highest priority
 def findhighestGradeColor(gradeColorsHTML):
         if "danger" in gradeColorsHTML: return "danger"
         if "warning" in gradeColorsHTML: return "warning"
@@ -91,7 +95,7 @@ def findhighestGradeColor(gradeColorsHTML):
         if "info" in gradeColorsHTML: return "info"
         return "secondary"
 
-
+# Generates the header of het configoverview containing generic information like version, and names
 def genHeadOveriew(cfgJsonObject):
     html = ""
     if cfgJsonObject.get('config', False) and cfgJsonObject.get('global', False):
@@ -124,13 +128,15 @@ def genHeadOveriew(cfgJsonObject):
     else:
         return html
 
-def genPopoverButton(header):
-    title, content, color = getPopoverContents(header)
+# Accepts an argument for a popoverbutton and returns an HTML popoverbutton with corrosponding header, title, content and colors
+def genPopoverButton(argument):
+    title, content, color = getPopoverContents(argument)
     button = """<button type=\"button\" data-trigger="focus"
             class="btn btn-sm btn-""" + color + """\" data-toggle=\"popover\" 
-            title=\"""" +  title + """\" data-content=\"""" + content + "\">" + header + "</button>"
+            title=\"""" +  title + """\" data-content=\"""" + content + "\">" + argument + "</button>"
     return button
 
+# Accepts an argument for a popoverbutton and returns after referencing a json file corrosponding title, contents and color
 def getPopoverContents(arg):
     f = open('./cvf/reference.json',)
     reference = json.load(f)
@@ -145,6 +151,7 @@ def getPopoverContents(arg):
         color = "secondary"
         return title, content, color
 
+# Converts bootstrap colors arguments to CSS-colors
 def boostrapColorToCSSColor(color):
     if color == "success": color = "green"
     if color == "warning": color = "#ffbf00"

@@ -44,7 +44,6 @@ def cfgFileParsing(bestandsnaam):
                 if app.config["DEBUG"]: print("inhoud leeg")
                 continue
 
-            #line = line.replace("\"", "")
             args = line.split()
             action, *args = line.split()
 
@@ -57,7 +56,7 @@ def cfgFileParsing(bestandsnaam):
                 pass
 
             if action == 'edit':
-                section = unquote(' '.join(args))#.strip('"')
+                section = unquote(' '.join(args))
                 if section not in config.get(header):
                     config[header][section] = {}
 

@@ -145,7 +145,6 @@ def getPopoverContents(arg):
         color = "secondary"
         return title, content, color
 
-
 def boostrapColorToCSSColor(color):
     if color == "success": color = "green"
     if color == "warning": color = "#ffbf00"

@@ -66,20 +66,30 @@ def genCardMenus(jsonConfigObject, gradeColor="warning"):
     return html
 
 def genContentCard(header, sectionData):
-    html = ""; logo = "fortigate.png"; gradeColor = "warning"; 
+    html = ""; logo = "fortigate.png"; gradeColors = (); 
 
     if header == 'firewall policy':
         logo = "firewallpolicy.png"
         pos= "front"
         for section, valueData in sectionData.items():
             html += "<h5>" + valueData['name'] + "</h5>"
-            html += "<th>" + "service" + "</th>" + "<td>" + valueData.get('service', 'none') + "</td>"
+            html += "<th>" + "service" + "</th>" + "<td>"
+            for x in valueData.get('service', 'none').split(", "): 
+                html += genPopoverButton(x)
+            html += "</td>"
 
     if header == 'interface':
         logo = "interface5.png"
         for section, valueData in sectionData.items():
             html += "<h5>" + section + "(" + valueData.get('alias', '') + ")" + "</h5>"
-    return gradeColor, html, logo
+    return findhighestGradeColor(html), html, logo
+
+def findhighestGradeColor(gradeColorsHTML):
+        if "danger" in gradeColorsHTML: return "danger"
+        if "warning" in gradeColorsHTML: return "warning"
+        if "success" in gradeColorsHTML: return "success"
+        if "info" in gradeColorsHTML: return "info"
+        return "secondary"
 
 
 def genHeadOveriew(cfgJsonObject):
@@ -116,9 +126,10 @@ def genHeadOveriew(cfgJsonObject):
 
 def genPopoverButton(header):
     title, content, color = getPopoverContents(header)
-    return """<button type=\"button\" data-trigger="focus"
+    button = """<button type=\"button\" data-trigger="focus"
             class="btn btn-sm btn-""" + color + """\" data-toggle=\"popover\" 
-            title=\"""" +  title + """\" data-content=\"""" + content + "\">Info</button>"
+            title=\"""" +  title + """\" data-content=\"""" + content + "\">" + header + "</button>"
+    return button
 
 def getPopoverContents(arg):
     f = open('./cvf/reference.json',)
@@ -130,8 +141,8 @@ def getPopoverContents(arg):
         return title, content, color
     else:
         title = "Titel"
-        content = "Geen"
-        color = "warning"
+        content = "Geen informatie beschikbaar"
+        color = "secondary"
         return title, content, color
 
 
@@ -140,6 +151,7 @@ def boostrapColorToCSSColor(color):
     if color == "warning": color = "#ffbf00"
     if color == "danger": color = "red"
     if color == "info": color = "blue"
+    if color == "secondary": color = "black"
     return color
 
 

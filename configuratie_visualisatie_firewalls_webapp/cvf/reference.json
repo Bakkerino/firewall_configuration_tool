@@ -23,5 +23,92 @@
         "title":"Interface",
         "content":"<informatie>",
         "color":"info"
+    },
+    "Email Access": {
+        "title":"Email access",
+        "content":"<informatie>",
+        "color":"success"
+    },
+    "Web Access": {
+        "title":"Web access",
+        "content":"<informatie>",
+        "color":"success"
+    },
+    "WhatsApp": {
+        "title":"whatsapp",
+        "content":"<informatie>",
+        "color":"success"
+    },
+    "ALL": {
+        "title":"ALL",
+        "content":"<informatie>",
+        "color":"danger"
+    },
+    "H323": {
+        "title":"H323",
+        "content":"<informatie>",
+        "color":"success"
+    },
+    "RTSP": {
+        "title":"RTSP",
+        "content":"<informatie>",
+        "color":"success"
+    },
+    "SCCP": {
+        "title":"SCCP",
+        "content":"<informatie>",
+        "color":"success"
+    },
+    "SIP": {
+        "title":"SIP",
+        "content":"<informatie>",
+        "color":"success"
+    },
+    "SIP-MSNmessenger": {
+        "title":"SIP-MSNmessenger",
+        "content":"<informatie>",
+        "color":"success"
+    },
+    "HTTP": {
+        "title":"HTTP",
+        "content":"<informatie>",
+        "color":"danger"
+    },
+    "HTTPS": {
+        "title":"HTTPS",
+        "content":"<informatie>",
+        "color":"success"
+    },
+    "Fortinet-MGMT": {
+        "title":"Fortinet-MGMT",
+        "content":"<informatie>",
+        "color":"success"
+    },
+    "TELNET": {
+        "title":"TELNET",
+        "content":"<informatie>",
+        "color":"danger"
+    },
+    "PING": {
+        "title":"PING",
+        "content":"<informatie>",
+        "color":"warning"
+    },
+    "Aruba-MGMT": {
+        "title":"Aruba-MGMT",
+        "content":"<informatie>",
+        "color":"success"
+    },
+    "RDP": {
+        "title":"RDP",
+        "content":"<informatie>",
+        "color":"success"
+    },
+    "SSH": {
+        "title":"SSH",
+        "content":"<informatie>",
+        "color":"success"
     }
+    
+
 }

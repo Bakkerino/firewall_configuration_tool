@@ -44,7 +44,7 @@ def cfgFileParsing(bestandsnaam):
                 if app.config["DEBUG"]: print("inhoud leeg")
                 continue
 
-            line = line.replace("\"", "")
+            #line = line.replace("\"", "")
             args = line.split()
             action, *args = line.split()
 
@@ -57,7 +57,7 @@ def cfgFileParsing(bestandsnaam):
                 pass
 
             if action == 'edit':
-                section = ' '.join(args).strip('"')
+                section = unquote(' '.join(args))#.strip('"')
                 if section not in config.get(header):
                     config[header][section] = {}
 
@@ -69,9 +69,9 @@ def cfgFileParsing(bestandsnaam):
                 name  = args.pop(0)
 
                 if action == 'password' or 'passwd' and args[0] == 'ENC': name = name + " " + args[0]; del args[0]
-
-                value = ' '.join(args).strip('"')
-
+                value = unquote(' '.join(args))
+                print("arguments : ", args)
+                print("value : ", unquote(value))
                 if value.startswith('-----'):
                     value += " "
                     for line in configfile:
@@ -99,3 +99,13 @@ def deleteEmpty(jsonconfig):
                 if app.config["DEBUG"]: print(k, "-> is leeg, record verwijderd")
         except: pass
     return jsonObject
+
+def unquote(s):
+    """
+    If a string has single or double quotes around it, remove them.
+    Make sure the pair of quotes match.
+    If a matching pair of quotes is not found, return the string unchanged.
+    """
+    if (s[0] == s[-1]) and s.startswith(("'", '"')):
+        s = s[1:-1].replace('\" \"', ", ")
+    return s

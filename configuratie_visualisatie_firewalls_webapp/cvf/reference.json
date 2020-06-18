@@ -13,5 +13,15 @@
         "title":"FortiGate 5.4.1",
         "content":"Dit is een verouderde software versie",
         "color":"danger"
+    },
+    "firewall policy": {
+        "title":"Firewall Policy",
+        "content":"<informatie>",
+        "color":"info"
+    },
+    "interface": {
+        "title":"Interface",
+        "content":"<informatie>",
+        "color":"info"
     }
 }

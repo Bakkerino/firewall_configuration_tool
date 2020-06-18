@@ -22,7 +22,6 @@ def genConfigToTableHTML(jsonConfigObject):
 def genConfigToAccordeon(jsonConfigObject, arguments, gradeColor):
     html = ""
     for header, sectionData in jsonConfigObject.items():
-
         if arguments == True or header in arguments:
             header = header.lower().replace(' ', '-')
             html += "<div class=\"accordion\" id=\"accordion" + header + "\"><div class=\"card\"><div class=\"card-header\" id=\"heading" + header + "\">"
@@ -40,7 +39,7 @@ def genConfigToAccordeon(jsonConfigObject, arguments, gradeColor):
     return html
 
 def genCardMenus(jsonConfigObject, gradeColor="warning"):
-
+    htmlBacklog = ""
     html = genHeadOveriew(jsonConfigObject) # header
     
     arguments = True #['interface', 'firewall policy']
@@ -48,21 +47,22 @@ def genCardMenus(jsonConfigObject, gradeColor="warning"):
         if header in ['config', 'global']:
             continue
         if arguments == True or header in arguments:
-            print(header)
             gradeColor, content, logo = genContentCard(header, sectionData)
-            headerInfo = getPopoverContents(header)
-            html += "<header class=\"p-3 mb-2 bg-grey rounded border border-" + gradeColor + "\" id=\"" + header.replace(' ', '-') + "\">"
-            html += "<div class=\"media\">"
-            html += "<img src=\"static/icons/" + logo + "\" class=\"align-self-start mr-3\" alt=\"" + header.replace(' ', '-') + "\">"
-            html += "<div class=\"media-body\" id=\"mediaoverzicht\">"
-            html += "<h5 class=\"mt-0\"><b>" + header.capitalize() + "</b> "
-            html += """<button type=\"button\" data-trigger="focus" class="btn btn-sm btn-""" + headerInfo[2] + """\" data-toggle=\"popover\" 
-                    title=\"""" +  headerInfo[0] + """\" data-content=\"""" + headerInfo[1] + "\">Info</button></h5>"
-            html += "<legend class=\"border-bottom mb-1\"></legend>"
-            html += "<p>" + content + "</p>"
-            html += "</div></div>"
-            html += genConfigToAccordeon(jsonConfigObject, [header], boostrapColorToCSSColor(gradeColor))
-            html += "</header>"   
+            htmlCard = "<header class=\"p-3 mb-2 bg-grey rounded border border-" + gradeColor + "\" id=\"" + header.replace(' ', '-') + "\">"
+            htmlCard += "<div class=\"media\">"
+            htmlCard += "<img src=\"static/icons/" + logo + "\" class=\"align-self-start mr-3\" alt=\"" + header.replace(' ', '-') + "\">"
+            htmlCard += "<div class=\"media-body\" id=\"mediaoverzicht\">"
+            htmlCard += "<h5 class=\"mt-0\"><b>" + header.capitalize() + "</b> "
+            htmlCard += genPopoverButton(header)
+            htmlCard += "</h5><legend class=\"border-bottom mb-1\"></legend>"
+            htmlCard += "<p>" + content + "</p>"
+            htmlCard += "</div></div>"
+            htmlCard += genConfigToAccordeon(jsonConfigObject, [header], boostrapColorToCSSColor(gradeColor))
+            htmlCard += "</header>"
+            if app.config["DEBUG"]: print('created card for: ' + header)
+        if content == "": htmlBacklog += htmlCard; continue # Minder interessante informatie achteraan
+        html += htmlCard
+    html += htmlBacklog    
     return html
 
 def genContentCard(header, sectionData):
@@ -113,6 +113,12 @@ def genHeadOveriew(cfgJsonObject):
         return html
     else:
         return html
+
+def genPopoverButton(header):
+    title, content, color = getPopoverContents(header)
+    return """<button type=\"button\" data-trigger="focus"
+            class="btn btn-sm btn-""" + color + """\" data-toggle=\"popover\" 
+            title=\"""" +  title + """\" data-content=\"""" + content + "\">Info</button>"
 
 def getPopoverContents(arg):
     f = open('./cvf/reference.json',)

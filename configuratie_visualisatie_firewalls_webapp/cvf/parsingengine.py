@@ -33,7 +33,6 @@ def cfgFileParsing(bestandsnaam):
                     name, value = re.findall('opmode=.+?(?=:)', line)[0].split('='); inputValuesConfig(name, value)
                     name, value = re.findall('vdom=.+?(?=:)', line)[0].split('='); inputValuesConfig(name, value)
                     name, value = re.findall('user=\w+', line)[0].split('='); inputValuesConfig(name, value)
-
                 if line.startswith(tuple(['#conf_file_ver=', '#buildno=', '#global_vdom='])):
                     name, value = line.replace('#', '').replace('\n', '').split('='); inputValuesConfig(name, value)
 
@@ -80,11 +79,6 @@ def cfgFileParsing(bestandsnaam):
                         if line.startswith('-----'): value += " " + ' '.join(line.split()).strip('"'); break
                         else: value += ' '.join(line.split()).strip('"')
                 config[header][section][name] = value
-
-            #if action == 'append':
-            #    name  = args.pop(0)
-            #    value = ' '.join(args).strip('"')
-            #    config[header][section][name] = value
 
             previous_line = line.split()
 

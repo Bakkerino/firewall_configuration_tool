@@ -4,8 +4,7 @@ import re
 config = {}
 
 
-
-# Parsing engine that can parse fortigate configuration files, the function returns a json dump containing ordened config
+# Parsing engine that parses files line by line, written for fortigate configuration files, the function returns a json dump containing ordened config
 def cfgFileParsing(bestandsnaam):
     with open(app.config["CFG_UPLOADS"] + bestandsnaam) as configfile:
         arguments = ['system', 'vpn', 'user', 'vdom', 'firewall', 'voip', 'web-proxy', 'application', 'dlp', 'webfilter', 'spamfilter', 'log', 'router']
@@ -13,6 +12,8 @@ def cfgFileParsing(bestandsnaam):
         previous_line = []
         section = ""
         count = 0
+
+
         for line in configfile:
             if app.config["DEBUG"]:
                 count += 1
@@ -20,10 +21,11 @@ def cfgFileParsing(bestandsnaam):
                 print("###########################################")
                 print(count - 1, ": Previous line: >", previous_line)
                 print(count, ": Current line: >", current_line)
-            
+
             if line[0] in ("#", "\n", "\""):
                 def inputValuesConfig(name, value):
-                    config[header][section][name] = {}; config[header][section][name] = value    
+                    config[header][section][name] = {}; config[header][section][name] = value  
+                    return  
                 if line.startswith('#config-version='):                
                     line = line.replace('\n', '')
                     header = "config"; config[header] = {}
@@ -69,8 +71,6 @@ def cfgFileParsing(bestandsnaam):
 
                 if action == 'password' or 'passwd' and args[0] == 'ENC': name = name + " " + args[0]; del args[0]
                 value = unquote(' '.join(args))
-                print("arguments : ", args)
-                print("value : ", unquote(value))
                 if value.startswith('-----'):
                     value += " "
                     for line in configfile:
@@ -88,7 +88,7 @@ def cfgFileParsing(bestandsnaam):
     
     return jsonconfig
 
-    # Checks for empty records in json using keys, deletes empty records
+    # Checks for empty values/records in json using keys, deletes empty records
 def deleteEmpty(jsonconfig):
     jsonObject = json.loads(jsonconfig)
     for k in list(jsonObject):
@@ -99,12 +99,12 @@ def deleteEmpty(jsonconfig):
         except: pass
     return jsonObject
 
+
 def unquote(s):
-    """
-    If a string has single or double quotes around it, remove them.
-    Make sure the pair of quotes match.
-    If a matching pair of quotes is not found, return the string unchanged.
-    """
-    if (s[0] == s[-1]) and s.startswith(("'", '"')):
-        s = s[1:-1].replace('\" \"', ", ")
+    # Checks a string for double quotes (at the beginning and end) and removes them,  also replaces two quotes with a space between them with a comma
+    # Possible input: "Web Access" "HTTP" "SSH" "Service DNS"
+    # Output: Web Access, HTTP, SSH, Service DNS
+    if s:
+        if (s[0] == s[-1]) and s.startswith(("'", '"')):
+            s = s[1:-1].replace('\" \"', ", ")
     return s

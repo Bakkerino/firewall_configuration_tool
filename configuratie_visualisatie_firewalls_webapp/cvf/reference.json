@@ -108,7 +108,28 @@
         "title":"SSH",
         "content":"<informatie>",
         "color":"success"
+    },
+    "physical": {
+        "title":"Fysiek",
+        "content":"<informatie>",
+        "color":"info"
+    },
+    "tunnel": {
+        "title":"Tunnel",
+        "content":"<informatie>",
+        "color":"info"
+    },
+    "hard-switch": {
+        "title":"Hard-switch",
+        "content":"<informatie>",
+        "color":"info"
+    },
+    "down": {
+        "title":"Down",
+        "content":"Deze link is inactief",
+        "color":"info"
     }
+    
     
 
 }

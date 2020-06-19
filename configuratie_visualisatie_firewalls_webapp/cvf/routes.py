@@ -12,8 +12,8 @@ from cvf.viewengine import genHeadOveriew, genConfigToTableHTML, genConfigToAcco
 from cvf.filehandler import deleteImportCache, verify_filesize, verify_filename, readFile
 from cvf.cfghulpengine import ConfigurationForm, genFortianalyzer # Legacy 
 
-
 @app.route("/", methods=['GET', 'POST'])
+@app.route("/home", methods=['GET', 'POST'])
 @login_required
 def home():
     form = ConfigurationForm()
@@ -185,8 +185,8 @@ def configuratiehulp():
         else:
             return redirect(url_for("login"))
     else:
-        flash(f'Niet toegankelijk, gebruik debug mode', 'danger')
-        return redirect(url_for('home'))
+        flash(f'Alleen toegankelijk via debug mode', 'danger')
+        return redirect(url_for("home"))
 
     
    

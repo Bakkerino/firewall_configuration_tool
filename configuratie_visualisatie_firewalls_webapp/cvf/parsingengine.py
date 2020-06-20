@@ -49,7 +49,7 @@ def cfgFileParsing(filename):
                 if app.config["DEBUG"]: print("leeg/comment")
                 continue
 
-            # Start of the actual automatic parsing
+            # Start of the actual parsing
 
             # Keeps track of the indentation of the configuraiton file, this because fortigate firewallconfiguration files contain multiple "config" statements within one block
             if line.split()[0] == 'end': indentation -= 1

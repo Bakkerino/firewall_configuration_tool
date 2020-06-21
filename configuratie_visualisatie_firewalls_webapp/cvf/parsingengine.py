@@ -8,7 +8,7 @@ config = {}
 def cfgFileParsing(filename):
 
     # The config headers that are used, viable and detected for parsing
-    arguments = ['entries', 'system', 'vpn', 'user', 'vdom', 'firewall', 'voip', 'web-proxy', 'application', 'dlp', 'webfilter', 'spamfilter', 'log', 'router'] 
+    arguments = ['global', 'entries', 'system', 'vpn', 'user', 'vdom', 'firewall', 'voip', 'web-proxy', 'application', 'dlp', 'webfilter', 'spamfilter', 'log', 'router'] 
     fwConf = {}; previous_line = []; section = ""; count = 0; indentation = 0; indentation_name = indentation_config = "" # inits
 
     with open(app.config["CFG_UPLOADS"] + filename) as configfile:
@@ -61,7 +61,7 @@ def cfgFileParsing(filename):
                 continue
 
             # Splits the line into usable variables
-            #args = line.split()
+            # args = line.split()
             action, *args = line.split()
 
             # Checks for 'config' as action and also that the argument is viable
@@ -113,7 +113,7 @@ def cfgFileParsing(filename):
         else:
             pass
 
-    jsonConfig = json.dumps(fwConf) # Dumps the made dict as a json in a variable
+    jsonConfig = json.dumps(fwConf, indent=2) # Dumps the made dict as a json in a variable
     
     return jsonConfig
 

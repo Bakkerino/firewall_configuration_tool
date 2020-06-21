@@ -18,10 +18,8 @@
 </form>
 
 
-<legend class="border-bottom mb-4"></legend>
-
+{% if cfgbestand and cfgjson %}
         <ul class="nav nav-tabs" id="myTab" role="tablist">
-  {% if cfgbestand and cfgjson %}
           <li class="nav-item">
             <a class="nav-link" id="bestand-tab" data-toggle="tab" href="#bestand" role="tab" aria-controls="bestand" aria-selected="true">(debug)Bestand</a>
           </li>
@@ -29,6 +27,7 @@
             <a class="nav-link" id="verwerkt-tab" data-toggle="tab" href="#verwerkt" role="tab" aria-controls="verwerkt" aria-selected="false">(debug)Verwerkt</a>
           </li>
   {% endif %}
+  {% if ConfigTableHTML and overviewImpact %}
           <li class="nav-item">
             <a class="nav-link" id="alleinstellingen-tab" data-toggle="tab" href="#alleinstellingen" role="tab" aria-controls="alleinstellingen" aria-selected="false">Alle instellingen</a>
           </li>
@@ -36,9 +35,9 @@
             <a class="nav-link active" id="overzicht-tab" data-toggle="tab" href="#overzicht" role="tab" aria-controls="overzicht" aria-selected="false">Overzicht</a>
           </li>
         </ul>
-
-        <div class="tab-content" id="myTabContent">
+  {% endif %}
   {% if cfgbestand and cfgjson %}
+        <div class="tab-content" id="myTabContent">
           <div class="tab-pane fade" id="bestand" role="tabpanel" aria-labelledby="bestand-tab">
           <div class="form-group">
               <textarea class="form-control" id="result" rows="30" cols="50">{{ cfgbestand }}</textarea>
@@ -57,8 +56,6 @@
           <div class="tab-pane fade show active" id="overzicht" role="tabpanel" aria-labelledby="overzicht-tab" style="width: 100%">
   {% if cfgJsonObject %}
 
-            <legend class="border-bottom mb-1"></legend>
-
               {{ overviewImpact | safe }}
 
   {% endif %}
@@ -66,6 +63,7 @@
         </div>
         
 </div>
+
 <legend class="border-bottom mb-4"></legend>
 
 {% endblock %}

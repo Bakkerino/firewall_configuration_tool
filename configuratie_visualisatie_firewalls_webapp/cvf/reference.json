@@ -11,37 +11,37 @@
     },
     "5.4.1": {
         "title":"FortiGate 5.4.1",
-        "content":"Dit is een verouderde software versie",
+        "content":"Dit is een streng verouderde software versie",
         "color":"danger"
     },
     "firewall policy": {
         "title":"Firewall Policy",
-        "content":"<informatie>",
+        "content":"De Firewall Policy bepaald hoe een firewall binnenkomend en uitgaand afhandeld (blokeert of doorlaat), dit door te kijken naar het IP, protcollen, applicaties en inhoud van het verkeer.",
         "color":"info"
     },
     "interface": {
-        "title":"Interface",
-        "content":"<informatie>",
+        "title":"Firewall interface",
+        "content":"Een firewall interface is een fysieke of softwarematige aansluiting om communicatie met een of meerdere netwerken mogelijk te maken. Een interface aangegeven als WAN funtctioneert typisch als een verbinding naar het internet, een LAN functioneert typisch als een verbinding naar het eigen (lokale) netwerk.",
         "color":"info"
     },
     "Email Access": {
         "title":"Email access",
-        "content":"<informatie>",
+        "content":"Is een verzameling van protocollen die emailen mogelijk maakt.",
         "color":"success"
     },
     "Web Access": {
         "title":"Web access",
-        "content":"<informatie>",
+        "content":"Is een verzameling van protocollen die het surfen op webpagina's mogelijk maakt.",
         "color":"success"
     },
     "WhatsApp": {
-        "title":"whatsapp",
-        "content":"<informatie>",
+        "title":"WhatsApp",
+        "content":"Is een verzameling opengezette poorten waardoor het gebruik van WhatsApp mogelijk wordt.",
         "color":"success"
     },
     "ALL": {
         "title":"ALL",
-        "content":"<informatie>",
+        "content":"'ALL' geeft aan dat er geen verkeer wordt geblokeerd en dat ALLES wordt doorgelaten.",
         "color":"danger"
     },
     "H323": {
@@ -71,12 +71,12 @@
     },
     "HTTP": {
         "title":"HTTP",
-        "content":"<informatie>",
+        "content":"Wordt gebruikt om communicatie, doormiddel een webbrowser, tussen een weblclient en een webserver mogelijk te maken. Data wordt met HTTP onversleuteld verstuurd, waardoor zonder iets te kraken de inhoud uit te lezen valt als het onderschept wordt.",
         "color":"danger"
     },
     "HTTPS": {
         "title":"HTTPS",
-        "content":"<informatie>",
+        "content":"Wordt gebruikt om communicatie, doormiddel een webbrowser, tussen een weblclient en een webserver mogelijk te maken. In tegenstelling tot HTTP wordt met HTTPS de data wel versleuteld en daardoor niet uit te lezen is.",
         "color":"success"
     },
     "Fortinet-MGMT": {
@@ -86,12 +86,12 @@
     },
     "TELNET": {
         "title":"TELNET",
-        "content":"<informatie>",
+        "content":"Wordt gebruik om op afstand te kunnen inloggen op een computer/machine. Communicatie is niet versleuteld waardoor het gebruik daarvan onveilig kan worden bevonden.",
         "color":"danger"
     },
     "PING": {
         "title":"PING",
-        "content":"<informatie>",
+        "content":"Wordt gebruikt om de bereikbaarheid van een netwerkapparaat te testen. Met PING kunnen netwerkapparaten in een netwerk in kaart worden gebracht, waardoor het openstellen niet aangeraden is.",
         "color":"warning"
     },
     "Aruba-MGMT": {
@@ -106,22 +106,22 @@
     },
     "SSH": {
         "title":"SSH",
-        "content":"<informatie>",
+        "content":"Wordt gebruik om op afstand (veilig) te kunnen inloggen op een computer/machine. SSH vervangt met zijn data versleuteling oudere protocollen zoals 'Telnet'.",
         "color":"success"
     },
     "physical": {
         "title":"Fysiek",
-        "content":"<informatie>",
+        "content":"Een fysieke aansluiting, de opgegeven naam correspondeert met een aansluiting op het fysieke firewall apparaat.",
         "color":"info"
     },
     "tunnel": {
         "title":"Tunnel",
-        "content":"<informatie>",
+        "content":"Een virtuele oftewel softwarematige beveiligde aansluiting met een ander netwerk en/of apparaat, meestal een VPN verbinding genoemd. De data is versleuteld waardoor het verkeer, als het onderschept wordt, niet uit te lezen valt zonder het gebruikte encryptie-algoritme te kraken.",
         "color":"info"
     },
     "hard-switch": {
-        "title":"Hard-switch",
-        "content":"<informatie>",
+        "title":"Switch (Hard-switch)",
+        "content":"Een switch wordt gebruikt om meerdere interface's met elkaar te verbinden, vergelijkbaar met een rotonde in het verkeer.",
         "color":"info"
     },
     "down": {

@@ -53,9 +53,8 @@ def genCardMenus(jsonConfigObject, gradeColor="warning"):
             gradeColor, content, logo = genContentCard(header, sectionData)
             htmlCard = "<header class=\"p-3 mb-2 bg-grey rounded border border-" + gradeColor + "\" id=\"" + header.replace(' ', '-') + "\">"
             htmlCard += "<div class=\"media\">"
-            htmlCard += "<img src=\"static/icons/" + logo + "\" class=\"align-self-start mr-3\" alt=\"" + header.replace(' ', '-') + "\">"
             htmlCard += "<div class=\"media-body\" id=\"mediaoverzicht\">"
-            htmlCard += "<h5 class=\"mt-0\"><b>" + header.capitalize() + "</b> "
+            htmlCard += "<h5 class=\"mt-0\"><img src=\"static/icons/" + logo + "\" class=\"align-self-start mr-3\" alt=\"" + header.replace(' ', '-') + "\"><b>" + header.capitalize() + "</b> "
             htmlCard += genPopoverButton(header)
             htmlCard += "</h5><legend class=\"border-bottom mb-1\"></legend>"
             htmlCard += content
@@ -70,30 +69,43 @@ def genCardMenus(jsonConfigObject, gradeColor="warning"):
 
 # Accepts a header and corresponding sectiondata, generates the contents of the cardmenu's, contents are custom per header
 def genContentCard(header, sectionData):
-    html = ""; logo = "fortigate.png"; gradeColors = (); 
+    html = ""; logo = "fortigate2.png"; gradeColors = (); 
 
     if header == 'firewall policy':
         logo = "firewallpolicy.png"
         html += "<table align=\"left\" class=\"table table-md table-hover\">"
         for section, valueData in sectionData.items():
             html += "<thead class=\"thead-light\"><th colspan=\"2\">" + valueData.get('name', 'NoName') + "</th></thead>"
-            html += "<tr>" + "<td>" + "service" + "</td>" + "<td>"
+            html += "<tr>" + "<td style=\"text-align:right\">" + genPopoverButton('service') + "</td>" + "<td>"
             for x in valueData.get('service', 'none').split(", "): 
                 html += genPopoverButton(x)
+            html += "</td>" + "</tr>"
+            if valueData.get('srcintf', '') and valueData.get('dstintf', ''): 
+                html += "<tr>" + "<td style=\"text-align:right\">" + genPopoverButton('srcintf') + "</td>"
+                html += "<td>" + valueData['srcintf'] + getInterfaceAlias(valueData['srcintf']) + "</td>" + "</tr>"
+                html += "<tr>" + "<td style=\"text-align:right\">" + genPopoverButton('dstintf') + "</td>"
+                html += "<td>" + valueData['dstintf'] +  getInterfaceAlias(valueData['dstintf']) + "</td>" + "</tr>"
             html += "</tbody>"
         html += "</table>"
 
     if header == 'interface':
-        logo = "interface5.png"
+        logo = "interface.png"
         html += "<table align=\"left\" class=\"table table-md table-hover\">"
         for section, valueData in sectionData.items():
+            additionalInfo = ""
+            if valueData.get('member'): additionalInfo = "gekoppeld aan <b>" + valueData.get('member') + "</b>"
+            if valueData.get('vlanid'): additionalInfo = "gebruikt de fysieke interface <b>" + valueData.get('interface') + "</b>"
+
             if valueData.get('alias', ''): section += "(" + valueData['alias'] + ")"
-            if valueData.get('type', ''): section += " " + genPopoverButton(valueData.get('type', 'none'))
+            if valueData.get('type', ''): section += " " + genPopoverButton(valueData.get('type'), additionalInfo)
+            if valueData.get('role', '') and valueData.get('vlanid'): section += " " + genPopoverButton('vlan', additionalInfo)
+            if valueData.get('role', '') and not valueData.get('vlanid'): section += " " + genPopoverButton(valueData.get('role'))
             if valueData.get('status', ''): section += " " + genPopoverButton(valueData['status'])
+            if valueData.get('mode', ''): section += " " + genPopoverButton(valueData['mode'])
 
             html += "<thead class=\"thead-light\"><th colspan=\"2\">" + section + "</th></thead>" 
             if valueData.get('allowaccess', False):
-                html += "<tr>" + "<td>" + "allowaccess" + "</td>" + "<td>"
+                html += "<tr>" + "<td style=\"text-align:right\">" + genPopoverButton('allowaccess') + "</td>" + "<td>"
                 for x in valueData.get('allowaccess', 'none').split(" "): 
                     html += genPopoverButton(x.upper())
                 html += "</td>" + "</tr>"
@@ -112,13 +124,14 @@ def findhighestGradeColor(gradeColorsHTML):
 def genHeadOveriew(cfgJsonObject):
     html = ""
     if cfgJsonObject.get('config', False) and cfgJsonObject.get('global', False):
-        firewallversion = getPopoverContents(cfgJsonObject['config']['version']['version'].split('-')[1])
+        logo = "fortigate2.png"; device = cfgJsonObject['config']['version']['version'].split('-')
+        firewallversion = getPopoverContents(device[1]) # Get the versionnumber
         html += """<header class=\"p-3 mb-2 bg-grey rounded border border-""" + firewallversion[2] + """\" id=\"overzichtheader\" >
               <div class=\"media\">
-              <img src=\"static/icons/fortigate.png\" class=\"align-self-start mr-3\" alt=\"fortigate\">
+              <img src=\"static/icons/""" + logo + """\" class=\"align-self-start mr-3\" alt=\"fortigate\">
               <div class=\"media-body\" id=\"mediaoverzicht\">
-                <h5 class=\"mt-0\"><b>""" + cfgJsonObject['config']['version']['version'].split('-')[0].replace('FGT', 'FortiGate ') + """</b></h5>
-
+                <h5 class=\"mt-0\"><b>""" + device[0].replace('FGT', 'FortiGate ') + """</b></h5>
+                <img src=\"static/icons/""" + device[0] + """.png\" alt=\"""" + device[0] + """\">
                 <table id=\"headertable\" class=\"table table-borderles\">
                   <tbody>
                       <tr>
@@ -133,13 +146,21 @@ def genHeadOveriew(cfgJsonObject):
                     </tr>
                   </tbody>
                 </table>
-
               </div>
-            </div>
+            </div> 
             """ + genConfigToAccordeon(['config','global'], boostrapColorToCSSColor(firewallversion[2])) + """ </header> """
         return html
     else:
         return html
+
+def getInterfaceAlias(interfaceSection):
+    alias = jsonConfigObjectGlobal.get('interface', {}).get(interfaceSection, {}).get('alias', False)
+    if alias: 
+        return " (" + alias + ")"
+    else: 
+        return ""
+        
+        
 
 def getFirewallServiceCustomPorts(argument):
     if jsonConfigObjectGlobal.get('firewall service custom', False) and jsonConfigObjectGlobal['firewall service custom'].get(argument, False):
@@ -160,14 +181,14 @@ def getFirewallServiceMember(argument):
     return ""
 
 # Accepts an argument for a popoverbutton and returns an HTML popoverbutton with corrosponding header, title, content and colors
-def genPopoverButton(argument):
-    additionalInfo = ""
+def genPopoverButton(argument, additionalInfo=""):
+
     # Hier kan ik nog iets doen met firewall service custom, ik kan de argument/titel gebruiken om die json te callen en de informatie eruit te halen, en achter de content te plakken
     # bijv: WhatsApp, blablbabla, is gekoppeld aan de poorten; 80 443 4244 5222 5228-5242 50318 59234 (tcp) en 3478 45395 50318 59234 (udp)
     title, content, color = getPopoverContents(argument)
     if getFirewallServiceCustomPorts(argument): additionalInfo += str(getFirewallServiceCustomPorts(argument))
-    if getFirewallServiceMember(argument): additionalInfo = getFirewallServiceMember(argument)
-    button = """<button type=\"button\" data-trigger="focus"
+    if getFirewallServiceMember(argument): additionalInfo += getFirewallServiceMember(argument)
+    button = """<button type=\"button\" data-trigger="focus" data-html="true"
             class="btn btn-sm btn-""" + color + """\" data-toggle=\"popover\" 
             title=\"""" +  title + """\" data-content=\"""" + content + additionalInfo + "\">" + argument + "</button>"
     argument = ""

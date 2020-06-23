@@ -89,6 +89,16 @@
         "content":"Wordt gebruik om op afstand te kunnen inloggen op een computer/machine. Communicatie is niet versleuteld waardoor het gebruik daarvan onveilig kan worden bevonden.",
         "color":"danger"
     },
+    "FGFM": {
+        "title":"FGFM",
+        "content":"<informatie>",
+        "color":"success"
+    },
+    "FABRIC": {
+        "title":"FABRIC",
+        "content":"<informatie>",
+        "color":"success"
+    },
     "PING": {
         "title":"PING",
         "content":"Wordt gebruikt om de bereikbaarheid van een netwerkapparaat te testen. Met PING kunnen netwerkapparaten in een netwerk in kaart worden gebracht, waardoor het openstellen niet aangeraden is.",
@@ -127,6 +137,61 @@
     "down": {
         "title":"Down",
         "content":"Deze link is inactief",
+        "color":"info"
+    },
+    "allowaccess": {
+        "title":"allowaccess (Toegelaten manieren van toegang)",
+        "content":"Toont welke manieren voor toegang met de betreffende interface er mogelijk zijn, dit voor beheersdoeleinden. Doormiddel bijbehorende kleuren is hiernaast gevisualiseerd of deze manieren ook veilig bevonden kunnen worden.",
+        "color":"primary"
+    },
+    "service": {
+        "title":"service (Toegelaten diensten/applicaties)",
+        "content":"Toont welke diensten/applicaties doorgelaten worden op de firewall.",
+        "color":"primary"
+    },
+    "srcintf": {
+        "title":"service (Toegelaten diensten/applicaties)",
+        "content":"Toont welke diensten/applicaties doorgelaten worden op de firewall.",
+        "color":"primary"
+    },
+    "dstintf": {
+        "title":"service (Toegelaten diensten/applicaties)",
+        "content":"Toont welke diensten/applicaties doorgelaten worden op de firewall.",
+        "color":"primary"
+    },
+    "vlan": {
+        "title":"vlan",
+        "content":"vlan",
+        "color":"info"
+    },
+    "wan": {
+        "title":"wan",
+        "content":"wan",
+        "color":"info"
+    },
+    "lan": {
+        "title":"lan",
+        "content":"lan",
+        "color":"info"
+    },
+    "dmz": {
+        "title":"dmz",
+        "content":"dmz",
+        "color":"info"
+    },
+    "dhcp": {
+        "title":"dhcp",
+        "content":"dhcp",
+        "color":"info"
+    },
+    "pppoe": {
+        "title":"pppoe",
+        "content":"pppoe",
+        "color":"info"
+    },
+    "aggregate": {
+        "title":"aggregate",
+        "content":"aggregate",
         "color":"info"
     }
     

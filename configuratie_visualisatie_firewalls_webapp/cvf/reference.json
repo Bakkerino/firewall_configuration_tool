@@ -1,16 +1,36 @@
 {
-    "6.2.3": {
-        "title":"FortiGate 6.2.3",
-        "content":"Dit is een recente software versie",
+    "6.4.x": {
+        "title":"FortiGate 6.4.x",
+        "content":"Dit is de meest recente software versie",
         "color":"success"
     },
-    "6.2.1": {
-        "title":"FortiGate 6.2.1",
+    "6.2.x": {
+        "title":"FortiGate 6.2.x",
+        "content":"Dit is een minder recente software versie",
+        "color":"warning"
+    },
+    "6.0.x": {
+        "title":"FortiGate 6.0.x",
         "content":"Dit is een verouderde software versie",
         "color":"warning"
     },
-    "5.4.1": {
-        "title":"FortiGate 5.4.1",
+    "5.6.x": {
+        "title":"FortiGate 5.6.x",
+        "content":"Dit is een streng verouderde software versie",
+        "color":"danger"
+    },
+    "5.4.x": {
+        "title":"FortiGate 5.4.x",
+        "content":"Dit is een streng verouderde software versie",
+        "color":"danger"
+    },
+    "5.2.x": {
+        "title":"FortiGate 5.2.x",
+        "content":"Dit is een streng verouderde software versie",
+        "color":"danger"
+    },
+    "5.0.x": {
+        "title":"FortiGate 5.0.x",
         "content":"Dit is een streng verouderde software versie",
         "color":"danger"
     },
@@ -46,27 +66,27 @@
     },
     "H323": {
         "title":"H323",
-        "content":"<informatie>",
+        "content":"Gebruikt voor digitale telefonie met betrekking op het transport van de audio, video of andere datacommunicatie",
         "color":"success"
     },
     "RTSP": {
-        "title":"RTSP",
-        "content":"<informatie>",
+        "title":"Real Time Streaming Protocol",
+        "content":"Gebruikt voor het aaneengesloten oftewel 'streamen' van audio en video over het internet",
         "color":"success"
     },
     "SCCP": {
-        "title":"SCCP",
-        "content":"<informatie>",
+        "title":"Skinny Client Control Protocol",
+        "content":"Gebruikt voor het communiceren met de 'Cisco Unified Communications Manager' en faciliteert hierin de digitale telefonie.",
         "color":"success"
     },
     "SIP": {
-        "title":"SIP",
-        "content":"<informatie>",
+        "title":"Session Initiation Protocol",
+        "content":"Gebruikt om een zogeheten 'sessie' op te zetten tussen twee digitale telefoontoestellen (VoIP)",
         "color":"success"
     },
     "SIP-MSNmessenger": {
         "title":"SIP-MSNmessenger",
-        "content":"<informatie>",
+        "content":"Van Microsoft en gebruikt voor digitale telefonie (VoIP) en chat-applicaties zoals MSN",
         "color":"success"
     },
     "HTTP": {
@@ -86,7 +106,7 @@
     },
     "TELNET": {
         "title":"TELNET",
-        "content":"Wordt gebruik om op afstand te kunnen inloggen op een computer/machine. Communicatie is niet versleuteld waardoor het gebruik daarvan onveilig kan worden bevonden.",
+        "content":"Wordt gebruik om op afstand te kunnen inloggen op een computer/machine, met als doel om deze te kunnen beheren. Communicatie is niet versleuteld waardoor het gebruik daarvan onveilig kan worden bevonden.",
         "color":"danger"
     },
     "FGFM": {
@@ -110,12 +130,12 @@
         "color":"success"
     },
     "RDP": {
-        "title":"RDP",
-        "content":"<informatie>",
+        "title":"Remote Desktop Protocol (RDP)",
+        "content":"Van Microsoft en gebruikt voor, doormiddel een gedeeld scherm, het op afstand beheren van een computer/server",
         "color":"success"
     },
     "SSH": {
-        "title":"SSH",
+        "title":"Secure Shell (SSH)",
         "content":"Wordt gebruik om op afstand (veilig) te kunnen inloggen op een computer/machine. SSH vervangt met zijn data versleuteling oudere protocollen zoals 'Telnet'.",
         "color":"success"
     },
@@ -150,38 +170,38 @@
         "color":"primary"
     },
     "srcintf": {
-        "title":"service (Toegelaten diensten/applicaties)",
-        "content":"Toont welke diensten/applicaties doorgelaten worden op de firewall.",
+        "title":"srcintf (de <b>bron</b> interface)",
+        "content":"<informatie>",
         "color":"primary"
     },
     "dstintf": {
-        "title":"service (Toegelaten diensten/applicaties)",
-        "content":"Toont welke diensten/applicaties doorgelaten worden op de firewall.",
+        "title":"dstintf (de <b>bestemmings</b> interface)",
+        "content":"<informatie>",
         "color":"primary"
     },
     "vlan": {
-        "title":"vlan",
-        "content":"vlan",
+        "title":"Virtual LAN (VLAN)",
+        "content":"Is een virtueel LAN oftewel netwerk.",
         "color":"info"
     },
     "wan": {
-        "title":"wan",
-        "content":"wan",
+        "title":"Wide Area Network (WAN)",
+        "content":"Een WAN omschrijft een internetnetwerk met een redelijk groot oppervlak zoals een land of een continent. Oftewel een externe verbinding met het internet.",
         "color":"info"
     },
     "lan": {
-        "title":"lan",
-        "content":"lan",
+        "title":"Local Area Network (LAN)",
+        "content":"Een LAN omschrijft een internetnetwerk met een klein oppervlak zoals te vinden in een enkele ruimte of gebouw. Oftewel een 'intern' of 'lokaal' netwerk",
         "color":"info"
     },
     "dmz": {
-        "title":"dmz",
-        "content":"dmz",
+        "title":"Demilitarized Zone",
+        "content":"Een DMZ omschrijft een netwerk tussen de interne en externe netwerken in. Dit stukje netwerk is volledig toegankelijk voor de buitenwereld en wordt veelal gebruikt voor web en/of mailservers.",
         "color":"info"
     },
     "dhcp": {
-        "title":"dhcp",
-        "content":"dhcp",
+        "title":"Dynamic Host Configuration Protocol",
+        "content":"Wordt gebruikt om computers of andere netwerkapparaten automatisch (dynamisch) te voorzien van een IP-adres binnen een netwerk",
         "color":"info"
     },
     "pppoe": {

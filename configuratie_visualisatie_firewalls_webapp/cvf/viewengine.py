@@ -1,5 +1,6 @@
 import json
 from cvf import app
+import re
 
 # Accepts a json object and generates this in a html table format, with toggle buttons as headers. This function is similair to what json2html does
 def genConfigToTableHTML(jsonConfigObject):
@@ -160,8 +161,6 @@ def getInterfaceAlias(interfaceSection):
     else: 
         return ""
         
-        
-
 def getFirewallServiceCustomPorts(argument):
     if jsonConfigObjectGlobal.get('firewall service custom', False) and jsonConfigObjectGlobal['firewall service custom'].get(argument, False):
         tcpPorts = jsonConfigObjectGlobal['firewall service custom'][argument].get('tcp-portrange', False)
@@ -198,6 +197,8 @@ def genPopoverButton(argument, additionalInfo=""):
 def getPopoverContents(arg):
     f = open('./cvf/reference.json',)
     reference = json.load(f)
+
+    if len(arg) == 5 and arg[1] == "." and arg[3] == ".": arg = re.sub('.\d$', ".x", arg) # For detecting the firewall version, this without the last dot and digit
     if reference.get(arg, False):
         title = reference[arg]['title']
         content = reference[arg]['content']

@@ -2,7 +2,7 @@ import json
 from cvf import app
 import re
 
-# Accepts a json object and generates this in a html table format, with toggle buttons as headers. This function is similair to what json2html does
+# Accepts a json object and generates this in a html table format, with toggle buttons as headers. This function is similair to what solutions like json2html does
 def genConfigToTableHTML(jsonConfigObject):
     html = "<table id=\"viewtable\" class=\"table table-sm\">" + "<tbody>"
     for header, sectionData in jsonConfigObject.items():
@@ -19,6 +19,7 @@ def genConfigToTableHTML(jsonConfigObject):
         html += "</tbody>" + "</table>" + "</td>" + "</tr>"
     html += "</tbody>" + "</table>"
     return html
+
 
 # Accepts json object, headers[] and a color. Generates tables and entries, of which are contained by an accordeon menu. Outputs HTML
 def genConfigToAccordeon(arguments, gradeColor):
@@ -62,7 +63,7 @@ def genCardMenus(jsonConfigObject, gradeColor="warning"):
             htmlCard += "</div></div>"
             htmlCard += genConfigToAccordeon([header], boostrapColorToCSSColor(gradeColor))
             htmlCard += "</header>"
-            if app.config["DEBUG"]: print('created card for: ' + header)
+            if app.config["DEBUG"]: print('created configuration-card for: ' + header)
         if content == "": htmlBacklog += htmlCard; continue # Minder interessante informatie achteraan
         html += htmlCard
     html += htmlBacklog    

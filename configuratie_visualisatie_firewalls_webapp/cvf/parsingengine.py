@@ -22,7 +22,6 @@ def cfgFileParsing(filename):
                 print("###########################################")
                 print(count - 1, ": Previous line: >", previous_line)
                 print(count, ": Current indentation: >", indentation)
-                print(count, ": indentation name: >", indentation_name)
                 print(count, ": Current line: >", current_line)
 
             # If line is empty, commented or not viable
@@ -46,7 +45,7 @@ def cfgFileParsing(filename):
                 # Parsing and getting information about the configuration file version and buildnumber
                 if line.startswith(tuple(['#conf_file_ver=', '#buildno=', '#global_vdom='])):
                     name, value = line.replace('#', '').replace('\n', '').split('='); inputValuesConfig(name, value)
-                if app.config["DEBUG"]: print("leeg/comment")
+                if app.config["DEBUG"]: print("empty or comment")
                 continue
 
             # Start of the actual parsing
@@ -57,7 +56,7 @@ def cfgFileParsing(filename):
             
             # Checks for the current 'end' and previous 'config' argument so it can be decided that the contents are empty, and skips. 
             if line.split()[0] == 'end' and previous_line[0] == 'config':
-                if app.config["DEBUG"]: print("inhoud leeg")
+                if app.config["DEBUG"]: print("empty")
                 continue
 
             # Splits the line into usable variables
@@ -124,7 +123,7 @@ def deleteEmpty(jsonConfig):
         try:
             if len(jsonObject[k])<1:
                 del jsonObject[k]
-                if app.config["DEBUG"]: print(k, "-> is leeg, record verwijderd")
+                if app.config["DEBUG"]: print(k, "-> is empty, deleted")
         except: pass
     return jsonObject
 

@@ -171,12 +171,12 @@
     },
     "srcintf": {
         "title":"srcintf (de <b>bron</b> interface)",
-        "content":"<informatie>",
+        "content":"Weergeeft de bron interface van de betreffende firewall regel",
         "color":"primary"
     },
     "dstintf": {
         "title":"dstintf (de <b>bestemmings</b> interface)",
-        "content":"<informatie>",
+        "content":"Weergeeft de bestemmings interface van de betreffende firewall regel",
         "color":"primary"
     },
     "vlan": {

@@ -45,8 +45,8 @@ Een (Python flask web-applicatie) die aan de hand van firewallconfiguratie de ge
 - 
 
 # media 
-![](configuratie_visualisatie_firewalls_webapp/cvf/static/demo/webapp6.gif)
-![](configuratie_visualisatie_firewalls_webapp/cvf/static/demo/webapp5.PNG)
-![](configuratie_visualisatie_firewalls_webapp/cvf/static/demo/webapp1.PNG)
+![](configuratie_visualisatie_firewalls_webapp/cvf/demo/webapp6.gif)
+![](configuratie_visualisatie_firewalls_webapp/cvf/demo/webapp5.PNG)
+![](configuratie_visualisatie_firewalls_webapp/cvf/demo/webapp1.PNG)
 
 

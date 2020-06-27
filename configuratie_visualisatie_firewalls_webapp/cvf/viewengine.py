@@ -83,9 +83,9 @@ def genContentCard(header, sectionData):
             html += "</td>" + "</tr>"
             if valueData.get('srcintf', '') and valueData.get('dstintf', ''): 
                 html += "<tr>" + "<td style=\"text-align:right\">" + genPopoverButton('srcintf') + "</td>"
-                html += "<td>" + valueData['srcintf'] + getInterfaceAlias(valueData['srcintf']) + "</td>" + "</tr>"
-                html += "<tr>" + "<td style=\"text-align:right\">" + genPopoverButton('dstintf') + "</td>"
-                html += "<td>" + valueData['dstintf'] +  getInterfaceAlias(valueData['dstintf']) + "</td>" + "</tr>"
+                html += "<td>" + "<b>" + valueData['srcintf'] + getInterfaceAlias(valueData['srcintf']) + "</b>" + "</td>" + "</tr>"
+                html += "<tr>" + "<td style=\"text-align:right\">" + "<b>" + genPopoverButton('dstintf') + "</td>"
+                html += "<td>" + "<b>" + valueData['dstintf'] + getInterfaceAlias(valueData['dstintf']) + "</b>" + "</td>" + "</tr>"
             html += "</tbody>"
         html += "</table>"
 
@@ -195,7 +195,7 @@ def genPopoverButton(argument, additionalInfo=""):
 
 # Accepts an argument for a popoverbutton and returns after referencing a json file corrosponding title, contents and color
 def getPopoverContents(arg):
-    f = open('./cvf/reference.json',)
+    f = open('./cvf/databases/reference.json',)
     reference = json.load(f)
 
     if len(arg) == 5 and arg[1] == "." and arg[3] == ".": arg = re.sub('.\d$', ".x", arg) # For detecting the firewall version, this without the last dot and digit

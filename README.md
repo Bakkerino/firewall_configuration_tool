@@ -7,7 +7,7 @@ Een (Python flask web-applicatie) die aan de hand van firewallconfiguratie de ge
 - Activate virtual enviroment "env\Scripts\activate"
 - run run.py from virtual enviroment
 
-# pip installs (requirements)
+# pip installs (requirements and dependencys)
 - pip install flask
 - pip install flask_wtf
 - pip install flash
@@ -45,8 +45,8 @@ Een (Python flask web-applicatie) die aan de hand van firewallconfiguratie de ge
 - 
 
 # media 
-![](configuratie_visualisatie_firewalls_webapp/cvf/static/webapp6.gif)
-![](configuratie_visualisatie_firewalls_webapp/cvf/static/webapp5.PNG)
-![](configuratie_visualisatie_firewalls_webapp/cvf/static/webapp1.PNG)
+![](configuratie_visualisatie_firewalls_webapp/cvf/static/demo/webapp6.gif)
+![](configuratie_visualisatie_firewalls_webapp/cvf/static/demo/webapp5.PNG)
+![](configuratie_visualisatie_firewalls_webapp/cvf/static/demo/webapp1.PNG)
 
 

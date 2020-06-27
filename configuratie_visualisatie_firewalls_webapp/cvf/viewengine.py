@@ -170,8 +170,8 @@ def getFirewallServiceCustomPorts(argument):
         udpPorts = udpPorts + "(UDP) " if udpPorts else ""
         if '(TCP)' in tcpPorts or '(UDP)' in udpPorts:
             if '(TCP)' in tcpPorts and '(UDP)' in udpPorts:
-                return ", toegewezen poorten; " + tcpPorts + "en " + udpPorts
-            return ", toegewezen poorten; " + tcpPorts + udpPorts
+                return " Toegewezen poorten: " + tcpPorts + "en " + udpPorts
+            return " Toegewezen poorten: " + tcpPorts + udpPorts
         return ""
 
 def getFirewallServiceMember(argument):
@@ -206,8 +206,8 @@ def getPopoverContents(arg):
         color = reference[arg]['color']
         return title, content, color
     else:
-        title = "Titel"
-        content = "Geen informatie beschikbaar"
+        title = arg
+        content = "geen informatie over " + arg
         color = "secondary"
         return title, content, color
 

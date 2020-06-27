@@ -46,12 +46,12 @@
     },
     "Email Access": {
         "title":"Email access",
-        "content":"Is een verzameling van protocollen die emailen mogelijk maakt.",
+        "content":"Is een verzameling van protocollen die emailen mogelijk maakt, namelijk; ",
         "color":"success"
     },
     "Web Access": {
         "title":"Web access",
-        "content":"Is een verzameling van protocollen die het surfen op webpagina's mogelijk maakt.",
+        "content":"Is een verzameling van protocollen die het surfen op webpagina's mogelijk maakt, namelijk; ",
         "color":"success"
     },
     "WhatsApp": {
@@ -99,11 +99,6 @@
         "content":"Wordt gebruikt om communicatie, doormiddel een webbrowser, tussen een weblclient en een webserver mogelijk te maken. In tegenstelling tot HTTP wordt met HTTPS de data wel versleuteld en daardoor niet uit te lezen is.",
         "color":"success"
     },
-    "Fortinet-MGMT": {
-        "title":"Fortinet-MGMT",
-        "content":"<informatie>",
-        "color":"success"
-    },
     "TELNET": {
         "title":"TELNET",
         "content":"Wordt gebruik om op afstand te kunnen inloggen op een computer/machine, met als doel om deze te kunnen beheren. Communicatie is niet versleuteld waardoor het gebruik daarvan onveilig kan worden bevonden.",
@@ -111,12 +106,12 @@
     },
     "FGFM": {
         "title":"FGFM",
-        "content":"<informatie>",
+        "content":"Wordt gebruikt voor antivirus en veiligheidsupdates (IPS) en bied te mogelijkheid tot beheer op afstand door middel FortiManager of FortiCloud.",
         "color":"success"
     },
     "FABRIC": {
         "title":"FABRIC",
-        "content":"<informatie>",
+        "content":"Wordt gebruikt voor de zogenoemd 'Fortinet Security Fabric'. Door meerdere netwerkbeveiligingsproducten aan elkaar te koppelen wordt een onderling communicatieplatform opgezet, waarbij deze apparaten kunnen reageren op beveiligingsincidenten.",
         "color":"success"
     },
     "PING": {
@@ -124,9 +119,14 @@
         "content":"Wordt gebruikt om de bereikbaarheid van een netwerkapparaat te testen. Met PING kunnen netwerkapparaten in een netwerk in kaart worden gebracht, waardoor het openstellen niet aangeraden is.",
         "color":"warning"
     },
+    "Fortinet-MGMT": {
+        "title":"Fortinet-MGMT",
+        "content":"Gebruikt voor het management van Fortinet apparatuur.",
+        "color":"success"
+    },
     "Aruba-MGMT": {
         "title":"Aruba-MGMT",
-        "content":"<informatie>",
+        "content":"Gebruikt voor het management van Aruba (HP) apparatuur.",
         "color":"success"
     },
     "RDP": {
@@ -170,12 +170,12 @@
         "color":"primary"
     },
     "srcintf": {
-        "title":"srcintf (de <b>bron</b> interface)",
+        "title":"De <b>bron</b> interface",
         "content":"Weergeeft de bron interface van de betreffende firewall regel",
         "color":"primary"
     },
     "dstintf": {
-        "title":"dstintf (de <b>bestemmings</b> interface)",
+        "title":"De <b>bestemmings</b> interface",
         "content":"Weergeeft de bestemmings interface van de betreffende firewall regel",
         "color":"primary"
     },
@@ -195,8 +195,8 @@
         "color":"info"
     },
     "dmz": {
-        "title":"Demilitarized Zone",
-        "content":"Een DMZ omschrijft een netwerk tussen de interne en externe netwerken in. Dit stukje netwerk is volledig toegankelijk voor de buitenwereld en wordt veelal gebruikt voor web en/of mailservers.",
+        "title":"Gedimilitariseerde Zone",
+        "content":"Een DMZ omschrijft een netwerk tussen een intern en extern netwerk in. Dit stukje netwerk is volledig toegankelijk voor de buitenwereld en staat los van het interne netwerk. Een DMZ is een veelal gebruikte toepassing voor web en/of mailservers.",
         "color":"info"
     },
     "dhcp": {
@@ -205,13 +205,13 @@
         "color":"info"
     },
     "pppoe": {
-        "title":"pppoe",
-        "content":"pppoe",
+        "title":"PPPoE",
+        "content":"Wordt gebruikt voor modems om te kunnen communiceren met de internetprovider (ISP). Doormiddel authenticatie weten zij wie de klant is die de lijn gebruikt.",
         "color":"info"
     },
     "aggregate": {
-        "title":"aggregate",
-        "content":"aggregate",
+        "title":"Interface aggregatie (combinatie)",
+        "content":"Wordt gebruikt om meerdere interfaces te combineren om zo de bandbreedte (snelheid) te verhogen en om redundantie (het blijven functioneren wanneer een van de interfaces faalt) aan te brengen.",
         "color":"info"
     }
     

@@ -7,9 +7,9 @@ from cvf.userforms import LoginForm, RegistrationForm, AccountChangeForm
 from cvf.models import User
 from flask_login import login_user, current_user, logout_user, login_required
 from datetime import timedelta
-from cvf.parsingengine import cfgFileParsing, deleteEmpty
-from cvf.viewengine import genHeadOveriew, genConfigToTableHTML, genConfigToAccordeon, genCardMenus
-from cvf.filehandler import deleteImportCache, verify_filesize, verify_filename, readFile
+from cvf.parsingengine import cfgFileParser, deleteEmpty
+from cvf.viewengine import jsonToHeadOveriew, jsonToHTMLTable, jsonToAccordeon, jsonToCardMenus
+from cvf.filehandler import deleteImportCache, verifyFilesize, verifyFilename, readFile
 from cvf.cfghulpengine import ConfigurationForm, genFortianalyzer # Legacy 
 
 @app.route("/", methods=['GET', 'POST'])
@@ -111,7 +111,7 @@ def configuratieimport():
 
             # checks if file has a valid size, gathered from cookie, redirects if false
             if "filesize" in request.cookies:
-                if not verify_filesize(request.cookies["filesize"]):
+                if not verifyFilesize(request.cookies["filesize"]):
                     if app.config["DEBUG"]: print("Maximum bestandgrootte overschreden")
                     flash(f'Maximum bestandgrootte van {round(app.config["MAX_FILESIZE"]/1000, 2)}kB overschreden', 'danger')
                     return redirect(request.url)
@@ -124,7 +124,7 @@ def configuratieimport():
                 return redirect(request.url)
 
             # Verifies the filename (extension)
-            if verify_filename(cfgbestand.filename):
+            if verifyFilename(cfgbestand.filename):
                 # Saves the file that has been input
                 bestandsnaam = secure_filename(cfgbestand.filename)
                 cfgbestand.save(os.path.join(app.config["CFG_UPLOADS"], bestandsnaam))
@@ -132,19 +132,19 @@ def configuratieimport():
                 # Reads the file so it can be parsed
                 cfgbestand = readFile(bestandsnaam)
                 # Parses the contents of the file and outputs it in a json format
-                cfgjson = cfgFileParsing(bestandsnaam) 
+                cfgjson = cfgFileParser(bestandsnaam) 
                 # Deletes the uploaded file
                 deleteImportCache(bestandsnaam)
                 # Accepts json, deletes empty records, outputs json object
                 cfgJsonObject = deleteEmpty(cfgjson)
 
                 # Formats the contents of the jsonobject (configuration) to html in a table format
-                ConfigTableHTML = genConfigToTableHTML(cfgJsonObject)
+                ConfigTableHTML = jsonToHTMLTable(cfgJsonObject)
 
                 # Accepts json object and formats it to a user-friendly view as html
-                overviewImpact= genCardMenus(cfgJsonObject)
+                overviewImpact= jsonToCardMenus(cfgJsonObject)
                 if app.config["DEBUG"]: 
-                    return render_template('configuratieimport.html', fgenConfigToAccordeon=genConfigToAccordeon, bestandsnaam=bestandsnaam, 
+                    return render_template('configuratieimport.html', bestandsnaam=bestandsnaam, 
                     cfgbestand=cfgbestand, cfgjson=cfgjson, cfgJsonObject=cfgJsonObject, ConfigTableHTML=ConfigTableHTML, overviewImpact=overviewImpact)
                 else:
                     return render_template('configuratieimport.html', bestandsnaam=bestandsnaam,

@@ -10,16 +10,16 @@ def deleteImportCache(bestandsnaam):
     else:
         if app.config["DEBUG"]: print(bestandsnaam, " -> verwijderen niet mogelijk")
 
-# Verifies the filesize from pre-configered config
-def verify_filesize(filesize):
+# Verifies the filesize, depending on the pre-configered config
+def verifyFilesize(filesize):
     print(filesize)
     if int(filesize) <= app.config["MAX_FILESIZE"]:
         return True
     else:
         return False
 
-# verifies filename and extension from pre-configured config
-def verify_filename(filename):
+# verifies filename and extension, depending on the pre-configured config
+def verifyFilename(filename):
     if not "." in filename:
         if app.config["DEBUG"]: print("Ongeldige bestandsnaam")
         return False
@@ -32,6 +32,6 @@ def verify_filename(filename):
 
 # Reads the file combining pre-configured config with filename
 def readFile(bestandsnaam):
-    with open(app.config["CFG_UPLOADS"] + bestandsnaam) as fh:
-        data = fh.read()
+    with open(app.config["CFG_UPLOADS"] + bestandsnaam) as configfile:
+        data = configfile.read()
     return data

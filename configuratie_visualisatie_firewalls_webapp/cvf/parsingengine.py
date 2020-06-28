@@ -5,7 +5,7 @@ config = {}
 
 
 # Parsing engine that parses files line by line, written for fortigate configuration files, the function returns a json dump containing ordened config
-def cfgFileParsing(filename):
+def cfgFileParser(filename):
 
     # The config headers that are used, viable and detected for parsing
     arguments = ['global', 'entries', 'system', 'vpn', 'user', 'vdom', 'firewall', 'voip', 'web-proxy', 'application', 'dlp', 'webfilter', 'spamfilter', 'log', 'router'] 

@@ -3,7 +3,7 @@ from cvf import app
 import re
 
 # Accepts a json object and generates this in a html table format, with toggle buttons as headers. This function is similair to what solutions like json2html does
-def genConfigToTableHTML(jsonConfigObject):
+def jsonToHTMLTable(jsonConfigObject):
     html = "<table id=\"viewtable\" class=\"table table-sm\">" + "<tbody>"
     for header, sectionData in jsonConfigObject.items():
         html += "<tr>" + "<th>"
@@ -22,7 +22,7 @@ def genConfigToTableHTML(jsonConfigObject):
 
 
 # Accepts json object, headers[] and a color. Generates tables and entries, of which are contained by an accordeon menu. Outputs HTML
-def genConfigToAccordeon(arguments, gradeColor):
+def jsonToAccordeon(arguments, gradeColor):
     html = ""
     for header, sectionData in jsonConfigObjectGlobal.items():
         if arguments == True or header in arguments:
@@ -42,26 +42,26 @@ def genConfigToAccordeon(arguments, gradeColor):
     return html
 
 # Accepts json object, generates a card with logo, color and data entries. Is used to display the headers corrosponding with firewallconfiguration
-def genCardMenus(jsonConfigObject, gradeColor="warning"):
+def jsonToCardMenus(jsonConfigObject, gradeColor="warning"): 
     global jsonConfigObjectGlobal; jsonConfigObjectGlobal = jsonConfigObject
     htmlBacklog = ""
-    html = genHeadOveriew(jsonConfigObjectGlobal) # header
+    html = jsonToHeadOveriew(jsonConfigObjectGlobal) # header
     
     arguments = True #['interface', 'firewall policy']
     for header, sectionData in jsonConfigObjectGlobal.items():
         if header in ['config', 'global']:
             continue
         if arguments == True or header in arguments:
-            gradeColor, content, logo = genContentCard(header, sectionData)
+            gradeColor, content, logo = configContentToCard(header, sectionData)
             htmlCard = "<header class=\"p-3 mb-2 bg-grey rounded border border-" + gradeColor + "\" id=\"" + header.replace(' ', '-') + "\">"
             htmlCard += "<div class=\"media\">"
             htmlCard += "<div class=\"media-body\" id=\"mediaoverzicht\">"
             htmlCard += "<h5 class=\"mt-0\"><img src=\"static/icons/" + logo + "\" class=\"align-self-start mr-3\" alt=\"" + header.replace(' ', '-') + "\"><b>" + header.capitalize() + "</b> "
-            htmlCard += genPopoverButton(header)
+            htmlCard += getPopoverButton(header)
             htmlCard += "</h5><legend class=\"border-bottom mb-1\"></legend>"
             htmlCard += content
             htmlCard += "</div></div>"
-            htmlCard += genConfigToAccordeon([header], boostrapColorToCSSColor(gradeColor))
+            htmlCard += jsonToAccordeon([header], boostrapColorToCSSColor(gradeColor))
             htmlCard += "</header>"
             if app.config["DEBUG"]: print('created configuration-card for: ' + header)
         if content == "": htmlBacklog += htmlCard; continue # Minder interessante informatie achteraan
@@ -70,7 +70,7 @@ def genCardMenus(jsonConfigObject, gradeColor="warning"):
     return html
 
 # Accepts a header and corresponding sectiondata, generates the contents of the cardmenu's, contents are custom per header
-def genContentCard(header, sectionData):
+def configContentToCard(header, sectionData): 
     html = ""; logo = "fortigate2.png"; gradeColors = (); 
 
     if header == 'firewall policy':
@@ -78,14 +78,14 @@ def genContentCard(header, sectionData):
         html += "<table align=\"left\" class=\"table table-md table-hover\">"
         for section, valueData in sectionData.items():
             html += "<thead class=\"thead-light\"><th colspan=\"2\">" + valueData.get('name', 'NoName') + "</th></thead>"
-            html += "<tr>" + "<td style=\"text-align:right\">" + genPopoverButton('service') + "</td>" + "<td>"
+            html += "<tr>" + "<td style=\"text-align:right\">" + getPopoverButton('service') + "</td>" + "<td>"
             for x in valueData.get('service', 'none').split(", "): 
-                html += genPopoverButton(x)
+                html += getPopoverButton(x)
             html += "</td>" + "</tr>"
             if valueData.get('srcintf', '') and valueData.get('dstintf', ''): 
-                html += "<tr>" + "<td style=\"text-align:right\">" + genPopoverButton('srcintf') + "</td>"
+                html += "<tr>" + "<td style=\"text-align:right\">" + getPopoverButton('srcintf') + "</td>"
                 html += "<td>" + "<b>" + valueData['srcintf'] + getInterfaceAlias(valueData['srcintf']) + "</b>" + "</td>" + "</tr>"
-                html += "<tr>" + "<td style=\"text-align:right\">" + "<b>" + genPopoverButton('dstintf') + "</td>"
+                html += "<tr>" + "<td style=\"text-align:right\">" + "<b>" + getPopoverButton('dstintf') + "</td>"
                 html += "<td>" + "<b>" + valueData['dstintf'] + getInterfaceAlias(valueData['dstintf']) + "</b>" + "</td>" + "</tr>"
             html += "</tbody>"
         html += "</table>"
@@ -99,17 +99,17 @@ def genContentCard(header, sectionData):
             if valueData.get('vlanid'): additionalInfo = "gebruikt de fysieke interface <b>" + valueData.get('interface') + "</b>"
 
             if valueData.get('alias', ''): section += "(" + valueData['alias'] + ")"
-            if valueData.get('type', ''): section += " " + genPopoverButton(valueData.get('type'), additionalInfo)
-            if valueData.get('role', '') and valueData.get('vlanid'): section += " " + genPopoverButton('vlan', additionalInfo)
-            if valueData.get('role', '') and not valueData.get('vlanid'): section += " " + genPopoverButton(valueData.get('role'))
-            if valueData.get('status', ''): section += " " + genPopoverButton(valueData['status'])
-            if valueData.get('mode', ''): section += " " + genPopoverButton(valueData['mode'])
+            if valueData.get('type', ''): section += " " + getPopoverButton(valueData.get('type'), additionalInfo)
+            if valueData.get('role', '') and valueData.get('vlanid'): section += " " + getPopoverButton('vlan', additionalInfo)
+            if valueData.get('role', '') and not valueData.get('vlanid'): section += " " + getPopoverButton(valueData.get('role'))
+            if valueData.get('status', ''): section += " " + getPopoverButton(valueData['status'])
+            if valueData.get('mode', ''): section += " " + getPopoverButton(valueData['mode'])
 
             html += "<thead class=\"thead-light\"><th colspan=\"2\">" + section + "</th></thead>" 
             if valueData.get('allowaccess', False):
-                html += "<tr>" + "<td style=\"text-align:right\">" + genPopoverButton('allowaccess') + "</td>" + "<td>"
+                html += "<tr>" + "<td style=\"text-align:right\">" + getPopoverButton('allowaccess') + "</td>" + "<td>"
                 for x in valueData.get('allowaccess', 'none').split(" "): 
-                    html += genPopoverButton(x.upper())
+                    html += getPopoverButton(x.upper())
                 html += "</td>" + "</tr>"
         html += "</table>"
     return findhighestGradeColor(html), html, logo
@@ -123,7 +123,7 @@ def findhighestGradeColor(gradeColorsHTML):
         return "secondary"
 
 # Generates the header of het configoverview containing generic information like version, and names
-def genHeadOveriew(cfgJsonObject):
+def jsonToHeadOveriew(cfgJsonObject): 
     html = ""
     if cfgJsonObject.get('config', False) and cfgJsonObject.get('global', False):
         logo = "fortigate2.png"; device = cfgJsonObject['config']['version']['version'].split('-')
@@ -150,8 +150,8 @@ def genHeadOveriew(cfgJsonObject):
                 </table>
               </div>
             </div> 
-            """ + genConfigToAccordeon(['config','global'], boostrapColorToCSSColor(firewallversion[2])) + """ </header> """
-        return html
+            """ + jsonToAccordeon(['config','global'], boostrapColorToCSSColor(firewallversion[2])) + """ </header> """
+        return html 
     else:
         return html
 
@@ -181,7 +181,7 @@ def getFirewallServiceMember(argument):
     return ""
 
 # Accepts an argument for a popoverbutton and returns an HTML popoverbutton with corrosponding header, title, content and colors
-def genPopoverButton(argument, additionalInfo=""):
+def getPopoverButton(argument, additionalInfo=""):
 
     # Hier kan ik nog iets doen met firewall service custom, ik kan de argument/titel gebruiken om die json te callen en de informatie eruit te halen, en achter de content te plakken
     # bijv: WhatsApp, blablbabla, is gekoppeld aan de poorten; 80 443 4244 5222 5228-5242 50318 59234 (tcp) en 3478 45395 50318 59234 (udp)

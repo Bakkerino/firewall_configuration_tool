@@ -1,4 +1,4 @@
-# firewall_configuration_tool
+# Configuratie-visualisatie voor firewalls (CVF)
 Een (Python flask web-applicatie) die aan de hand van firewallconfiguratie de gebruikte instellingen en impact van deze instellingen weergeeft.
 
 # Installation specification (development)

@@ -118,13 +118,10 @@ def configuratieimport():
 
             # requests the file that has been input
             cfgbestand = request.files["cfgbestand"]
-            # checks if file has a filename
-            if cfgbestand.filename == "":
-                print("Geen bestandsnaam")
-                return redirect(request.url)
 
             # Verifies the filename (extension)
-            if verifyFilename(cfgbestand.filename):
+            # checks if file has a filename
+            if verifyFilename(cfgbestand.filename) and cfgbestand.filename != "":
                 # Saves the file that has been input
                 bestandsnaam = secure_filename(cfgbestand.filename)
                 cfgbestand.save(os.path.join(app.config["CFG_UPLOADS"], bestandsnaam))

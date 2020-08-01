@@ -21,6 +21,3 @@ loginmanager.login_message = u"Log alstublieft in om toegang te krijgen tot deze
 from cvf import routes
 
 
-
-
-

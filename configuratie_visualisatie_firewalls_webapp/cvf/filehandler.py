@@ -19,8 +19,9 @@ def verifyFilesize(filesize):
         return False
 
 # verifies filename and extension, depending on the pre-configured config
+# makes sure that there are no double extension delimitors 
 def verifyFilename(filename):
-    if not "." in filename:
+    if not "." in filename or filename.count(".") > 1:
         if app.config["DEBUG"]: print("Ongeldige bestandsnaam")
         return False
     bextensie = filename.rsplit(".", 1)[1]

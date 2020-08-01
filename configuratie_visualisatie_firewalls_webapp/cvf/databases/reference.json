@@ -104,6 +104,11 @@
         "content":"Wordt gebruik om op afstand te kunnen inloggen op een computer/machine, met als doel om deze te kunnen beheren. Communicatie is niet versleuteld waardoor het gebruik daarvan onveilig kan worden bevonden.",
         "color":"danger"
     },
+    "FTP": {
+        "title":"File Transfer Protocol",
+        "content":"Inhoud",
+        "color":"warning"
+    },
     "FGFM": {
         "title":"FGFM",
         "content":"Wordt gebruikt voor antivirus en veiligheidsupdates (IPS) en bied te mogelijkheid tot beheer op afstand door middel FortiManager of FortiCloud.",

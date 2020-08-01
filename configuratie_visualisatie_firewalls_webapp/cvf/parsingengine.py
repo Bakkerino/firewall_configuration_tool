@@ -24,8 +24,8 @@ def cfgFileParser(filename):
                 print(count, ": Current indentation: >", indentation)
                 print(count, ": Current line: >", current_line)
 
-            # If line is empty, commented or not viable
-            if line[0] in ("#", "\n", "\""):
+            # If line is empty, commented or not viable due to unsupported characters, ignore line
+            if line[0] in ("    \n", "%", "<", "#", "\n", "\""):
 
                 def inputValuesConfig(name, value):
                     # Internal function for assigning the found (generic) values within this if statement

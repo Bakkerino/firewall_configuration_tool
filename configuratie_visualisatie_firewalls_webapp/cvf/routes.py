@@ -129,7 +129,7 @@ def configuratieimport():
                 bestandsnaam = secure_filename(cfgbestand.filename)
                 cfgbestand.save(os.path.join(app.config["CFG_UPLOADS"], bestandsnaam))
                 if app.config["DEBUG"]: print("#########################################"); print("Input: ", cfgbestand, bestandsnaam)   
-                # Reads the file so it can be parsed
+                # Reads the just saved file so it can be parsed
                 cfgbestand = readFile(bestandsnaam)
                 # Parses the contents of the file and outputs it in a json format
                 cfgjson = cfgFileParser(bestandsnaam) 
@@ -140,9 +140,9 @@ def configuratieimport():
 
                 # Formats the contents of the jsonobject (configuration) to html in a table format
                 ConfigTableHTML = jsonToHTMLTable(cfgJsonObject)
-
                 # Accepts json object and formats it to a user-friendly view as html
                 overviewImpact= jsonToCardMenus(cfgJsonObject)
+                
                 if app.config["DEBUG"]: 
                     return render_template('configuratieimport.html', bestandsnaam=bestandsnaam, 
                     cfgbestand=cfgbestand, cfgjson=cfgjson, cfgJsonObject=cfgJsonObject, ConfigTableHTML=ConfigTableHTML, overviewImpact=overviewImpact)

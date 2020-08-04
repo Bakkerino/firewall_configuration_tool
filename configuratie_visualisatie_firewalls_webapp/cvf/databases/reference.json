@@ -191,7 +191,7 @@
     },
     "wan": {
         "title":"Wide Area Network (WAN)",
-        "content":"Een WAN omschrijft een internetnetwerk met een redelijk groot oppervlak zoals een land of een continent. Oftewel een externe verbinding met het internet.",
+        "content":"Een WAN omschrijft een internetnetwerk met een groot oppervlak zoals een land of een continent. Oftewel een externe verbinding met het internet.",
         "color":"info"
     },
     "lan": {

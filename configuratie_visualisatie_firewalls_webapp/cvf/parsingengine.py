@@ -7,7 +7,7 @@ config = {}
 # Parsing engine that parses files line by line, written for fortigate configuration files, the function returns a json dump containing ordened config
 def cfgFileParser(filename):
 
-    # The config headers that are used, viable and detected for parsing
+    # The config headers that are used, viable and detected for parsing, all others are ignored
     arguments = ['global', 'entries', 'system', 'vpn', 'user', 'vdom', 'firewall', 'voip', 'web-proxy', 'application', 'dlp', 'webfilter', 'spamfilter', 'log', 'router'] 
     fwConf = {}; previous_line = []; section = ""; count = 0; indentation = 0; indentation_name = indentation_config = "" # inits
 
@@ -24,14 +24,15 @@ def cfgFileParser(filename):
                 print(count, ": Current indentation: >", indentation)
                 print(count, ": Current line: >", current_line)
 
-            # If line is empty, commented or not viable due to unsupported characters, ignore line
-            if line[0] in ("    \n", "%", "<", "#", "\n", "\""):
+            # If line is empty, commented or not viable due to unsupported characters, look for supported ellements that contains generic information, else skip
+            if line[0] in ("%", "<", "#", "\n", "\""):
 
                 def inputValuesConfig(name, value):
-                    # Internal function for assigning the found (generic) values within this if statement
+                    # Internal function for assigning found (generic) values within this if statement
                     fwConf[head][section][name] = {}; fwConf[head][section][name] = value  
                     return  
-                # Parsing the line for getting the generic information for a firewall, like the name and version etc
+
+                # Parsing or carving the line and look for generic information for a firewall, like the name and version etc
                 if line.startswith('#config-version='):                
                     line = line.replace('\n', '')
                     head = "config"; fwConf[head] = {}
@@ -59,7 +60,7 @@ def cfgFileParser(filename):
                 if app.config["DEBUG"]: print("empty")
                 continue
 
-            # Splits the line into usable variables
+            # Splits the line into usable variables, uses spaces as delimeters
             # args = line.split()
             action, *args = line.split()
 

@@ -19,13 +19,18 @@ def verifyFilesize(filesize):
         return False
 
 # verifies filename and extension, depending on the pre-configured config
+# makes sure that filenames containing “;”, “:”, “>”, “<”, “/” ,”\”, “*”, “%”, “$” are not possible, this for safety purposes
 # makes sure that there are no double extension delimitors 
 
 def verifyFilename(filename):
-    if not "." in filename or filename.count(".") > 1 and len(filename) > 1:
+    dissalowed_chars= [";","|", ":", "<", ">", "/" ,"\\", "*", "%", "$"]
+    allowed = any(ele in filename for ele in dissalowed_chars) 
+
+    if not "." in filename or allowed or filename.count(".") > 1 and len(filename) > 1:
         if app.config["DEBUG"]: print("Ongeldige bestandsnaam")
         return False
-    bextensie = filename.rsplit(".", 1)[1]
+    else:
+        bextensie = filename.rsplit(".", 1)[1]
 
     if bextensie.upper() in app.config["ALLOWED_IMPORTFILE_EXTENSIONS"]:
         return True

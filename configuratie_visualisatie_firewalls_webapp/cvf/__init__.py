@@ -4,7 +4,7 @@ from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
 
 app = Flask(__name__)
-app.config["DEBUG"] = True
+app.config["DEBUG"] = False # Enable/disable debug mode
 app.config["ALLOWED_IMPORTFILE_EXTENSIONS"] = ["CONF", "TXT"]
 app.config["MAX_FILESIZE"] = 0.095367431640625 * 1024 * 1024 *10 # 1000kB
 app.config["CFG_UPLOADS"] = "./cvf/file_cache/"

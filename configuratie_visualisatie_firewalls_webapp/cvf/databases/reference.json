@@ -6,32 +6,32 @@
     },
     "6.2.x": {
         "title":"FortiGate 6.2.x",
-        "content":"Dit is een minder recente software versie",
+        "content":"Dit is een minder recente software versie, updaten is aangeraden",
         "color":"warning"
     },
     "6.0.x": {
         "title":"FortiGate 6.0.x",
-        "content":"Dit is een verouderde software versie",
+        "content":"Dit is een verouderde software versie, updaten is benodigd",
         "color":"warning"
     },
     "5.6.x": {
         "title":"FortiGate 5.6.x",
-        "content":"Dit is een streng verouderde software versie",
+        "content":"Dit is een streng verouderde software versie, updaten is benodigd",
         "color":"danger"
     },
     "5.4.x": {
         "title":"FortiGate 5.4.x",
-        "content":"Dit is een streng verouderde software versie",
+        "content":"Dit is een streng verouderde software versie, updaten is benodigd",
         "color":"danger"
     },
     "5.2.x": {
         "title":"FortiGate 5.2.x",
-        "content":"Dit is een streng verouderde software versie",
+        "content":"Dit is een streng verouderde software versie, updaten is benodigd",
         "color":"danger"
     },
     "5.0.x": {
         "title":"FortiGate 5.0.x",
-        "content":"Dit is een streng verouderde software versie",
+        "content":"Dit is een streng verouderde software versie, updaten is benodigd",
         "color":"danger"
     },
     "firewall policy": {
@@ -40,8 +40,8 @@
         "color":"info"
     },
     "interface": {
-        "title":"Firewall interface",
-        "content":"Een firewall interface is een fysieke of softwarematige aansluiting om communicatie met een of meerdere netwerken mogelijk te maken. Een interface aangegeven als WAN funtctioneert typisch als een verbinding naar het internet, een LAN functioneert typisch als een verbinding naar het eigen (lokale) netwerk.",
+        "title":"Firewall Interface <b>(Aansluiting)</b>",
+        "content":"Een firewall interface is een fysieke of softwarematige <b>aansluiting</b> om communicatie met een of meerdere netwerken mogelijk te maken. Een interface aangegeven als WAN funtctioneert typisch als een verbinding naar het <b>internet</b>, een LAN functioneert typisch als een verbinding naar het eigen <b>lokale</b> netwerk.",
         "color":"info"
     },
     "Email Access": {
@@ -61,7 +61,7 @@
     },
     "ALL": {
         "title":"ALL",
-        "content":"'ALL' geeft aan dat er geen verkeer wordt geblokeerd en dat ALLES wordt doorgelaten.",
+        "content":"'ALL' geeft aan dat er geen verkeer wordt geblokeerd en dat <b>ALLES</b> zonder controle wordt <b>toegelaten</b>.",
         "color":"danger"
     },
     "H323": {
@@ -91,17 +91,17 @@
     },
     "HTTP": {
         "title":"HTTP",
-        "content":"Wordt gebruikt om communicatie, doormiddel een webbrowser, tussen een weblclient en een webserver mogelijk te maken. Data wordt met HTTP onversleuteld verstuurd, waardoor zonder iets te kraken de inhoud uit te lezen valt als het onderschept wordt.",
+        "content":"Wordt gebruikt om communicatie, doormiddel een webbrowser, tussen een weblclient en een webserver mogelijk te maken. Data wordt met HTTP <b>onversleuteld</b> verstuurd, waardoor zonder iets te kraken de inhoud uit te lezen valt als het onderschept wordt.",
         "color":"danger"
     },
     "HTTPS": {
         "title":"HTTPS",
-        "content":"Wordt gebruikt om communicatie, doormiddel een webbrowser, tussen een weblclient en een webserver mogelijk te maken. In tegenstelling tot HTTP wordt met HTTPS de data wel versleuteld en daardoor niet uit te lezen is.",
+        "content":"Wordt gebruikt om communicatie, doormiddel een webbrowser, tussen een weblclient en een webserver mogelijk te maken. In tegenstelling tot HTTP wordt met HTTPS de data <b>wel versleuteld</b> en daardoor niet uit te lezen is.",
         "color":"success"
     },
     "TELNET": {
         "title":"TELNET",
-        "content":"Wordt gebruik om op afstand te kunnen inloggen op een computer/machine, met als doel om deze te kunnen beheren. Communicatie is niet versleuteld waardoor het gebruik daarvan onveilig kan worden bevonden.",
+        "content":"Wordt gebruik om op afstand te kunnen inloggen op een computer/machine, met als doel om deze te kunnen beheren. Communicatie is <b>onversleuteld</b> waardoor het gebruik daarvan onveilig kan worden bevonden.",
         "color":"danger"
     },
     "FTP": {
@@ -121,7 +121,7 @@
     },
     "PING": {
         "title":"PING",
-        "content":"Wordt gebruikt om de bereikbaarheid van een netwerkapparaat te testen. Met PING kunnen netwerkapparaten in een netwerk in kaart worden gebracht, waardoor het openstellen niet aangeraden is.",
+        "content":"Wordt gebruikt om de bereikbaarheid van een netwerkapparaat te testen. Met PING kunnen netwerkapparaten in een netwerk in kaart worden gebracht, waardoor het openstellen <b>niet aangeraden</b> is.",
         "color":"warning"
     },
     "Fortinet-MGMT": {
@@ -141,12 +141,12 @@
     },
     "SSH": {
         "title":"Secure Shell (SSH)",
-        "content":"Wordt gebruik om op afstand (veilig) te kunnen inloggen op een computer/machine. SSH vervangt met zijn data versleuteling oudere protocollen zoals 'Telnet'.",
+        "content":"Wordt gebruik om op afstand (veilig) te kunnen inloggen op een computer/machine. Data wordt met SSH <b>versleuteld</b> uitgewisseld.",
         "color":"success"
     },
     "physical": {
         "title":"Fysiek",
-        "content":"Een fysieke aansluiting, de opgegeven naam correspondeert met een aansluiting op het fysieke firewall apparaat.",
+        "content":"Een <b>fysieke</b> aansluiting, de opgegeven naam correspondeert met een aansluiting op het <b>fysieke</b> firewall apparaat, zie interface markeringen op afbeelding.",
         "color":"info"
     },
     "tunnel": {
@@ -161,7 +161,7 @@
     },
     "down": {
         "title":"Down",
-        "content":"Deze link is inactief",
+        "content":"Deze link is <b>inactief</b>",
         "color":"info"
     },
     "allowaccess": {
@@ -190,13 +190,13 @@
         "color":"info"
     },
     "wan": {
-        "title":"Wide Area Network (WAN)",
-        "content":"Een WAN omschrijft een internetnetwerk met een groot oppervlak zoals een land of een continent. Oftewel een externe verbinding met het internet.",
+        "title":"Wide Area Network (WAN) <b>(Internet)</b>",
+        "content":"Een WAN omschrijft een inetwerk met een groot oppervlak zoals een land of een continent. Oftewel een externe verbinding met het internet.",
         "color":"info"
     },
     "lan": {
         "title":"Local Area Network (LAN)",
-        "content":"Een LAN omschrijft een internetnetwerk met een klein oppervlak zoals te vinden in een enkele ruimte of gebouw. Oftewel een 'intern' of 'lokaal' netwerk",
+        "content":"Een LAN omschrijft een netwerk met een klein oppervlak zoals te vinden in een enkele ruimte of gebouw. Oftewel een 'intern' of 'lokaal' netwerk",
         "color":"info"
     },
     "dmz": {

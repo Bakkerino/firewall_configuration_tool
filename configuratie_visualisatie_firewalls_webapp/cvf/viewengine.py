@@ -44,12 +44,12 @@ def jsonToAccordeon(arguments, gradeColor):
 # Accepts json object, generates a card with logo, color and data entries. Is used to display the headers corrosponding with firewallconfiguration
 def jsonToCardMenus(jsonConfigObject, gradeColor="warning"): 
     global jsonConfigObjectGlobal; jsonConfigObjectGlobal = jsonConfigObject
-    htmlBacklog = ""
     html = jsonToHeadOveriew(jsonConfigObjectGlobal) # header
-    
-    arguments = True #['interface', 'firewall policy']
+    htmlBacklog = "" # Init of backlog variable for unconfigured settings/information
+    arguments = ['interface', 'firewall policy'] # Use True for all settings, however only interface and firewall policy are configured, for this overview only interface and firewall policy are used, the rest ar ommited
     for header, sectionData in jsonConfigObjectGlobal.items():
-        if header in ['config', 'global']:
+        content = htmlCard = ""
+        if header in ['config', 'global']: # skips the global configuration
             continue
         if arguments == True or header in arguments:
             gradeColor, content, logo = configContentToCard(header, sectionData)
@@ -64,7 +64,7 @@ def jsonToCardMenus(jsonConfigObject, gradeColor="warning"):
             htmlCard += jsonToAccordeon([header], boostrapColorToCSSColor(gradeColor))
             htmlCard += "</header>"
             if app.config["DEBUG"]: print('created configuration-card for: ' + header)
-        if content == "": htmlBacklog += htmlCard; continue # Minder interessante informatie achteraan
+        if content == "": htmlBacklog += htmlCard; continue # Unconfigured information to the back
         html += htmlCard
     html += htmlBacklog    
     return html
@@ -137,8 +137,8 @@ def jsonToHeadOveriew(cfgJsonObject):
                 <table id=\"headertable\" class=\"table table-borderles\">
                   <tbody>
                       <tr>
-                      <th>Hostname:</th> <td>""" + cfgJsonObject['global']['1']['hostname'] + """</td>
-                      <th>Alias:</th> <td>""" + cfgJsonObject['global']['1']['alias'] + """</td>
+                      <th>Apparaatnaam:</th> <td>""" + cfgJsonObject['global']['1']['hostname'] + """</td>
+                      <th>Serienummer:</th> <td>""" + cfgJsonObject['global']['1']['alias'] + """</td>
                     </tr>
                     <tr>
                       <th>Software versie:</th><td><button type=\"button\" class="btn btn-sm btn-""" + firewallversion[2] +  """\" data-toggle=\"popover\" 

@@ -36,7 +36,7 @@
     },
     "firewall policy": {
         "title":"Firewall Policy",
-        "content":"De Firewall Policy bepaald hoe een firewall binnenkomend en uitgaand afhandeld (blokeert of doorlaat), dit door te kijken naar het IP, protcollen, applicaties en inhoud van het verkeer.",
+        "content":"De Firewall Policy bepaald hoe een firewall binnenkomend en uitgaand verkeer afhandeld, oftewel te <b>blokeren of te door laten</b>. Dit door te kijken naar het IP, protcollen, applicaties en inhoud van het verkeer.",
         "color":"info"
     },
     "interface": {
@@ -91,7 +91,7 @@
     },
     "HTTP": {
         "title":"HTTP",
-        "content":"Wordt gebruikt om communicatie, doormiddel een webbrowser, tussen een weblclient en een webserver mogelijk te maken. Data wordt met HTTP <b>onversleuteld</b> verstuurd, waardoor zonder iets te kraken de inhoud uit te lezen valt als het onderschept wordt.",
+        "content":"Wordt gebruikt om communicatie, doormiddel een webbrowser, tussen een weblclient en een webserver mogelijk te maken. Data wordt met HTTP <b>onversleuteld</b> verstuurd, waardoor zonder iets te kraken de inhoud uit te lezen valt als het onderschept wordt. Hierom is het gebruik <b>onveilig</b> bevonden.",
         "color":"danger"
     },
     "HTTPS": {
@@ -101,12 +101,12 @@
     },
     "TELNET": {
         "title":"TELNET",
-        "content":"Wordt gebruik om op afstand te kunnen inloggen op een computer/machine, met als doel om deze te kunnen beheren. Communicatie is <b>onversleuteld</b> waardoor het gebruik daarvan onveilig kan worden bevonden.",
+        "content":"Wordt gebruik om op afstand te kunnen inloggen op een computer/machine, met als doel om deze te kunnen beheren. Communicatie is <b>onversleuteld</b> waardoor het gebruik daarvan <b>onveilig</b> kan worden bevonden.",
         "color":"danger"
     },
     "FTP": {
         "title":"File Transfer Protocol",
-        "content":"Inhoud",
+        "content":"Wordt gebruikt voor de uitwisseling van bestanden. Dit functioneert <b>onversleuteld</b> waardoor zonder iets te kraken de inhoud uit te lezen is als het onderschept wordt. Hierom is het gebruik <b>onveilig</b> bevonden.",
         "color":"warning"
     },
     "FGFM": {
@@ -170,8 +170,8 @@
         "color":"primary"
     },
     "service": {
-        "title":"service (Toegelaten diensten/applicaties)",
-        "content":"Toont welke diensten/applicaties doorgelaten worden op de firewall.",
+        "title":"Service (Toegelaten <b>internet-verkeer</b>)",
+        "content":"Toont welke diensten/applicaties en daarmee het <b>internet-verkeer</b> doorgelaten worden op de firewall.",
         "color":"primary"
     },
     "srcintf": {
@@ -186,7 +186,7 @@
     },
     "vlan": {
         "title":"Virtual LAN (VLAN)",
-        "content":"Is een virtueel LAN oftewel netwerk.",
+        "content":"Is een virtueel LAN oftewel een <b>niet-fysieke</b> aansluiting. ",
         "color":"info"
     },
     "wan": {
@@ -196,7 +196,7 @@
     },
     "lan": {
         "title":"Local Area Network (LAN)",
-        "content":"Een LAN omschrijft een netwerk met een klein oppervlak zoals te vinden in een enkele ruimte of gebouw. Oftewel een 'intern' of 'lokaal' netwerk",
+        "content":"Een LAN omschrijft een netwerk met een klein oppervlak zoals een enkele ruimte of gebouw. Oftewel een 'intern' of 'lokaal' netwerk",
         "color":"info"
     },
     "dmz": {

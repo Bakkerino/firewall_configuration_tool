@@ -69,6 +69,11 @@
         "content":"Gebruikt voor digitale telefonie met betrekking op het transport van de audio, video of andere datacommunicatie",
         "color":"success"
     },
+    "SNMP": {
+        "title":"SNMP",
+        "content":"Inhoud",
+        "color":"danger"
+    },
     "RTSP": {
         "title":"Real Time Streaming Protocol",
         "content":"Gebruikt voor het aaneengesloten oftewel 'streamen' van audio en video over het internet",

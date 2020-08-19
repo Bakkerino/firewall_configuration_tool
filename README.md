@@ -13,6 +13,7 @@ Een (Python flask web-applicatie) die aan de hand van firewallconfiguratie de ge
 - run "py -m venv env" in ../configuratie_visualisatie_firewalls/ directory
 - install dependencys (like flask etc)
 - run webapplication via run.py
+- use localhost:5000 in webbrowser to connect
 
 # pip installs (requirements and dependencys)
 - pip install flask

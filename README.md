@@ -7,6 +7,13 @@ Een (Python flask web-applicatie) die aan de hand van firewallconfiguratie de ge
 - Activate virtual enviroment "env\Scripts\activate"
 - run run.py from virtual enviroment
 
+# Installation instructions
+- Download and install python (3.8.5)
+- Download and unpack zip
+- run "py -m venv env" in ../configuratie_visualisatie_firewalls/ directory
+- install dependencys (like flask etc)
+- run webapplication via run.py
+
 # pip installs (requirements and dependencys)
 - pip install flask
 - pip install flask_wtf

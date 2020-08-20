@@ -1,5 +1,7 @@
-# Configuratie-visualisatie voor firewalls (CVF)
+# Configuration-Visualisation for Firewalls (CVF)
 A python (flask) web-application that uses firewallconfiguration to display, in a user-friendly manner, active settings and impact of those settings.
+
+# Current version 1.0
 
 # Installation instructions
 - Download and install python (3.8.5)

@@ -1,21 +1,16 @@
 # Configuratie-visualisatie voor firewalls (CVF)
-Een (Python flask web-applicatie) die aan de hand van firewallconfiguratie de gebruikte instellingen en impact van deze instellingen weergeeft.
-
-# Installation specification (development)
-- Python 3.8.2
-- Create virtual enviroment "py -m venv env"
-- Activate virtual enviroment "env\Scripts\activate"
-- run run.py from virtual enviroment
+A python (flask) web-application that uses firewallconfiguration to display active settings and impact of those settings.
 
 # Installation instructions
 - Download and install python (3.8.5)
 - Download and unpack zip
-- run "py -m venv env" in ../configuratie_visualisatie_firewalls/ directory
-- install dependencys (like flask etc)
-- run webapplication via run.py
-- use localhost:5000 in webbrowser to connect
+- run "py -m venv env" in ../configuratie_visualisatie_firewalls/ directory to create virtual enviroment
+- Activate virtual enviroment "env\Scripts\activate"
+- install stated dependencys
+- run run.py from virtual enviroment to start webapplication
+- use localhost:5000 in local webbrowser to connect
 
-# pip installs (requirements and dependencys)
+# pip installs (requirements/dependencys)
 - pip install flask
 - pip install flask_wtf
 - pip install flash
